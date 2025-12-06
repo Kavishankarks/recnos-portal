@@ -3,16 +3,17 @@
   --foreground: #ffffff;
 
   /* Brand Colors */
-  --color-saffron: lab(52.76% 48.05 59.02 / 0.832);
+  --color-saffron: lab(59.49% 49.64 62.35 / 0.985);
   /* Vibrant Saffron */
-  --color-saffron-glow: rgba(180, 90, 5, 0.5);
+  --color-saffron-glow: rgba(243, 140, 50, 0.751);
   --color-blue-dark: #0a192f;
-  --color-blue-neon: #00f3ff;
+  --color-blue-neon: #f5f7f8;
   --color-blue-glow: rgba(0, 243, 255, 0.3);
 
   /* Gradients */
   --gradient-hero: linear-gradient(135deg, var(--background) 0%, var(--color-blue-dark) 100%);
   --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --gradient-gemini: linear-gradient(180deg, #0040FF 20%, #FF0095 80%);
 
   /* UI Elements */
   --border-color: rgba(255, 255, 255, 0.1);
@@ -58,7 +59,7 @@ a {
 
 .btn-primary {
   background: var(--color-saffron);
-  color: #000;
+  color: #fafafa;
   box-shadow: 0 0 15px var(--color-saffron-glow);
 }
 
@@ -282,6 +283,15 @@ a {
 .highlight {
   color: var(--color-saffron);
   display: block;
+}
+
+.highlight2 {
+  background: var(--gradient-gemini);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
 }
 
 .hero-subtitle {
