@@ -1,10 +1,15 @@
+import Image from 'next/image';
+
 export default function Footer() {
     return (
         <footer className="footer">
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-brand">
-                        <h3>RECNOS</h3>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+                            <Image src="/logo.png" alt="Recnos Logo" width={32} height={32} />
+                            <h3 style={{ marginBottom: 0 }}>RECNOS</h3>
+                        </div>
                         <p>Engineering the Future with AI + Scalable Software</p>
                     </div>
                     <div className="footer-links">

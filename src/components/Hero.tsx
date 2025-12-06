@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Hero() {
     return (
         <section className="hero">
@@ -18,6 +20,15 @@ export default function Hero() {
                     {/* Abstract AI Visual Placeholder */}
                     <div className="visual-circle"></div>
                     <div className="visual-grid"></div>
+                    <div style={{ position: 'absolute', zIndex: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+                        <Image
+                            src="/logo.png"
+                            alt="Recnos Logo"
+                            width={300}
+                            height={300}
+                            style={{ filter: 'drop-shadow(0 0 20px rgba(255, 153, 51, 0.5))' }}
+                        />
+                    </div>
                 </div>
             </div>
         </section>

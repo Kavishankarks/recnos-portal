@@ -306,12 +306,12 @@ a {
 }
 
 .visual-circle {
-  width: 550px;
-  height: 250px;
+  width: 650px;
+  height: 550px;
   border-radius: 70%;
   background: radial-gradient(circle, rgba(212, 96, 24, 0.9) 0%, transparent 70%);
   filter: blur(60px);
-  animation: pulse 5s infinite ease-in-out;
+  animation: pulse 3s infinite ease-in-out;
 }
 
 .visual-grid {

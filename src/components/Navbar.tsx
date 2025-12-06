@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export default function Navbar() {
@@ -14,7 +15,15 @@ export default function Navbar() {
         <nav className="navbar">
             <div className="container navbar-content">
                 <Link href="/" className="logo">
-                    RECNOS
+                    <Image
+                        src="/logo.png"
+                        alt="RECNOS"
+                        width={40}
+                        height={40}
+                        className="logo-image"
+                        style={{ height: 'auto', width: 'auto' }}
+                    />
+                    <span style={{ marginLeft: '10px' }}>RECNOS</span>
                 </Link>
 
                 <button className="mobile-menu-btn" onClick={toggleMenu} aria-label="Toggle menu">
