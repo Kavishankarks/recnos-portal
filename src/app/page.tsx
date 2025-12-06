@@ -105,9 +105,9 @@ export default function Home() {
               <a href="mailto:dev@recnos.com" className="contact-item">
                 <span className="label">Email:</span> dev@recnos.com
               </a>
-              <a href="tel:+918296863611" className="contact-item">
+              {/* <a href="tel:+918296863611" className="contact-item">
                 <span className="label">Call:</span> +91 8296863611
-              </a>
+              </a> */}
             </div>
             <a href="mailto:dev@recnos.com" className="btn btn-primary">Contact Us</a>
           </div>
