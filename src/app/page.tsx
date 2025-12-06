@@ -56,6 +56,12 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title">Technologies We Use</h2>
           <div className="tech-grid">
+            <div className="tech-item">Java</div>
+            <div className="tech-item">Python</div>
+            <div className="tech-item">Go</div>
+            <div className="tech-item">Deployment</div>
+            <div className="tech-item">AI/ML</div>
+            <div className="tech-item">Node.js</div>
             <div className="tech-item">TensorFlow</div>
             <div className="tech-item">PyTorch</div>
             <div className="tech-item">Kubernetes</div>
@@ -95,6 +101,14 @@ export default function Home() {
           <div className="contact-content">
             <h2 className="section-title">Build with RECNOS</h2>
             <p>Ready to engineer the future? Let's discuss your project.</p>
+            <div className="contact-details">
+              <a href="mailto:dev@recnos.com" className="contact-item">
+                <span className="label">Email:</span> dev@recnos.com
+              </a>
+              <a href="tel:+918296863611" className="contact-item">
+                <span className="label">Call:</span> +91 8296863611
+              </a>
+            </div>
             <a href="mailto:dev@recnos.com" className="btn btn-primary">Contact Us</a>
           </div>
         </div>

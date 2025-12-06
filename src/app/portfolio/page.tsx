@@ -3,126 +3,126 @@
 import { useState } from 'react';
 
 const projects = [
-    {
-        id: 1,
-        title: "Enterprise AI Automation Platform",
-        category: "AI",
-        description: "A comprehensive AI platform for automating enterprise workflows using custom foundation models.",
-        tech: ["Python", "TensorFlow", "React", "AWS"],
-        impact: "40% reduction in operational costs"
-    },
-    {
-        id: 2,
-        title: "Global Event Streaming Architecture",
-        category: "Distributed Systems",
-        description: "Scalable event-driven architecture handling 5M+ events per second for a logistics giant.",
-        tech: ["Kafka", "Go", "Kubernetes", "Redis"],
-        impact: "99.999% uptime achieved"
-    },
-    {
-        id: 3,
-        title: "FinTech Mobile Ecosystem",
-        category: "Mobile",
-        description: "End-to-end mobile banking solution with biometric security and real-time transactions.",
-        tech: ["React Native", "Node.js", "GraphQL"],
-        impact: "1M+ active users"
-    },
-    {
-        id: 4,
-        title: "E-Commerce SEO Overhaul",
-        category: "Web",
-        description: "Complete platform re-engineering focusing on Core Web Vitals and SEO performance.",
-        tech: ["Next.js", "Vercel", "Sanity CMS"],
-        impact: "300% increase in organic traffic"
-    },
-    {
-        id: 5,
-        title: "Cloud Infrastructure Modernization",
-        category: "Cloud",
-        description: "Migration of legacy on-prem systems to a cloud-native serverless architecture.",
-        tech: ["AWS Lambda", "Terraform", "Docker"],
-        impact: "50% cost savings"
-    },
-    {
-        id: 6,
-        title: "AIOps Monitoring Pipeline",
-        category: "DevOps",
-        description: "Intelligent monitoring system using AI to predict and prevent system outages.",
-        tech: ["Prometheus", "Grafana", "Python"],
-        impact: "Reduced MTTR by 60%"
-    }
+  {
+    id: 1,
+    title: "Enterprise AI Automation Platform",
+    category: "AI",
+    description: "A comprehensive AI platform for automating enterprise workflows using custom foundation models.",
+    tech: ["Python", "TensorFlow", "React", "AWS"],
+    impact: "40% reduction in operational costs"
+  },
+  {
+    id: 2,
+    title: "PG Market place",
+    category: "Distributed Systems",
+    description: "Scalable for handling 1000+ PGs. Across different cities.",
+    tech: ["Next.js", "Node.js", "JAVA"],
+    impact: "1000+ active users"
+  },
+  {
+    id: 3,
+    title: "FinTech Mobile Ecosystem",
+    category: "Mobile",
+    description: "End-to-end mobile banking solution with biometric security and real-time transactions.",
+    tech: ["React Native", "Node.js", "GraphQL"],
+    impact: "1000+ active users"
+  },
+  {
+    id: 4,
+    title: "E-Commerce SEO Overhaul",
+    category: "Web",
+    description: "Complete platform re-engineering focusing on Core Web Vitals and SEO performance.",
+    tech: ["Next.js", "Vercel", "Sanity CMS"],
+    impact: "300% increase in organic traffic"
+  },
+  {
+    id: 5,
+    title: "Cloud Infrastructure Modernization",
+    category: "Cloud",
+    description: "Migration of legacy on-prem systems to a cloud-native serverless architecture.",
+    tech: ["AWS Lambda", "Terraform", "Docker"],
+    impact: "50% cost savings"
+  },
+  {
+    id: 6,
+    title: "AIOps Monitoring Pipeline",
+    category: "DevOps",
+    description: "Intelligent monitoring system using AI to predict and prevent system outages.",
+    tech: ["Prometheus", "Grafana", "Python"],
+    impact: "Reduced MTTR by 60%"
+  }
 ];
 
 const categories = ["All", "AI", "Distributed Systems", "Mobile", "Web", "Cloud", "DevOps"];
 
 export default function Portfolio() {
-    const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("All");
 
-    const filteredProjects = activeCategory === "All"
-        ? projects
-        : projects.filter(p => p.category === activeCategory);
+  const filteredProjects = activeCategory === "All"
+    ? projects
+    : projects.filter(p => p.category === activeCategory);
 
-    return (
-        <div className="portfolio-page">
-            {/* Portfolio Hero */}
-            <section className="hero-section">
-                <div className="container">
-                    <h1 className="page-title">Our Work</h1>
-                    <p className="page-subtitle">Engineering That Scales. Results That Matter.</p>
+  return (
+    <div className="portfolio-page">
+      {/* Portfolio Hero */}
+      <section className="hero-section">
+        <div className="container">
+          <h1 className="page-title">Our Work</h1>
+          <p className="page-subtitle">Engineering That Scales. Results That Matter.</p>
+        </div>
+      </section>
+
+      {/* Filters */}
+      <section className="filter-section">
+        <div className="container">
+          <div className="filters">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                className={`filter-btn ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Grid */}
+      <section className="projects-section">
+        <div className="container">
+          <div className="projects-grid">
+            {filteredProjects.map(project => (
+              <div key={project.id} className="project-card">
+                <div className="card-header">
+                  <span className="category-tag">{project.category}</span>
+                  <h3>{project.title}</h3>
                 </div>
-            </section>
-
-            {/* Filters */}
-            <section className="filter-section">
-                <div className="container">
-                    <div className="filters">
-                        {categories.map(cat => (
-                            <button
-                                key={cat}
-                                className={`filter-btn ${activeCategory === cat ? 'active' : ''}`}
-                                onClick={() => setActiveCategory(cat)}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
+                <p className="description">{project.description}</p>
+                <div className="tech-stack">
+                  {project.tech.map(t => (
+                    <span key={t} className="tech-tag">{t}</span>
+                  ))}
                 </div>
-            </section>
-
-            {/* Projects Grid */}
-            <section className="projects-section">
-                <div className="container">
-                    <div className="projects-grid">
-                        {filteredProjects.map(project => (
-                            <div key={project.id} className="project-card">
-                                <div className="card-header">
-                                    <span className="category-tag">{project.category}</span>
-                                    <h3>{project.title}</h3>
-                                </div>
-                                <p className="description">{project.description}</p>
-                                <div className="tech-stack">
-                                    {project.tech.map(t => (
-                                        <span key={t} className="tech-tag">{t}</span>
-                                    ))}
-                                </div>
-                                <div className="impact">
-                                    <strong>Impact:</strong> {project.impact}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                <div className="impact">
+                  <strong>Impact:</strong> {project.impact}
                 </div>
-            </section>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* CTA */}
-            <section className="cta-section">
-                <div className="container">
-                    <h2>Have a project in mind?</h2>
-                    <a href="/#contact" className="btn btn-primary">Let's Build It</a>
-                </div>
-            </section>
+      {/* CTA */}
+      <section className="cta-section">
+        <div className="container">
+          <h2>Have a project in mind?</h2>
+          <a href="/#contact" className="btn btn-primary">Let's Build It</a>
+        </div>
+      </section>
 
-            <style jsx>{`
+      <style jsx>{`
         .portfolio-page {
           padding-top: 80px;
           min-height: 100vh;
@@ -135,9 +135,7 @@ export default function Portfolio() {
         .page-title {
           font-size: 3rem;
           margin-bottom: 1rem;
-          background: linear-gradient(90deg, #fff, var(--color-saffron));
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          color: var(--color-saffron);
         }
         .page-subtitle {
           color: rgba(255, 255, 255, 0.6);
@@ -238,6 +236,6 @@ export default function Portfolio() {
           margin-bottom: 2rem;
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 }

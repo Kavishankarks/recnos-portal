@@ -3,9 +3,9 @@
   --foreground: #ffffff;
 
   /* Brand Colors */
-  --color-saffron: #FF9933;
+  --color-saffron: lab(52.76% 48.05 59.02 / 0.832);
   /* Vibrant Saffron */
-  --color-saffron-glow: rgba(255, 153, 51, 0.5);
+  --color-saffron-glow: rgba(180, 90, 5, 0.5);
   --color-blue-dark: #0a192f;
   --color-blue-neon: #00f3ff;
   --color-blue-glow: rgba(0, 243, 255, 0.3);
@@ -63,7 +63,7 @@ a {
 }
 
 .btn-primary:hover {
-  background: #ffaa4d;
+  background: #dc6e0e;
   box-shadow: 0 0 25px var(--color-saffron-glow);
   transform: translateY(-2px);
 }
@@ -75,7 +75,7 @@ a {
 }
 
 .btn-secondary:hover {
-  background: rgba(0, 243, 255, 0.1);
+  background: rgba(35, 178, 186, 0.1);
   box-shadow: 0 0 15px var(--color-blue-glow);
   transform: translateY(-2px);
 }
@@ -85,6 +85,7 @@ a {
   font-weight: 700;
   margin-bottom: 1rem;
   background: linear-gradient(90deg, #fff, var(--color-blue-neon));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -413,6 +414,32 @@ a {
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 2rem;
   font-size: 1.2rem;
+}
+
+.contact-details {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.contact-item:hover {
+  color: var(--color-saffron);
+}
+
+.contact-item .label {
+  color: var(--color-saffron);
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
