@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const projects = [
   {
@@ -118,7 +119,7 @@ export default function Portfolio() {
       <section className="cta-section">
         <div className="container">
           <h2>Have a project in mind?</h2>
-          <a href="/#contact" className="btn btn-primary">Let's Build It</a>
+          <Link href="/#contact" className="btn btn-primary">Let&apos;s Build It</Link>
         </div>
       </section>
 
