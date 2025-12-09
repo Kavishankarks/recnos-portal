@@ -100,7 +100,7 @@ export default function Home() {
         <div className="container">
           <div className="contact-content">
             <h2 className="section-title">Build with RECNOS</h2>
-            <p>Ready to engineer the future? Let&apos;s discuss your project.</p>
+            <p>Ready to engineer the future? Let's discuss your project.</p>
             <div className="contact-details">
               <a href="mailto:dev@recnos.com" className="contact-item">
                 <span className="label">Email:</span> dev@recnos.com
