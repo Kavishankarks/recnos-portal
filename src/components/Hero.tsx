@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
+import DistributedSystemAnimation from './DistributedSystemAnimation';
 
 export default function Hero() {
     const textOptions = [
@@ -59,9 +60,7 @@ export default function Hero() {
                     </div>
                 </div>
                 <div className="hero-visual">
-                    {/* Abstract AI Visual Placeholder */}
-                    <div className="visual-circle"></div>
-                    <div className="visual-grid"></div>
+                    <DistributedSystemAnimation />
                 </div>
             </div>
         </section>
