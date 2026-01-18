@@ -498,4 +498,90 @@ a {
   .testimonials {
     grid-template-columns: 1fr;
   }
+}@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    70% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.anim-left {
+    opacity: 0;
+    animation: slideInLeft 1s ease-out forwards;
+}
+
+.anim-right {
+    opacity: 0;
+    animation: slideInRight 1s ease-out forwards;
+    animation-delay: 0.2s;
+    /* Slight delay for better effect */
+}
+
+.anim-pop {
+    opacity: 0;
+    animation: popIn 0.8s ease-out forwards;
+    animation-delay: 0.5s;
+    /* Appears after text slides in */
+}@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.cursor {
+    display: inline-block;
+    font-weight: 400;
+    /* Match font weight of text roughly */
+    color: var(--color-saffron);
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+    vertical-align: baseline;
+}/* Update to cursor css to ensure it looks good with changing text */
+.cursor {
+    display: inline-block;
+    font-weight: 400;
+    color: var(--color-saffron);
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+    vertical-align: sub;
+    /* Adjusted alignment */
 }
