@@ -101,6 +101,19 @@ export default function Home() {
           <div className="contact-content">
             <h2 className="section-title">Build with RECNOS</h2>
             <p>Ready to engineer the future? Let's discuss your project.</p>
+
+            {/* Google Calendar Appointment Scheduling */}
+            <div style={{ margin: '2rem 0', width: '100%' }}>
+              <iframe
+                src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1Ujw8tjdaWG89ctHZAcWHw8kehHYpn04gzGN6DSPtbjXrJ_H4jFzQP7uD97IHj2LoV2L8qqMP3?gv=true"
+                style={{ border: 0 }}
+                width="100%"
+                height="600"
+                frameBorder="0"
+                title="Schedule an appointment"
+              ></iframe>
+            </div>
+
             <div className="contact-details">
               <a href="mailto:dev@recnos.com" className="contact-item">
                 <span className="label">Email:</span> dev@recnos.com
