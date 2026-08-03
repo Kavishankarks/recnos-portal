@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the production deployment setup for the Recnos Portal application running at `https://portal.recnos.com`.
+This document describes the production deployment setup for the Recnos Portal application running at `https://recnos.com` (and `https://www.recnos.com`).
 
 ---
 
@@ -11,67 +11,69 @@ This document describes the production deployment setup for the Recnos Portal ap
 | Component | Technology | Version |
 |-----------|------------|---------|
 | Application | Next.js | 16.0.7 |
-| Runtime | Node.js | - |
+| Runtime | Node.js | v20.19.4 |
 | Process Manager | PM2 | Latest |
-| Web Server | Nginx | - |
+| Web Server | Nginx | 1.28.0 (Ubuntu) |
 | SSL Certificate | Let's Encrypt (Certbot) | - |
-| Operating System | Linux | 6.17.0-1005-gcp |
+| Server | `root@187.127.138.111` (hostname `srv1536546`) | - |
+
+The server also hosts other unrelated apps (`mrads` on port 3000, plus other `*.recnos.com` sites) — always confirm which PM2 process / port you're touching before restarting anything.
+
+---
+
+## Server Access
+
+```bash
+ssh root@187.127.138.111
+```
 
 ---
 
 ## Directory Structure
 
 ```
-/home/kavipuradal/recnos-portal/
+/root/recnos-portal/
 ├── .next/                    # Production build output
 ├── node_modules/             # Dependencies
-├── public/                   # Static assets
-├── src/                      # Source code
-│   ├── app/                  # Next.js app directory
+├── public/                   # Static assets (incl. logo.svg)
+├── src/
+│   ├── app/                  # Next.js app directory (incl. favicon.ico, icon.svg, apple-icon.png)
 │   └── components/           # React components
-├── package.json              # Project configuration
-├── next.config.ts            # Next.js configuration
-└── tsconfig.json             # TypeScript configuration
+├── package.json
+├── next.config.ts
+└── tsconfig.json
 ```
+
+The server directory is a plain `git clone` of `https://github.com/Kavishankarks/recnos-portal.git`, checked out to `main`.
 
 ---
 
-## Setup Procedure
+## App Port
 
-### 1. Install Dependencies
+The app runs on **port 3001** (not the Next.js default 3000 — that port is already used by another app, `mrads`, on this box).
+
+---
+
+## Deploying a Change (standard flow)
+
+From your local machine, after committing and pushing to `main`:
 
 ```bash
-cd /home/kavipuradal/recnos-portal
-npm install
+ssh root@187.127.138.111 "cd /root/recnos-portal && git pull origin main && npm install && npm run build && pm2 restart recnos-portal"
 ```
 
-### 2. Build for Production
+Step by step:
 
 ```bash
+ssh root@187.127.138.111
+cd /root/recnos-portal
+git pull origin main
+npm install          # only needed if package.json changed
 npm run build
+pm2 restart recnos-portal
 ```
 
-This creates an optimized production build in the `.next` directory.
-
-### 3. Install PM2 (Process Manager)
-
-```bash
-npm install -g pm2
-```
-
-### 4. Start the Application
-
-```bash
-cd /home/kavipuradal/recnos-portal
-pm2 start npm --name "recnos-portal" -- start
-```
-
-### 5. Configure PM2 Auto-Start on Boot
-
-```bash
-pm2 startup
-pm2 save
-```
+If you don't have git push access from your current machine/environment, you can `scp` changed files directly into `/root/recnos-portal/...` as a stopgap, but prefer keeping the server as a clean `git pull` checkout — reconcile by committing/pushing from wherever you have credentials, then `git pull` on the server.
 
 ---
 
@@ -80,71 +82,68 @@ pm2 save
 ### Configuration File Location
 
 ```
-/etc/nginx/sites-available/portal.recnos.com
-/etc/nginx/sites-enabled/portal.recnos.com (symlink)
+/etc/nginx/sites-available/recnos.com
+/etc/nginx/sites-enabled/recnos.com (symlink)
 ```
 
 ### Full Nginx Configuration
 
 ```nginx
+# Redirect HTTP → HTTPS
 server {
-    server_name portal.recnos.com;
+    listen 80;
+    server_name recnos.com www.recnos.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name recnos.com www.recnos.com;
+
+    ssl_certificate     /etc/letsencrypt/live/recnos.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/recnos.com/privkey.pem;
+    include             /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
+
+    # Security headers
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Content-Type-Options    nosniff                                always;
+    add_header X-Frame-Options           SAMEORIGIN                             always;
+    add_header Referrer-Policy           strict-origin-when-cross-origin        always;
 
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass         http://127.0.0.1:3001;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
+
+        proxy_set_header   Upgrade           $http_upgrade;
+        proxy_set_header   Connection        "upgrade";
+
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+
+        proxy_cache_bypass  $http_upgrade;
     }
-
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/portal.recnos.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/portal.recnos.com/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-}
-
-# HTTP to HTTPS redirect
-server {
-    if ($host = portal.recnos.com) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-    listen 80;
-    server_name portal.recnos.com;
-    return 404; # managed by Certbot
 }
 ```
-
-### Nginx Configuration Explained
-
-| Directive | Purpose |
-|-----------|---------|
-| `proxy_pass http://127.0.0.1:3000` | Forward requests to Next.js app |
-| `proxy_http_version 1.1` | Use HTTP/1.1 for WebSocket support |
-| `proxy_set_header Upgrade` | Enable WebSocket connections |
-| `proxy_set_header Host $host` | Preserve original host header |
-| `proxy_set_header X-Real-IP` | Pass client's real IP address |
-| `proxy_set_header X-Forwarded-For` | Pass proxy chain information |
-| `proxy_set_header X-Forwarded-Proto` | Pass original protocol (http/https) |
 
 ### Enable Site and Test Configuration
 
 ```bash
-# Create symlink to enable site
-sudo ln -sf /etc/nginx/sites-available/portal.recnos.com /etc/nginx/sites-enabled/
-
-# Test configuration
+sudo ln -sf /etc/nginx/sites-available/recnos.com /etc/nginx/sites-enabled/
 sudo nginx -t
-
-# Reload nginx
 sudo systemctl reload nginx
 ```
+
+---
+
+## DNS
+
+| Record | Type | Value |
+|--------|------|-------|
+| `recnos.com` (`@`) | A | `187.127.138.111` (TTL 600) |
+| `www.recnos.com` | CNAME/A | resolves to `recnos.com` |
 
 ---
 
@@ -154,41 +153,21 @@ sudo systemctl reload nginx
 
 | Property | Value |
 |----------|-------|
-| Domain | portal.recnos.com |
-| Certificate Path | `/etc/letsencrypt/live/portal.recnos.com/fullchain.pem` |
-| Private Key Path | `/etc/letsencrypt/live/portal.recnos.com/privkey.pem` |
-| Key Type | ECDSA |
-| Expiry Date | 2026-04-18 |
-| Auto-Renewal | Enabled |
+| Domains | `recnos.com`, `www.recnos.com` |
+| Certificate Path | `/etc/letsencrypt/live/recnos.com/fullchain.pem` |
+| Private Key Path | `/etc/letsencrypt/live/recnos.com/privkey.pem` |
+| Expiry Date | 2026-11-01 |
+| Auto-Renewal | Enabled via `certbot.timer` |
 
-### SSL Configuration (options-ssl-nginx.conf)
+### Issuing / Reissuing the Certificate
 
-```nginx
-# Located at: /etc/letsencrypt/options-ssl-nginx.conf
-
-ssl_session_cache shared:le_nginx_SSL:10m;
-ssl_session_timeout 1440m;
-ssl_session_tickets off;
-
-ssl_protocols TLSv1.2 TLSv1.3;
-ssl_prefer_server_ciphers off;
-
-ssl_ciphers "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
-```
-
-### Install SSL Certificate
+Requires an HTTP (port 80) vhost for the domain to already be live in nginx (certbot's nginx plugin validates over HTTP first):
 
 ```bash
-# Install certbot (if not installed)
-sudo apt install -y certbot python3-certbot-nginx
-
-# Obtain and install certificate
-sudo certbot --nginx -d portal.recnos.com
+sudo certbot certonly --nginx -d recnos.com -d www.recnos.com --non-interactive --agree-tos -m dev@recnos.com
 ```
 
-### Certificate Renewal
-
-Certbot automatically renews certificates via a systemd timer. To manually test renewal:
+### Renewal
 
 ```bash
 # Test renewal (dry run)
@@ -199,11 +178,8 @@ sudo certbot renew --force-renewal
 
 # Check certificate status
 sudo certbot certificates
-```
 
-### Renewal Timer Status
-
-```bash
+# Check the renewal timer
 sudo systemctl status certbot.timer
 ```
 
@@ -211,29 +187,31 @@ sudo systemctl status certbot.timer
 
 ## PM2 Process Management
 
+The app is registered as PM2 process **`recnos-portal`**.
+
 ### Common Commands
 
 ```bash
-# Check status
-pm2 status
-
-# View logs
-pm2 logs recnos-portal
-
-# View logs (last 100 lines)
-pm2 logs recnos-portal --lines 100
-
-# Restart application
-pm2 restart recnos-portal
-
-# Stop application
+pm2 status                          # check status of all processes on the box
+pm2 logs recnos-portal              # tail logs
+pm2 logs recnos-portal --lines 100  # last 100 lines
+pm2 restart recnos-portal           # restart after a rebuild
 pm2 stop recnos-portal
+pm2 start recnos-portal
+pm2 delete recnos-portal            # remove from pm2 entirely
+pm2 monit                           # live resource monitor
+pm2 save                            # persist current process list (survives reboot)
+```
 
-# Delete from PM2
-pm2 delete recnos-portal
+### First-time Setup (already done, reference only)
 
-# Monitor resources
-pm2 monit
+```bash
+cd /root/recnos-portal
+npm install
+npm run build
+pm2 start npm --name "recnos-portal" -- start -- -p 3001
+pm2 save
+pm2 startup   # already enabled (systemd service pm2-root)
 ```
 
 ### PM2 Configuration Files
@@ -243,57 +221,89 @@ pm2 monit
 | PM2 Home | `/root/.pm2/` |
 | Process List | `/root/.pm2/dump.pm2` |
 | Logs | `/root/.pm2/logs/` |
-| Systemd Service | `/etc/systemd/system/pm2-root.service` |
+| Systemd Service | `pm2-root.service` (enabled) |
 
 ---
 
-## Useful Commands
+## Brand Assets (Logo / Favicon)
 
-### Application Management
+| Asset | Path | Purpose |
+|-------|------|---------|
+| Favicon (legacy, multi-size ICO) | `src/app/favicon.ico` | 16/32/48px, browser tab / bookmarks |
+| Favicon (modern, scalable) | `src/app/icon.svg` | Next.js `icon` route, used by modern browsers |
+| Apple touch icon | `src/app/apple-icon.png` | 180×180, iOS home screen |
+| Wordmark logo | `public/logo.svg` | Used in `Navbar` and `Footer` components |
+
+Design: a geometric "R" node-mark (saffron gradient `#fbb040` → `#e8721f`) on the site's dark hero gradient background (`#050505` → `#0a192f`), matching the `--color-saffron` accent already used throughout `globals.css`.
+
+To regenerate the raster favicon/apple-icon from the SVG source after editing `src/app/icon.svg`:
 
 ```bash
-# Rebuild and restart
-cd /home/kavipuradal/recnos-portal
-npm run build
-pm2 restart recnos-portal
+node -e "
+const sharp = require('sharp');
+const fs = require('fs');
+async function main() {
+  const sizes = [16, 32, 48];
+  const pngBuffers = [];
+  for (const s of sizes) pngBuffers.push({ size: s, buf: await sharp('src/app/icon.svg').resize(s, s).png().toBuffer() });
+  const headerSize = 6, dirEntrySize = 16;
+  let offset = headerSize + dirEntrySize * pngBuffers.length;
+  const header = Buffer.alloc(headerSize);
+  header.writeUInt16LE(0,0); header.writeUInt16LE(1,2); header.writeUInt16LE(pngBuffers.length,4);
+  const dirEntries = [], imageBuffers = [];
+  for (const { size, buf } of pngBuffers) {
+    const entry = Buffer.alloc(dirEntrySize);
+    entry.writeUInt8(size,0); entry.writeUInt8(size,1); entry.writeUInt16LE(1,4); entry.writeUInt16LE(32,6);
+    entry.writeUInt32LE(buf.length,8); entry.writeUInt32LE(offset,12);
+    offset += buf.length;
+    dirEntries.push(entry); imageBuffers.push(buf);
+  }
+  fs.writeFileSync('src/app/favicon.ico', Buffer.concat([header, ...dirEntries, ...imageBuffers]));
+  await sharp('src/app/icon.svg').resize(180,180).png().toFile('src/app/apple-icon.png');
+}
+main();
+"
 ```
 
-### Nginx Management
+---
+
+## Health Checks
 
 ```bash
-# Test configuration
-sudo nginx -t
+# App responding locally on the server
+curl -I http://127.0.0.1:3001
 
-# Reload configuration
-sudo systemctl reload nginx
+# HTTPS endpoint from anywhere
+curl -I https://recnos.com
+curl -I https://www.recnos.com
 
-# Restart nginx
-sudo systemctl restart nginx
-
-# View nginx status
-sudo systemctl status nginx
-
-# View nginx error logs
-sudo tail -f /var/log/nginx/error.log
-
-# View nginx access logs
-sudo tail -f /var/log/nginx/access.log
-```
-
-### Health Checks
-
-```bash
-# Check if app is responding locally
-curl -I http://localhost:3000
-
-# Check HTTPS endpoint
-curl -I https://portal.recnos.com
-
-# Check PM2 process
+# PM2 / nginx status
 pm2 status
-
-# Check nginx status
 sudo systemctl status nginx
+```
+
+---
+
+## Useful Commands Cheat Sheet
+
+```bash
+# --- Deploy ---
+ssh root@187.127.138.111 "cd /root/recnos-portal && git pull origin main && npm run build && pm2 restart recnos-portal"
+
+# --- Logs ---
+ssh root@187.127.138.111 "pm2 logs recnos-portal --lines 100 --nostream"
+ssh root@187.127.138.111 "sudo tail -f /var/log/nginx/error.log"
+ssh root@187.127.138.111 "sudo tail -f /var/log/nginx/access.log"
+
+# --- Restart everything ---
+ssh root@187.127.138.111 "pm2 restart recnos-portal && sudo systemctl reload nginx"
+
+# --- Nginx edit/reload loop ---
+ssh root@187.127.138.111 "sudo nginx -t && sudo systemctl reload nginx"
+
+# --- Certificates ---
+ssh root@187.127.138.111 "sudo certbot certificates"
+ssh root@187.127.138.111 "sudo certbot renew --dry-run"
 ```
 
 ---
@@ -309,7 +319,7 @@ sudo systemctl status nginx
 ### 502 Bad Gateway
 
 1. Verify application is running: `pm2 status`
-2. Check if port 3000 is listening: `sudo netstat -tlnp | grep 3000`
+2. Check if port 3001 is listening: `ss -tlnp | grep 3001`
 3. Check nginx error logs: `sudo tail -f /var/log/nginx/error.log`
 
 ### SSL Certificate Issues
@@ -321,36 +331,34 @@ sudo systemctl status nginx
 ### Port Already in Use
 
 ```bash
-# Find process using port 3000
-sudo lsof -i :3000
-
-# Kill the process
+sudo lsof -i :3001
 sudo kill -9 <PID>
 ```
+
+Remember: port 3000 on this box belongs to a different app (`mrads`), not recnos-portal.
 
 ---
 
 ## Security Considerations
 
-- SSL/TLS is enforced with automatic HTTP to HTTPS redirect
-- Modern TLS protocols (TLSv1.2 and TLSv1.3) are enabled
-- Strong cipher suites are configured
-- Certificate auto-renewal is enabled
-- Proxy headers are properly set to prevent IP spoofing
+- SSL/TLS is enforced with automatic HTTP → HTTPS redirect
+- HSTS, X-Content-Type-Options, X-Frame-Options, and Referrer-Policy headers are set in nginx
+- Certificate auto-renewal is enabled via `certbot.timer`
+- Proxy headers (`X-Real-IP`, `X-Forwarded-For`, `X-Forwarded-Proto`) are set to preserve client info
 
 ---
 
 ## Backup Recommendations
 
-Regularly backup the following:
+Regularly back up:
 
-1. Application code: `/home/kavipuradal/recnos-portal/`
+1. Application code: tracked in git (`https://github.com/Kavishankarks/recnos-portal`)
 2. Nginx configuration: `/etc/nginx/sites-available/`
 3. SSL certificates: `/etc/letsencrypt/` (or rely on certbot to regenerate)
-4. PM2 process list: `pm2 save`
+4. PM2 process list: `pm2 save` (dumped to `/root/.pm2/dump.pm2`)
 
 ---
 
 ## Contact
 
-For issues or questions regarding this deployment, contact the system administrator.
+For issues or questions regarding this deployment, contact the system administrator (dev@recnos.com).
