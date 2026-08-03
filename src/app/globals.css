@@ -114,7 +114,7 @@ a {
   background: rgba(5, 5, 5, 0.8);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
-  z-index: 1000;
+  z-index: 9999;
   padding: 1rem 0;
 }
 
