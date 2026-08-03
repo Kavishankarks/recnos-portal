@@ -1,10 +1,12 @@
+import Image from 'next/image';
+
 export default function Footer() {
     return (
         <footer className="footer">
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-brand">
-                        <h3>RECNOS</h3>
+                        <Image className="footer-logo" src="/logo.svg" alt="Recnos" width={150} height={44} />
                         <p>Engineering the Future with AI + Scalable Software</p>
                     </div>
                     <div className="footer-links">
