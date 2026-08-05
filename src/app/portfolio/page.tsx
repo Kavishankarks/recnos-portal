@@ -16,7 +16,7 @@ const projects = [
     id: 2,
     title: "PG Market place",
     category: "Distributed Systems",
-    description: "Scalable for handling 1000+ PGs. Across different cities.",
+    description: "Trovare helps you find the best paying guest (PG) accommodations in Bangalore. Browse verified PGs near IT parks, Koramangala, and Indiranagar.",
     tech: ["Next.js", "Node.js", "JAVA"],
     impact: "1000+ active users",
     link: "https://trovare.in/"
@@ -104,30 +104,35 @@ export default function Portfolio() {
       <section className="projects-section">
         <div className="container">
           <div className="projects-grid">
-            {filteredProjects.map(project => {
-              const CardTag = project.link ? 'a' : 'div';
-              return (
-                <CardTag
-                  key={project.id}
-                  className="project-card"
-                  {...(project.link ? { href: project.link, target: "_blank", rel: "noopener noreferrer" } : {})}
-                >
-                  <div className="card-header">
-                    <span className="category-tag">{project.category}</span>
-                    <h3>{project.title}</h3>
-                  </div>
-                  <p className="description">{project.description}</p>
-                  <div className="tech-stack">
-                    {project.tech.map(t => (
-                      <span key={t} className="tech-tag">{t}</span>
-                    ))}
-                  </div>
+            {filteredProjects.map(project => (
+              <div key={project.id} className="project-card">
+                <div className="card-header">
+                  <span className="category-tag">{project.category}</span>
+                  <h3>{project.title}</h3>
+                </div>
+                <p className="description">{project.description}</p>
+                <div className="tech-stack">
+                  {project.tech.map(t => (
+                    <span key={t} className="tech-tag">{t}</span>
+                  ))}
+                </div>
+                <div className="card-footer">
                   <div className="impact">
                     <strong>Impact:</strong> {project.impact}
                   </div>
-                </CardTag>
-              );
-            })}
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="view-project-btn"
+                    >
+                      View Project →
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -200,8 +205,6 @@ export default function Portfolio() {
           transition: transform 0.3s ease;
           display: flex;
           flex-direction: column;
-          text-decoration: none;
-          color: inherit;
         }
         .project-card:hover {
           transform: translateY(-5px);
@@ -241,11 +244,28 @@ export default function Portfolio() {
           font-size: 0.8rem;
           color: rgba(255, 255, 255, 0.8);
         }
-        .impact {
+        .card-footer {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 1rem;
           padding-top: 1rem;
           border-top: 1px solid var(--border-color);
+        }
+        .impact {
           color: var(--color-saffron);
           font-size: 0.9rem;
+        }
+        .view-project-btn {
+          flex-shrink: 0;
+          color: var(--color-blue-neon);
+          font-size: 0.85rem;
+          font-weight: 600;
+          white-space: nowrap;
+          transition: color 0.3s ease;
+        }
+        .view-project-btn:hover {
+          color: var(--color-saffron);
         }
         .cta-section {
           text-align: center;
