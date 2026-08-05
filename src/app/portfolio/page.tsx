@@ -8,7 +8,7 @@ const projects = [
     title: "Rolit AI - Making Content Creation Truly AI-Native",
     category: "AI",
     description: "From a feature-rich AI generator to the definitive go-to platform for creators — built on persistent creator memory, multi-agent orchestration, and proprietary style flywheels.",
-    tech: ["Python", "TensorFlow", "React", "AWS"],
+    tech: ["Python", "Java", "Golang", "React Native", "PostgreSQL", "MongoDB"],
     impact: "Persistent creator memory & multi-agent orchestration, purpose-built for creators",
     link: "https://rolit.ai/"
   },
@@ -17,7 +17,7 @@ const projects = [
     title: "PG Market place",
     category: "Distributed Systems",
     description: "Trovare helps you find the best paying guest (PG) accommodations in Bangalore. Browse verified PGs near IT parks, Koramangala, and Indiranagar.",
-    tech: ["Next.js", "Node.js", "JAVA"],
+    tech: ["Java", "React", "PostgreSQL", "AI Search", "Payment Integration"],
     impact: "1000+ active users",
     link: "https://trovare.in/"
   },
