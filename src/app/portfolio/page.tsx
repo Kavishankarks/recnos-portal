@@ -9,7 +9,8 @@ const projects = [
     category: "AI",
     description: "A comprehensive AI platform for automating enterprise workflows using custom foundation models.",
     tech: ["Python", "TensorFlow", "React", "AWS"],
-    impact: "40% reduction in operational costs"
+    impact: "40% reduction in operational costs",
+    link: "https://rolit.ai/"
   },
   {
     id: 2,
@@ -17,7 +18,17 @@ const projects = [
     category: "Distributed Systems",
     description: "Scalable for handling 1000+ PGs. Across different cities.",
     tech: ["Next.js", "Node.js", "JAVA"],
-    impact: "1000+ active users"
+    impact: "1000+ active users",
+    link: "https://trovare.in/"
+  },
+  {
+    id: 7,
+    title: "Mr. Ads - In-Restaurant Digital Ad Network",
+    category: "Marketing",
+    description: "Mr. Ads helps brands connect with customers inside high-footfall restaurants across Bengaluru. Our digital displays are placed in dining and waiting areas, ensuring your brand gets repeated visibility when customers are relaxed and attentive. Ads play every 5 minutes, ensuring repeated visibility during dining time.",
+    tech: ["Digital Signage", "Next.js", "Node.js"],
+    impact: "Repeated visibility across high-footfall restaurants in Bengaluru",
+    link: "https://mr-ads.in/"
   },
   {
     id: 3,
@@ -53,7 +64,7 @@ const projects = [
   }
 ];
 
-const categories = ["All", "AI", "Distributed Systems", "Mobile", "Web", "Cloud", "DevOps"];
+const categories = ["All", "AI", "Distributed Systems", "Mobile", "Web", "Cloud", "DevOps", "Marketing"];
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -93,23 +104,30 @@ export default function Portfolio() {
       <section className="projects-section">
         <div className="container">
           <div className="projects-grid">
-            {filteredProjects.map(project => (
-              <div key={project.id} className="project-card">
-                <div className="card-header">
-                  <span className="category-tag">{project.category}</span>
-                  <h3>{project.title}</h3>
-                </div>
-                <p className="description">{project.description}</p>
-                <div className="tech-stack">
-                  {project.tech.map(t => (
-                    <span key={t} className="tech-tag">{t}</span>
-                  ))}
-                </div>
-                <div className="impact">
-                  <strong>Impact:</strong> {project.impact}
-                </div>
-              </div>
-            ))}
+            {filteredProjects.map(project => {
+              const CardTag = project.link ? 'a' : 'div';
+              return (
+                <CardTag
+                  key={project.id}
+                  className="project-card"
+                  {...(project.link ? { href: project.link, target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  <div className="card-header">
+                    <span className="category-tag">{project.category}</span>
+                    <h3>{project.title}</h3>
+                  </div>
+                  <p className="description">{project.description}</p>
+                  <div className="tech-stack">
+                    {project.tech.map(t => (
+                      <span key={t} className="tech-tag">{t}</span>
+                    ))}
+                  </div>
+                  <div className="impact">
+                    <strong>Impact:</strong> {project.impact}
+                  </div>
+                </CardTag>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -182,6 +200,8 @@ export default function Portfolio() {
           transition: transform 0.3s ease;
           display: flex;
           flex-direction: column;
+          text-decoration: none;
+          color: inherit;
         }
         .project-card:hover {
           transform: translateY(-5px);
