@@ -5,11 +5,11 @@ import { useState } from 'react';
 const projects = [
   {
     id: 1,
-    title: "Enterprise AI Automation Platform",
+    title: "Rolit AI - Making Content Creation Truly AI-Native",
     category: "AI",
-    description: "A comprehensive AI platform for automating enterprise workflows using custom foundation models.",
+    description: "From a feature-rich AI generator to the definitive go-to platform for creators — built on persistent creator memory, multi-agent orchestration, and proprietary style flywheels.",
     tech: ["Python", "TensorFlow", "React", "AWS"],
-    impact: "40% reduction in operational costs",
+    impact: "Persistent creator memory & multi-agent orchestration, purpose-built for creators",
     link: "https://rolit.ai/"
   },
   {
