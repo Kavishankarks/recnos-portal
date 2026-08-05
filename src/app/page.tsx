@@ -26,6 +26,22 @@ export default function Home() {
               <h3>Mobile & Web</h3>
               <p>High-performance iOS/Android apps and SEO-optimized web platforms.</p>
             </div>
+            <div className="card">
+              <h3>SEO & AEO</h3>
+              <p>Search and answer-engine optimization to rank on Google and get cited by AI assistants like ChatGPT and Gemini.</p>
+            </div>
+            <div className="card">
+              <h3>Figma & Product Design</h3>
+              <p>End-to-end UI/UX design systems, wireframes, and high-fidelity prototypes in Figma.</p>
+            </div>
+            <div className="card">
+              <h3>Marketing</h3>
+              <p>Growth strategy, brand positioning, and campaign execution across digital channels.</p>
+            </div>
+            <div className="card">
+              <h3>Daily Content & Video</h3>
+              <p>Consistent, high-quality short-form videos and content produced daily to grow your audience.</p>
+            </div>
           </div>
         </div>
       </section>

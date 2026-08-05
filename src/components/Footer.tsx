@@ -21,6 +21,10 @@ export default function Footer() {
                             <a href="#">AI Engineering</a>
                             <a href="#">Cloud Platforms</a>
                             <a href="#">DevOps</a>
+                            <a href="#">SEO & AEO</a>
+                            <a href="#">Figma Design</a>
+                            <a href="#">Marketing</a>
+                            <a href="#">Daily Content & Video</a>
                         </div>
                         <div className="link-group">
                             <h4>Connect</h4>
