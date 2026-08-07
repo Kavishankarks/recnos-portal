@@ -1,24 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#050505"/>
-      <stop offset="100%" stop-color="#0a192f"/>
-    </linearGradient>
-    <linearGradient id="mark" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fbb040"/>
-      <stop offset="100%" stop-color="#e8721f"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="100" height="100" rx="22" fill="url(#bg)"/>
-
-  <path
-    d="M31,78 L31,22 L55,22 Q70,22 70,36.5 Q70,51 55,51 L31,51 M49,51 L71,78"
-    fill="none"
-    stroke="url(#mark)"
-    stroke-width="13"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <circle cx="71" cy="78" r="6.2" fill="#fbb040"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="7" fill="#000000"/>
+  <g transform="translate(4, 4)" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="12" cy="12" r="3.5" fill="#ffffff" stroke="none" />
+    <path d="M12 2v2.5" />
+    <path d="M12 19.5V22" />
+    <path d="M4.93 4.93l1.77 1.77" />
+    <path d="M17.3 17.3l1.77 1.77" />
+    <path d="M2 12h2.5" />
+    <path d="M19.5 12H22" />
+    <path d="M4.93 19.07l1.77-1.77" />
+    <path d="M17.3 6.7l1.77-1.77" />
+  </g>
 </svg>

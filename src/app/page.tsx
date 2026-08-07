@@ -1,6 +1,8 @@
 "use client";
 
 import Hero from "@/components/Hero";
+import Scroll3DCard from "@/components/Scroll3DCard";
+import Floating3DOrbs from "@/components/Floating3DOrbs";
 import { motion } from "motion/react";
 import {
   Sparkles,
@@ -97,7 +99,10 @@ const benefits = [
 
 export default function Home() {
   return (
-    <div className="bg-[#000000] text-white selection:bg-[#3054ff] selection:text-white">
+    <div className="bg-[#000000] text-white selection:bg-[#3054ff] selection:text-white relative">
+      {/* 3D Parallax Floating Elements */}
+      <Floating3DOrbs />
+
       {/* Dark Mode Hero Component with Video & Specifications */}
       <Hero />
 
@@ -123,31 +128,26 @@ export default function Home() {
             {expertiseList.map((item, index) => {
               const Icon = item.icon;
               return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="glass-card group flex min-h-[280px] flex-col justify-between rounded-2xl p-6 sm:p-8"
-                >
-                  <div>
-                    <div className="w-12 h-12 rounded-xl bg-[#3054ff]/10 border border-[#3054ff]/20 flex items-center justify-center text-[#3054ff] group-hover:bg-[#3054ff] group-hover:text-white transition-all duration-300 mb-6">
-                      <Icon className="w-6 h-6" />
+                <Scroll3DCard key={index} depth={18}>
+                  <div className="glass-card group flex h-full min-h-[280px] flex-col justify-between rounded-2xl p-6 sm:p-8">
+                    <div>
+                      <div className="w-12 h-12 rounded-xl bg-[#3054ff]/10 border border-[#3054ff]/20 flex items-center justify-center text-[#3054ff] group-hover:bg-[#3054ff] group-hover:text-white transition-all duration-300 mb-6">
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <h3 className="font-instrument-sans font-semibold text-xl text-white mb-3 group-hover:text-[#b4c0ff] transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="font-instrument-sans text-sm text-white/60 leading-relaxed">
+                        {item.description}
+                      </p>
                     </div>
-                    <h3 className="font-instrument-sans font-semibold text-xl text-white mb-3 group-hover:text-[#b4c0ff] transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="font-instrument-sans text-sm text-white/60 leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
 
-                  <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-white/40 group-hover:text-white/80 transition-colors">
-                    <span>Learn more</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-white/40 group-hover:text-white/80 transition-colors">
+                      <span>Learn more</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
-                </motion.div>
+                </Scroll3DCard>
               );
             })}
           </div>
@@ -181,22 +181,25 @@ export default function Home() {
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-1 xl:grid-cols-3 xl:gap-6">
               {benefits.map((benefit, idx) => (
-                <div key={idx} className="glass-card min-h-[220px] space-y-3 rounded-2xl p-6">
-                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white font-bold text-sm">
-                    0{idx + 1}
+                <Scroll3DCard key={idx} depth={15}>
+                  <div className="glass-card h-full min-h-[220px] space-y-3 rounded-2xl p-6">
+                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white font-bold text-sm">
+                      0{idx + 1}
+                    </div>
+                    <h3 className="font-instrument-sans font-semibold text-lg text-white">
+                      {benefit.title}
+                    </h3>
+                    <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
+                      {benefit.description}
+                    </p>
                   </div>
-                  <h3 className="font-instrument-sans font-semibold text-lg text-white">
-                    {benefit.title}
-                  </h3>
-                  <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </div>
+                </Scroll3DCard>
               ))}
             </div>
           </div>
         </div>
       </section>
+
 
       {/* Technologies Section */}
       <section className="py-24 px-6 relative overflow-hidden">

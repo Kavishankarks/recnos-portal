@@ -70,23 +70,24 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding: 7px 7px 7px 22px;
-  border: 1px solid rgb(255 255 255 / 16%);
+  padding: 7px 7px 7px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 999px;
-  background: linear-gradient(135deg, #4968ff, #3054ff);
-  box-shadow: 0 12px 34px rgb(48 84 255 / 30%);
-  color: #fff;
+  background: #ffffff;
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.25), 0 0 30px rgba(48, 84, 255, 0.35);
+  color: #050814;
   font-family: "Instrument Sans", sans-serif;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 650;
   line-height: 1;
   text-decoration: none;
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .primaryCta:hover {
-  box-shadow: 0 16px 42px rgb(48 84 255 / 46%);
-  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: 0 16px 50px rgba(255, 255, 255, 0.45), 0 0 45px rgba(48, 84, 255, 0.6);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .primaryIcon {
@@ -96,8 +97,16 @@
   flex: 0 0 40px;
   place-items: center;
   border-radius: 50%;
-  background: rgb(255 255 255 / 16%);
+  background: #3054ff;
+  color: #ffffff;
+  transition: transform 200ms ease, background 200ms ease;
 }
+
+.primaryCta:hover .primaryIcon {
+  background: #1b3be0;
+  transform: translateX(3px);
+}
+
 
 .secondaryCta {
   display: inline-flex;

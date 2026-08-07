@@ -38,19 +38,21 @@ body {
 
 /* Glassmorphism and UI card utilities */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(180, 192, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(48, 84, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(73, 104, 255, 0.55);
+  box-shadow: 0 14px 40px rgba(48, 84, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
+
 
 /* Glow & Accent utilities */
 .glow-blue {
@@ -59,6 +61,38 @@ body {
 
 .glow-blue-lg {
   box-shadow: 0 0 50px rgba(48, 84, 255, 0.5);
+}
+
+/* 3D Transform & Perspective Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.glass-3d-card {
+  background: rgba(18, 22, 38, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform-style: preserve-3d;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-3d-card:hover {
+  border-color: rgba(48, 84, 255, 0.4);
+  box-shadow: 0 30px 60px rgba(48, 84, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 /* Scrollbar customization */
@@ -78,3 +112,4 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #3054ff;
 }
+
