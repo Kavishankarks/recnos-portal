@@ -5,6 +5,8 @@ import { ExternalLink, ArrowRight, Sparkles, FolderGit2 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import Scroll3DCard from "@/components/Scroll3DCard";
+import DesignProHero from "@/components/DesignProHero";
+import ShinyText from "@/components/ShinyText";
 
 const projects = [
   {
@@ -96,134 +98,141 @@ export default function Portfolio() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <div
-      className="bg-[#000000] text-white min-h-screen pb-24 px-6 sm:px-12 relative selection:bg-[#3054ff] selection:text-white"
-      style={{ paddingTop: "140px" }}
-    >
-      {/* Decorative Gradient Background */}
-      <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-900/15 blur-[140px] rounded-full z-0" />
+    <div className="bg-[#000000] text-white min-h-screen font-sans selection:bg-[#64CEFB] selection:text-black">
+      {/* DesignPro Full-Screen Hero Section */}
+      <DesignProHero />
 
-      <div className="max-w-7xl mx-auto relative z-10 space-y-16">
-        {/* Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/15 text-[#b4c0ff]">
-            <FolderGit2 className="w-3.5 h-3.5" /> Client Case Studies
-          </span>
-          <h1 className="font-instrument-serif text-5xl sm:text-7xl text-white tracking-tight">
-            Engineering That Scales
-          </h1>
-          <p className="font-instrument-sans text-white/60 text-lg leading-relaxed">
-            Explore how we help forward-thinking teams launch AI-native software, resilient microservices, and high-converting platforms.
-          </p>
-        </div>
+      {/* Case Studies Section */}
+      <div id="projects" className="pb-28 px-4 sm:px-8 lg:px-12 relative pt-20 sm:pt-28">
+        {/* Decorative Gradient Background */}
+        <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#64CEFB]/10 blur-[140px] rounded-full z-0" />
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap justify-center gap-2.5 max-w-4xl mx-auto">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2.5 rounded-full text-xs font-medium font-instrument-sans transition-all duration-300 cursor-pointer ${
-                activeCategory === cat
-                  ? "bg-white text-black font-semibold shadow-[0_0_20px_rgba(255,255,255,0.25)] scale-105"
-                  : "bg-white/5 border border-white/15 text-white/70 hover:text-white hover:bg-white/10 hover:border-white/30"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        <div className="max-w-7xl mx-auto relative z-10 space-y-16">
+          {/* Header */}
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-black/60 border border-gray-700 text-[#64CEFB] shadow-sm">
+              <FolderGit2 className="w-3.5 h-3.5" /> Client Case Studies
+            </span>
+            <h2 className="font-sans font-bold text-4xl sm:text-6xl text-white tracking-tight leading-tight">
+              Engineering That{" "}
+              <ShinyText text="Scales." speed={3} className="font-bold" />
+            </h2>
+            <p className="font-sans text-white/70 text-base sm:text-lg leading-relaxed">
+              Explore how we help forward-thinking teams launch AI-native software, resilient microservices, and high-converting platforms.
+            </p>
+          </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-            <Scroll3DCard key={project.id} depth={15}>
-              <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full group border border-white/20 hover:border-[#3054ff]/60 hover:shadow-[0_12px_40px_rgba(48,84,255,0.25)] transition-all duration-300">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-semibold tracking-wider uppercase text-[#b4c0ff] bg-[#3054ff]/20 px-3 py-1 rounded-full border border-[#3054ff]/40">
-                      {project.category}
-                    </span>
+          {/* Category Filter Pills in Rounded Container */}
+          <div className="flex justify-center">
+            <div className="inline-flex flex-wrap justify-center gap-2 p-2 rounded-full border border-gray-700 bg-black/50 backdrop-blur-md max-w-4xl">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-5 py-2 rounded-full text-xs font-medium font-sans transition-all duration-300 cursor-pointer ${
+                    activeCategory === cat
+                      ? "bg-white text-black font-semibold shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105"
+                      : "text-white/70 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
 
-                    {project.link && (
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project) => (
+              <Scroll3DCard key={project.id} depth={15}>
+                <div className="bg-black/60 backdrop-blur-xl p-8 rounded-2xl flex flex-col justify-between h-full group border border-gray-800 hover:border-[#64CEFB]/50 hover:shadow-[0_12px_40px_rgba(100,206,251,0.15)] transition-all duration-300">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-semibold tracking-wider uppercase text-[#64CEFB] bg-[#64CEFB]/10 px-3 py-1 rounded-full border border-[#64CEFB]/30">
+                        {project.category}
+                      </span>
+
+                      {project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white/40 hover:text-white transition-colors p-1"
+                          aria-label="Visit external link"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+
+                    <h3 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug">
+                      {project.title}
+                    </h3>
+
+                    <p className="font-sans text-sm text-white/70 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Badges */}
+                    <div className="flex flex-wrap gap-1.5 pt-2">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="px-3 py-1 rounded-full text-xs font-sans bg-white/5 text-white/80 border border-gray-800"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Card Footer */}
+                  <div className="mt-8 pt-4 border-t border-gray-800 flex items-center justify-between text-xs">
+                    <div className="font-medium text-white/90">
+                      <span className="text-white/40">Impact: </span>
+                      <span className="text-[#64CEFB]">{project.impact}</span>
+                    </div>
+
+                    {project.link ? (
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/40 hover:text-white transition-colors p-1"
-                        aria-label="Visit external link"
+                        className="group/link inline-flex items-center gap-1 text-[#64CEFB] font-semibold hover:text-white transition-colors"
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        Live Site <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
                       </a>
+                    ) : (
+                      <span className="text-white/30 italic">Case Study</span>
                     )}
                   </div>
-
-                  <h3 className="font-instrument-sans font-semibold text-xl text-white group-hover:text-[#b4c0ff] transition-colors leading-snug">
-                    {project.title}
-                  </h3>
-
-                  <p className="font-instrument-sans text-sm text-white/60 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Tech Badges */}
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2.5 py-1 rounded-md text-xs font-instrument-sans bg-white/5 text-white/80 border border-white/15"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
                 </div>
+              </Scroll3DCard>
+            ))}
+          </div>
 
-                {/* Card Footer */}
-                <div className="mt-8 pt-4 border-t border-white/15 flex items-center justify-between text-xs">
-                  <div className="text-[#b4c0ff] font-medium">
-                    <span className="text-white/40">Impact: </span>
-                    {project.impact}
-                  </div>
-
-                  {project.link ? (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[#3054ff] font-semibold hover:text-[#b4c0ff] transition-colors"
-                    >
-                      Live Site <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
-                  ) : (
-                    <span className="text-white/30 italic">Case Study</span>
-                  )}
-                </div>
-              </div>
-            </Scroll3DCard>
-          ))}
-        </div>
-
-
-        {/* CTA Banner */}
-        <div className="glass-card rounded-3xl p-12 text-center space-y-6 relative overflow-hidden border border-white/10">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#3054ff]/10 via-transparent to-indigo-900/10" />
-          <h2 className="font-instrument-serif text-4xl sm:text-5xl text-white relative z-10">
-            Have an Ambitious Project in Mind?
-          </h2>
-          <p className="font-instrument-sans text-white/60 text-base max-w-xl mx-auto relative z-10">
-            Let's turn your concept into an enterprise-ready platform designed for speed, scale, and intelligence.
-          </p>
-          <div className="relative z-10 pt-2">
-            <Link
-              href="/#contact"
-              className="inline-flex items-center gap-3 bg-white text-black font-semibold font-instrument-sans px-8 py-3.5 rounded-full hover:bg-white/90 transition-all hover:scale-105 active:scale-95 shadow-xl"
-            >
-              Let's Build It <ArrowRight className="w-4 h-4" />
-            </Link>
+          {/* CTA Banner */}
+          <div className="bg-black/60 backdrop-blur-xl rounded-3xl p-10 sm:p-14 text-center space-y-6 relative overflow-hidden border border-gray-800">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#64CEFB]/10 via-transparent to-indigo-900/10" />
+            <h2 className="font-sans font-bold text-3xl sm:text-5xl text-white relative z-10 tracking-tight">
+              Have an Ambitious Project in Mind?
+            </h2>
+            <p className="font-sans text-white/70 text-base max-w-xl mx-auto relative z-10 leading-relaxed">
+              Let&apos;s turn your concept into an enterprise-ready platform designed for speed, scale, and intelligence.
+            </p>
+            <div className="relative z-10 pt-2">
+              <Link
+                href="/#contact"
+                className="group inline-flex items-center gap-3 bg-black hover:bg-gray-900 text-white font-medium font-sans px-8 py-4 rounded-full border border-white/20 hover:border-white/40 transition-all hover:scale-105 active:scale-95 shadow-xl"
+              >
+                <span>Let&apos;s Build It</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
