@@ -15,85 +15,101 @@ import {
   Layers,
   Video,
   ArrowRight,
-  CheckCircle2,
   Calendar,
   Mail,
   Phone,
+  Layout,
+  TrendingUp,
 } from "lucide-react";
 import Link from "next/link";
 
 const expertiseList = [
   {
     icon: Sparkles,
-    title: "AI Website & App Engine",
+    title: "AI Foundation Software",
     description:
-      "Build fully functional, responsive, and intelligent web applications in seconds with our neural code generation system.",
-  },
-  {
-    icon: Zap,
-    title: "Instant SEO & AEO Optimization",
-    description:
-      "Automated schema injection, structured data, and search engine optimization so your site gets cited by ChatGPT, Gemini, and Google.",
+      "Building intelligent agent systems and foundation models for enterprise automation.",
   },
   {
     icon: Cpu,
-    title: "Distributed Infrastructure",
+    title: "Distributed Systems",
     description:
-      "Scalable backend microservices, global edge CDN delivery, and high-concurrency event pipelines built for zero latency.",
-  },
-  {
-    icon: Video,
-    title: "HLS Video Streaming & Media",
-    description:
-      "Adaptive bitrate video streaming, Mux HLS pipelines, and automated short-form video content generation.",
-  },
-  {
-    icon: Figma,
-    title: "Figma to Code Neural Pipeline",
-    description:
-      "Transform high-fidelity UI/UX design systems and wireframes straight into production-ready React and Next.js components.",
+      "Scalable backend architectures, microservices, and event-driven systems.",
   },
   {
     icon: Layers,
-    title: "Autonomous DevOps & AIOps",
+    title: "DevOps & AIOps",
     description:
-      "Zero-downtime CI/CD automation, cloud deployment orchestration, and intelligent system health monitoring.",
+      "Automated CI/CD pipelines, monitoring, and AI-driven operations.",
+  },
+  {
+    icon: Globe,
+    title: "Mobile & Web",
+    description:
+      "High-performance iOS/Android apps and SEO-optimized web platforms.",
+  },
+  {
+    icon: Search,
+    title: "SEO & AEO",
+    description:
+      "Search and answer-engine optimization to rank on Google and get cited by AI assistants like ChatGPT and Gemini.",
+  },
+  {
+    icon: Figma,
+    title: "Figma & Product Design",
+    description:
+      "End-to-end UI/UX design systems, wireframes, and high-fidelity prototypes in Figma.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Marketing",
+    description:
+      "Growth strategy, brand positioning, and campaign execution across digital channels.",
+  },
+  {
+    icon: Video,
+    title: "Daily Content & Video",
+    description:
+      "Consistent, high-quality short-form videos and content produced daily to grow your audience.",
   },
 ];
 
 const technologies = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
+  "Java",
   "Python",
+  "Go",
+  "AI/ML",
+  "Node.js",
+  "TensorFlow",
   "PyTorch",
-  "HLS.js",
-  "Motion",
-  "Docker",
   "Kubernetes",
+  "Docker",
   "AWS",
   "GCP",
-  "PostgreSQL",
-  "Redis",
+  "Next.js",
+  "React Native",
   "Kafka",
-  "Go",
-  "Java",
+  "Redis",
+  "PostgreSQL",
   "Terraform",
+  "HLS.js",
 ];
 
 const benefits = [
   {
-    title: "10x Development Speed",
-    description: "Launch market-ready AI applications in hours rather than months with automated boilerplate generation.",
+    title: "Engineering Excellence",
+    description:
+      "We prioritize code quality, scalability, and long-term maintainability across all architectures.",
   },
   {
-    title: "Enterprise Grade Security",
-    description: "Multi-layered end-to-end security compliance, SOC2-ready architecture, and encrypted data channels.",
+    title: "Security First",
+    description:
+      "Enterprise-grade security integrated into every layer of the software stack.",
   },
   {
-    title: "Global Scale & Low Latency",
-    description: "Edge-cached deployments ensuring fast load times for global users across any device.",
+    title: "Performance",
+    description:
+      "Optimized for extreme speed, high reliability, and massive concurrency workloads.",
   },
 ];
 
@@ -103,10 +119,10 @@ export default function Home() {
       {/* 3D Parallax Floating Elements */}
       <Floating3DOrbs />
 
-      {/* Dark Mode Hero Component with Video & Specifications */}
+      {/* Dark Mode Hero Component */}
       <Hero />
 
-      {/* Expertise & Capabilities Section */}
+      {/* Our Expertise Section */}
       <section id="services" className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-24 lg:py-32">
         {/* Background Subtle Gradient Glow */}
         <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-950/20 blur-[140px] rounded-full z-0" />
@@ -114,37 +130,37 @@ export default function Home() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="mx-auto mb-12 max-w-3xl space-y-4 text-center sm:mb-16 lg:mb-20">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-[#b4c0ff]">
-              <Sparkles className="w-3.5 h-3.5" /> Capabilities
+              <Sparkles className="w-3.5 h-3.5" /> Core Services
             </span>
             <h2 className="font-instrument-serif text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] text-white">
-              Built for the Next Generation of Web
+              Our Expertise
             </h2>
             <p className="mx-auto max-w-2xl font-instrument-sans text-base leading-relaxed text-white/60 sm:text-lg">
-              Combine cutting-edge AI neural systems with enterprise scalable architecture to create unshakeable digital experiences.
+              End-to-end engineering capabilities built for foundation models, cloud scale, and enterprise digital transformation.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
             {expertiseList.map((item, index) => {
               const Icon = item.icon;
               return (
                 <Scroll3DCard key={index} depth={18}>
-                  <div className="glass-card group flex h-full min-h-[280px] flex-col justify-between rounded-2xl p-6 sm:p-8">
+                  <div className="glass-card group flex h-full min-h-[260px] flex-col justify-between rounded-2xl p-6 sm:p-7">
                     <div>
-                      <div className="w-12 h-12 rounded-xl bg-[#3054ff]/10 border border-[#3054ff]/20 flex items-center justify-center text-[#3054ff] group-hover:bg-[#3054ff] group-hover:text-white transition-all duration-300 mb-6">
+                      <div className="w-12 h-12 rounded-xl bg-[#3054ff]/10 border border-[#3054ff]/20 flex items-center justify-center text-[#3054ff] group-hover:bg-[#3054ff] group-hover:text-white transition-all duration-300 mb-5">
                         <Icon className="w-6 h-6" />
                       </div>
-                      <h3 className="font-instrument-sans font-semibold text-xl text-white mb-3 group-hover:text-[#b4c0ff] transition-colors">
+                      <h3 className="font-instrument-sans font-semibold text-lg text-white mb-2.5 group-hover:text-[#b4c0ff] transition-colors">
                         {item.title}
                       </h3>
-                      <p className="font-instrument-sans text-sm text-white/60 leading-relaxed">
+                      <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
                         {item.description}
                       </p>
                     </div>
 
-                    <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-white/40 group-hover:text-white/80 transition-colors">
+                    <div className="mt-6 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-white/40 group-hover:text-white/80 transition-colors">
                       <span>Learn more</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </Scroll3DCard>
@@ -160,13 +176,13 @@ export default function Home() {
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
             <div className="lg:col-span-5 space-y-6">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#3054ff]/10 text-[#3054ff] border border-[#3054ff]/20">
-                <ShieldCheck className="w-3.5 h-3.5" /> High Performance Standard
+                <ShieldCheck className="w-3.5 h-3.5" /> Why Choose Us
               </span>
               <h2 className="font-instrument-serif text-[clamp(2.5rem,4.5vw,3.5rem)] leading-[1.08] text-white">
-                Why Top Builders Choose RECNOS Engine
+                Why RECNOS?
               </h2>
               <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
-                We engineer scalable solutions built on solid foundation code. Every build is benchmarked for extreme speed, search visibility, and seamless interaction.
+                We combine deep technical expertise in AI foundation software and distributed computing with production-grade engineering discipline.
               </p>
 
               <div className="pt-4">
@@ -174,7 +190,7 @@ export default function Home() {
                   href="/#contact"
                   className="inline-flex items-center gap-3 bg-white text-black font-semibold font-instrument-sans px-6 py-3 rounded-full hover:bg-white/90 transition-transform hover:scale-105 active:scale-95"
                 >
-                  Start Your Project <ArrowRight className="w-4 h-4" />
+                  Build with Us <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -200,16 +216,15 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* Technologies Section */}
       <section className="py-24 px-6 relative overflow-hidden">
         <div className="max-w-6xl mx-auto text-center space-y-12">
           <div className="space-y-3">
             <h2 className="font-instrument-serif text-3xl sm:text-5xl text-white">
-              Powered by Next-Gen Technologies
+              Technologies We Use
             </h2>
             <p className="font-instrument-sans text-white/60 text-base max-w-xl mx-auto">
-              Our AI architecture interfaces seamlessly with industry-standard stacks and high-throughput frameworks.
+              Our engineering stack spans high-throughput backend languages, modern AI frameworks, and resilient cloud infrastructure.
             </p>
           </div>
 
@@ -235,13 +250,13 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
               <div className="lg:col-span-5 space-y-6">
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
-                  <Calendar className="w-3.5 h-3.5" /> Book A Demo
+                  <Calendar className="w-3.5 h-3.5" /> Book A Call
                 </span>
                 <h2 className="font-instrument-serif text-4xl sm:text-5xl text-white leading-tight">
-                  Build with RECNOS Today
+                  Build with RECNOS
                 </h2>
                 <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
-                  Schedule a direct 1-on-1 demo or strategy session with our engineering team to turn your ideas into a live product.
+                  Ready to engineer the future? Let's discuss your project.
                 </p>
 
                 <div className="space-y-4 pt-4 border-t border-white/10">
@@ -253,7 +268,7 @@ export default function Home() {
                       <Mail className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-xs text-white/40">Email Us</div>
+                      <div className="text-xs text-white/40">Email:</div>
                       <div className="font-medium">dev@recnos.com</div>
                     </div>
                   </a>
@@ -266,7 +281,7 @@ export default function Home() {
                       <Phone className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-xs text-white/40">Call Directly</div>
+                      <div className="text-xs text-white/40">Mobile:</div>
                       <div className="font-medium">+91 7892883611</div>
                     </div>
                   </a>

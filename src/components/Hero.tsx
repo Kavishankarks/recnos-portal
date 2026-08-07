@@ -62,7 +62,7 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className={styles.eyebrow}
         >
-          Design at the speed of thought
+          Engineering the Future with
         </motion.p>
 
         {/* Main Headline */}
@@ -72,7 +72,8 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className={styles.title}
         >
-          Build Faster
+          <span className={styles.aiHighlight}>AI</span>{" "}
+          <span className={styles.titleGradientText}>+ Scalable Software</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -82,7 +83,7 @@ export default function Hero() {
           transition={{ delay: 0.4, duration: 0.6 }}
           className={styles.description}
         >
-          Create fully functional, SEO-optimized websites in seconds with our advanced AI engine.
+          RECNOS is your end-to-end engineering partner for AI foundation models, distributed systems, and enterprise-grade digital solutions.
         </motion.p>
 
         {/* CTA Buttons Container */}
@@ -97,7 +98,7 @@ export default function Hero() {
             href="/#contact"
             className={styles.primaryCta}
           >
-            <span>Start Building Free</span>
+            <span>Get Started</span>
             <span className={styles.primaryIcon}>
               <ArrowRight size={20} aria-hidden="true" />
             </span>
@@ -105,10 +106,10 @@ export default function Hero() {
 
           {/* Secondary Button */}
           <Link
-            href="/portfolio"
+            href="/#services"
             className={styles.secondaryCta}
           >
-            <span>See Examples</span>
+            <span>Explore Services</span>
             <ArrowRight className={styles.secondaryIcon} size={16} aria-hidden="true" />
           </Link>
         </motion.div>
@@ -116,4 +117,3 @@ export default function Hero() {
     </section>
   );
 }
-

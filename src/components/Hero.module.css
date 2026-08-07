@@ -25,32 +25,47 @@
 .eyebrow {
   max-width: 100%;
   font-family: "Instrument Serif", Georgia, serif;
-  font-size: clamp(30px, 3.25vw, 52px);
+  font-size: clamp(28px, 3vw, 48px);
   line-height: 1.08;
   letter-spacing: 0.015em;
   text-wrap: balance;
+  color: #ffffff;
 }
 
 .title {
   max-width: 100%;
-  background: linear-gradient(to bottom, #fff 35%, #b4c0ff 100%);
-  background-clip: text;
-  color: transparent;
   font-family: "Instrument Sans", sans-serif;
-  font-size: clamp(68px, 10vw, 148px);
+  font-size: clamp(42px, 5.8vw, 84px);
   font-weight: 650;
-  line-height: 0.88;
-  letter-spacing: -0.065em;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
   text-wrap: balance;
   filter: drop-shadow(0 4px 18px rgb(0 0 0 / 18%));
   user-select: none;
+}
+
+.titleGradientText {
+  background: linear-gradient(to bottom, #ffffff 40%, #b4c0ff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.aiHighlight {
+  background: linear-gradient(180deg, #0040FF 20%, #FF0095 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  display: inline-block;
+  font-weight: 750;
+  filter: drop-shadow(0 0 25px rgba(255, 0, 149, 0.45));
 }
 
 .description {
   width: min(100%, 680px);
   color: rgb(255 255 255 / 68%);
   font-family: "Instrument Sans", sans-serif;
-  font-size: clamp(17px, 1.45vw, 21px);
+  font-size: clamp(16px, 1.35vw, 20px);
   font-weight: 400;
   line-height: 1.55;
   text-wrap: balance;
@@ -107,7 +122,6 @@
   transform: translateX(3px);
 }
 
-
 .secondaryCta {
   display: inline-flex;
   min-height: 48px;
@@ -146,16 +160,16 @@
   }
 
   .eyebrow {
-    font-size: clamp(27px, 8.5vw, 38px);
+    font-size: clamp(24px, 7vw, 34px);
   }
 
   .title {
-    font-size: clamp(58px, 19vw, 92px);
-    line-height: 0.92;
+    font-size: clamp(38px, 12vw, 64px);
+    line-height: 1.05;
   }
 
   .description {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.5;
   }
 
@@ -184,6 +198,6 @@
   }
 
   .title {
-    font-size: clamp(72px, 9vw, 118px);
+    font-size: clamp(40px, 6vw, 72px);
   }
 }

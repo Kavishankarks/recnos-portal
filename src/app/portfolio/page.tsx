@@ -9,12 +9,13 @@ import Scroll3DCard from "@/components/Scroll3DCard";
 const projects = [
   {
     id: 1,
-    title: "Rolit AI - Content Creation Platform",
+    title: "Rolit AI - Making Content Creation Truly AI-Native",
     category: "AI",
     description:
-      "AI-native platform built on persistent creator memory, multi-agent orchestration, and style flywheels for high-velocity creation.",
+      "From a feature-rich AI generator to the definitive go-to platform for creators — built on persistent creator memory, multi-agent orchestration, and proprietary style flywheels.",
     tech: ["Python", "Java", "Golang", "React Native", "PostgreSQL", "MongoDB"],
-    impact: "Persistent memory & multi-agent pipeline",
+    impact:
+      "Persistent creator memory & multi-agent orchestration, purpose-built for creators",
     link: "https://rolit.ai/",
   },
   {
