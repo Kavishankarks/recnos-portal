@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Hero from "@/components/Hero";
 import Scroll3DCard from "@/components/Scroll3DCard";
 import Floating3DOrbs from "@/components/Floating3DOrbs";
@@ -114,6 +115,8 @@ const benefits = [
 ];
 
 export default function Home() {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
   return (
     <div className="bg-[#000000] text-white selection:bg-[#3054ff] selection:text-white relative">
       {/* 3D Parallax Floating Elements */}
@@ -124,11 +127,47 @@ export default function Home() {
 
       {/* Our Expertise Section */}
       <section id="services" className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-24 lg:py-32">
-        {/* Background Subtle Gradient Glow */}
-        <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-950/20 blur-[140px] rounded-full z-0" />
+        {/* Layered Background */}
+        <div className="pointer-events-none absolute inset-0 z-0">
+          {/* Grid pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)",
+              backgroundSize: "56px 56px",
+              maskImage:
+                "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%)",
+            }}
+          />
+
+          {/* Ambient glow blobs */}
+          <motion.div
+            animate={{ x: [0, 40, 0], y: [0, -20, 0] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/4 left-1/2 -translate-x-[80%] w-[700px] h-[420px] bg-[#3054ff]/20 blur-[140px] rounded-full"
+          />
+          <motion.div
+            animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/3 right-1/2 translate-x-[70%] w-[600px] h-[380px] bg-indigo-500/10 blur-[130px] rounded-full"
+          />
+
+          {/* Fade to black at edges */}
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent" />
+        </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="mx-auto mb-12 max-w-3xl space-y-4 text-center sm:mb-16 lg:mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mx-auto mb-12 max-w-3xl space-y-4 text-center sm:mb-16 lg:mb-20"
+          >
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-[#b4c0ff]">
               <Sparkles className="w-3.5 h-3.5" /> Core Services
             </span>
@@ -138,35 +177,87 @@ export default function Home() {
             <p className="mx-auto max-w-2xl font-instrument-sans text-base leading-relaxed text-white/60 sm:text-lg">
               End-to-end engineering capabilities built for foundation models, cloud scale, and enterprise digital transformation.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.08 } },
+            }}
+            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+          >
             {expertiseList.map((item, index) => {
               const Icon = item.icon;
+              const isSelected = selectedIndex === index;
               return (
-                <Scroll3DCard key={index} depth={18}>
-                  <div className="glass-card group flex h-full min-h-[260px] flex-col justify-between rounded-2xl p-6 sm:p-7">
-                    <div>
-                      <div className="w-12 h-12 rounded-xl bg-[#3054ff]/10 border border-[#3054ff]/20 flex items-center justify-center text-[#3054ff] group-hover:bg-[#3054ff] group-hover:text-white transition-all duration-300 mb-5">
-                        <Icon className="w-6 h-6" />
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 32, scale: 0.96 },
+                    show: { opacity: 1, y: 0, scale: 1 },
+                  }}
+                  transition={{ duration: 0.55, ease: "easeOut" }}
+                >
+                  <Scroll3DCard depth={18}>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setSelectedIndex(isSelected ? null : index)
+                      }
+                      aria-pressed={isSelected}
+                      className={`glass-card group flex h-full w-full min-h-[260px] flex-col justify-between rounded-2xl p-6 text-left sm:p-7 ${
+                        isSelected
+                          ? "border-[#3054ff]/70 bg-[#3054ff]/[0.08] shadow-[0_0_0_1px_rgba(48,84,255,0.4),0_20px_50px_rgba(48,84,255,0.3)]"
+                          : ""
+                      }`}
+                    >
+                      <div>
+                        <div
+                          className={`w-12 h-12 rounded-xl border flex items-center justify-center transition-all duration-300 mb-5 ${
+                            isSelected
+                              ? "bg-[#3054ff] border-[#3054ff] text-white"
+                              : "bg-[#3054ff]/10 border-[#3054ff]/20 text-[#3054ff] group-hover:bg-[#3054ff] group-hover:text-white"
+                          }`}
+                        >
+                          <Icon className="w-6 h-6" />
+                        </div>
+                        <h3
+                          className={`font-instrument-sans font-semibold text-lg mb-2.5 transition-colors ${
+                            isSelected
+                              ? "text-[#b4c0ff]"
+                              : "text-white group-hover:text-[#b4c0ff]"
+                          }`}
+                        >
+                          {item.title}
+                        </h3>
+                        <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
-                      <h3 className="font-instrument-sans font-semibold text-lg text-white mb-2.5 group-hover:text-[#b4c0ff] transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
 
-                    <div className="mt-6 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-white/40 group-hover:text-white/80 transition-colors">
-                      <span>Learn more</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Scroll3DCard>
+                      <div
+                        className={`mt-6 pt-3 border-t flex items-center justify-between text-xs transition-colors ${
+                          isSelected
+                            ? "border-[#3054ff]/30 text-white/90"
+                            : "border-white/5 text-white/40 group-hover:text-white/80"
+                        }`}
+                      >
+                        <span>Learn more</span>
+                        <ArrowRight
+                          className={`w-3.5 h-3.5 transition-transform ${
+                            isSelected ? "translate-x-1" : "group-hover:translate-x-1"
+                          }`}
+                        />
+                      </div>
+                    </button>
+                  </Scroll3DCard>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
