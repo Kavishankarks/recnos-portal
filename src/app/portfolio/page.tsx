@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalLink, ArrowRight, Sparkles, FolderGit2 } from "lucide-react";
+import { ExternalLink, ArrowRight, FolderGit2 } from "lucide-react";
 import Link from "next/link";
-import { motion } from "motion/react";
 import Scroll3DCard from "@/components/Scroll3DCard";
 import DesignProHero from "@/components/DesignProHero";
 import ShinyText from "@/components/ShinyText";
+import Scroll3DScene from "@/components/Scroll3DScene";
+import Floating3DOrbs from "@/components/Floating3DOrbs";
 
 const projects = [
   {
@@ -98,41 +99,45 @@ export default function Portfolio() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <div className="bg-[#000000] text-white min-h-screen font-sans selection:bg-[#64CEFB] selection:text-black">
-      {/* DesignPro Full-Screen Hero Section */}
+    <div className="bg-[#000000] text-white min-h-screen font-sans selection:bg-[#64CEFB] selection:text-black relative">
+      {/* 3D WebGL Interactive Particle & Geometry Background */}
+      <Scroll3DScene />
+      <Floating3DOrbs />
+
+      {/* DesignPro / RECNOS Full-Screen Hero Section */}
       <DesignProHero />
 
       {/* Case Studies Section */}
-      <div id="projects" className="pb-28 px-4 sm:px-8 lg:px-12 relative pt-20 sm:pt-28">
-        {/* Decorative Gradient Background */}
-        <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#64CEFB]/10 blur-[140px] rounded-full z-0" />
+      <div id="projects" className="pb-28 px-4 sm:px-8 lg:px-12 relative pt-20 sm:pt-28 bg-[#000000]/80 backdrop-blur-[2px]">
+        {/* Subtle Ambient Glow */}
+        <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-900/15 blur-[140px] rounded-full z-0" />
 
         <div className="max-w-7xl mx-auto relative z-10 space-y-16">
           {/* Header */}
           <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-black/60 border border-gray-700 text-[#64CEFB] shadow-sm">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-black/40 border border-gray-700 text-white/80 backdrop-blur-md">
               <FolderGit2 className="w-3.5 h-3.5" /> Client Case Studies
             </span>
             <h2 className="font-sans font-bold text-4xl sm:text-6xl text-white tracking-tight leading-tight">
               Engineering That{" "}
               <ShinyText text="Scales." speed={3} className="font-bold" />
             </h2>
-            <p className="font-sans text-white/70 text-base sm:text-lg leading-relaxed">
+            <p className="font-sans text-white/80 text-base sm:text-lg leading-relaxed">
               Explore how we help forward-thinking teams launch AI-native software, resilient microservices, and high-converting platforms.
             </p>
           </div>
 
-          {/* Category Filter Pills in Rounded Container */}
+          {/* Category Filter Pills */}
           <div className="flex justify-center">
-            <div className="inline-flex flex-wrap justify-center gap-2 p-2 rounded-full border border-gray-700 bg-black/50 backdrop-blur-md max-w-4xl">
+            <div className="inline-flex flex-wrap justify-center gap-2 p-2 rounded-full border border-gray-700 bg-black/40 backdrop-blur-md max-w-4xl">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={`px-5 py-2 rounded-full text-xs font-medium font-sans transition-all duration-300 cursor-pointer ${
                     activeCategory === cat
-                      ? "bg-white text-black font-semibold shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105"
-                      : "text-white/70 hover:text-white hover:bg-white/10"
+                      ? "bg-white text-black font-semibold shadow-lg scale-105"
+                      : "text-white/80 hover:text-white hover:bg-white/10"
                   }`}
                 >
                   {cat}
@@ -145,7 +150,7 @@ export default function Portfolio() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
               <Scroll3DCard key={project.id} depth={15}>
-                <div className="bg-black/60 backdrop-blur-xl p-8 rounded-2xl flex flex-col justify-between h-full group border border-gray-800 hover:border-[#64CEFB]/50 hover:shadow-[0_12px_40px_rgba(100,206,251,0.15)] transition-all duration-300">
+                <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-semibold tracking-wider uppercase text-[#64CEFB] bg-[#64CEFB]/10 px-3 py-1 rounded-full border border-[#64CEFB]/30">
@@ -178,7 +183,7 @@ export default function Portfolio() {
                       {project.tech.map((t) => (
                         <span
                           key={t}
-                          className="px-3 py-1 rounded-full text-xs font-sans bg-white/5 text-white/80 border border-gray-800"
+                          className="px-3 py-1 rounded-full text-xs font-sans bg-white/5 text-white/80 border border-white/15 group-hover:border-white/30 transition-colors"
                         >
                           {t}
                         </span>
@@ -187,10 +192,10 @@ export default function Portfolio() {
                   </div>
 
                   {/* Card Footer */}
-                  <div className="mt-8 pt-4 border-t border-gray-800 flex items-center justify-between text-xs">
+                  <div className="mt-8 pt-4 border-t border-white/15 flex items-center justify-between text-xs">
                     <div className="font-medium text-white/90">
                       <span className="text-white/40">Impact: </span>
-                      <span className="text-[#64CEFB]">{project.impact}</span>
+                      <span className="text-[#64CEFB] font-semibold">{project.impact}</span>
                     </div>
 
                     {project.link ? (
@@ -212,8 +217,8 @@ export default function Portfolio() {
           </div>
 
           {/* CTA Banner */}
-          <div className="bg-black/60 backdrop-blur-xl rounded-3xl p-10 sm:p-14 text-center space-y-6 relative overflow-hidden border border-gray-800">
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#64CEFB]/10 via-transparent to-indigo-900/10" />
+          <div className="glass-card rounded-3xl p-10 sm:p-14 text-center space-y-6 relative overflow-hidden border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.25)] transition-all duration-300">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#64CEFB]/10 via-transparent to-indigo-900/15" />
             <h2 className="font-sans font-bold text-3xl sm:text-5xl text-white relative z-10 tracking-tight">
               Have an Ambitious Project in Mind?
             </h2>
@@ -223,7 +228,7 @@ export default function Portfolio() {
             <div className="relative z-10 pt-2">
               <Link
                 href="/#contact"
-                className="group inline-flex items-center gap-3 bg-black hover:bg-gray-900 text-white font-medium font-sans px-8 py-4 rounded-full border border-white/20 hover:border-white/40 transition-all hover:scale-105 active:scale-95 shadow-xl"
+                className="group inline-flex items-center gap-3 bg-white text-black font-semibold font-sans px-8 py-4 rounded-full hover:bg-white/90 transition-all hover:scale-105 active:scale-95 shadow-2xl"
               >
                 <span>Let&apos;s Build It</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -235,4 +240,5 @@ export default function Portfolio() {
     </div>
   );
 }
+
 
