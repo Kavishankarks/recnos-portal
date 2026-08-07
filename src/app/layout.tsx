@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
 import MouseSparks from "@/components/MouseSparks";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "RECNOS | AI & Scalable Software Engineering",
-  description: "End-to-end engineering partner for AI foundation models, distributed systems, and enterprise-grade digital solutions.",
+  title: "RECNOS | AI Website Builder - Build Faster",
+  description: "Design at the speed of thought. Create fully functional, SEO-optimized websites in seconds with our advanced AI engine.",
 };
 
 export default function RootLayout({
@@ -19,11 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className="dark bg-black">
+      <body className="bg-black text-white font-instrument-sans antialiased min-h-screen selection:bg-[#3054ff] selection:text-white">
         <MouseSparks />
         <Navbar />
-        <main>{children}</main>
+        <main className="relative z-10">{children}</main>
         <Footer />
       </body>
     </html>

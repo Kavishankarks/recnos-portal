@@ -1,148 +1,289 @@
+"use client";
+
 import Hero from "@/components/Hero";
+import { motion } from "motion/react";
+import {
+  Sparkles,
+  Zap,
+  Cpu,
+  Globe,
+  Search,
+  Figma,
+  ShieldCheck,
+  Layers,
+  Video,
+  ArrowRight,
+  CheckCircle2,
+  Calendar,
+  Mail,
+  Phone,
+} from "lucide-react";
+import Link from "next/link";
+
+const expertiseList = [
+  {
+    icon: Sparkles,
+    title: "AI Website & App Engine",
+    description:
+      "Build fully functional, responsive, and intelligent web applications in seconds with our neural code generation system.",
+  },
+  {
+    icon: Zap,
+    title: "Instant SEO & AEO Optimization",
+    description:
+      "Automated schema injection, structured data, and search engine optimization so your site gets cited by ChatGPT, Gemini, and Google.",
+  },
+  {
+    icon: Cpu,
+    title: "Distributed Infrastructure",
+    description:
+      "Scalable backend microservices, global edge CDN delivery, and high-concurrency event pipelines built for zero latency.",
+  },
+  {
+    icon: Video,
+    title: "HLS Video Streaming & Media",
+    description:
+      "Adaptive bitrate video streaming, Mux HLS pipelines, and automated short-form video content generation.",
+  },
+  {
+    icon: Figma,
+    title: "Figma to Code Neural Pipeline",
+    description:
+      "Transform high-fidelity UI/UX design systems and wireframes straight into production-ready React and Next.js components.",
+  },
+  {
+    icon: Layers,
+    title: "Autonomous DevOps & AIOps",
+    description:
+      "Zero-downtime CI/CD automation, cloud deployment orchestration, and intelligent system health monitoring.",
+  },
+];
+
+const technologies = [
+  "Next.js",
+  "React",
+  "TypeScript",
+  "Tailwind CSS",
+  "Python",
+  "PyTorch",
+  "HLS.js",
+  "Motion",
+  "Docker",
+  "Kubernetes",
+  "AWS",
+  "GCP",
+  "PostgreSQL",
+  "Redis",
+  "Kafka",
+  "Go",
+  "Java",
+  "Terraform",
+];
+
+const benefits = [
+  {
+    title: "10x Development Speed",
+    description: "Launch market-ready AI applications in hours rather than months with automated boilerplate generation.",
+  },
+  {
+    title: "Enterprise Grade Security",
+    description: "Multi-layered end-to-end security compliance, SOC2-ready architecture, and encrypted data channels.",
+  },
+  {
+    title: "Global Scale & Low Latency",
+    description: "Edge-cached deployments ensuring fast load times for global users across any device.",
+  },
+];
 
 export default function Home() {
   return (
-    <>
+    <div className="bg-[#000000] text-white selection:bg-[#3054ff] selection:text-white">
+      {/* Dark Mode Hero Component with Video & Specifications */}
       <Hero />
 
-      {/* Our Expertise Section */}
-      <section id="services" className="section">
-        <div className="container">
-          <h2 className="section-title">Our Expertise</h2>
-          <div className="grid">
-            <div className="card">
-              <h3>AI Foundation Software</h3>
-              <p>Building intelligent agent systems and foundation models for enterprise automation.</p>
-            </div>
-            <div className="card">
-              <h3>Distributed Systems</h3>
-              <p>Scalable backend architectures, microservices, and event-driven systems.</p>
-            </div>
-            <div className="card">
-              <h3>DevOps & AIOps</h3>
-              <p>Automated CI/CD pipelines, monitoring, and AI-driven operations.</p>
-            </div>
-            <div className="card">
-              <h3>Mobile & Web</h3>
-              <p>High-performance iOS/Android apps and SEO-optimized web platforms.</p>
-            </div>
-            <div className="card">
-              <h3>SEO & AEO</h3>
-              <p>Search and answer-engine optimization to rank on Google and get cited by AI assistants like ChatGPT and Gemini.</p>
-            </div>
-            <div className="card">
-              <h3>Figma & Product Design</h3>
-              <p>End-to-end UI/UX design systems, wireframes, and high-fidelity prototypes in Figma.</p>
-            </div>
-            <div className="card">
-              <h3>Marketing</h3>
-              <p>Growth strategy, brand positioning, and campaign execution across digital channels.</p>
-            </div>
-            <div className="card">
-              <h3>Daily Content & Video</h3>
-              <p>Consistent, high-quality short-form videos and content produced daily to grow your audience.</p>
-            </div>
+      {/* Expertise & Capabilities Section */}
+      <section id="services" className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-24 lg:py-32">
+        {/* Background Subtle Gradient Glow */}
+        <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-950/20 blur-[140px] rounded-full z-0" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="mx-auto mb-12 max-w-3xl space-y-4 text-center sm:mb-16 lg:mb-20">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-[#b4c0ff]">
+              <Sparkles className="w-3.5 h-3.5" /> Capabilities
+            </span>
+            <h2 className="font-instrument-serif text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] text-white">
+              Built for the Next Generation of Web
+            </h2>
+            <p className="mx-auto max-w-2xl font-instrument-sans text-base leading-relaxed text-white/60 sm:text-lg">
+              Combine cutting-edge AI neural systems with enterprise scalable architecture to create unshakeable digital experiences.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8">
+            {expertiseList.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  className="glass-card group flex min-h-[280px] flex-col justify-between rounded-2xl p-6 sm:p-8"
+                >
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-[#3054ff]/10 border border-[#3054ff]/20 flex items-center justify-center text-[#3054ff] group-hover:bg-[#3054ff] group-hover:text-white transition-all duration-300 mb-6">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="font-instrument-sans font-semibold text-xl text-white mb-3 group-hover:text-[#b4c0ff] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="font-instrument-sans text-sm text-white/60 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-white/40 group-hover:text-white/80 transition-colors">
+                    <span>Learn more</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Why RECNOS Section */}
-      <section className="section bg-dark">
-        <div className="container">
-          <h2 className="section-title">Why RECNOS?</h2>
-          <div className="features">
-            <div className="feature">
-              <h3>Engineering Excellence</h3>
-              <p>We prioritize code quality, scalability, and long-term maintainability.</p>
+      <section className="relative border-y border-white/5 bg-white/[0.01] px-4 py-20 sm:px-6 sm:py-24 lg:py-28">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
+            <div className="lg:col-span-5 space-y-6">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-[#3054ff]/10 text-[#3054ff] border border-[#3054ff]/20">
+                <ShieldCheck className="w-3.5 h-3.5" /> High Performance Standard
+              </span>
+              <h2 className="font-instrument-serif text-[clamp(2.5rem,4.5vw,3.5rem)] leading-[1.08] text-white">
+                Why Top Builders Choose RECNOS Engine
+              </h2>
+              <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
+                We engineer scalable solutions built on solid foundation code. Every build is benchmarked for extreme speed, search visibility, and seamless interaction.
+              </p>
+
+              <div className="pt-4">
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center gap-3 bg-white text-black font-semibold font-instrument-sans px-6 py-3 rounded-full hover:bg-white/90 transition-transform hover:scale-105 active:scale-95"
+                >
+                  Start Your Project <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
-            <div className="feature">
-              <h3>Security First</h3>
-              <p>Enterprise-grade security integrated into every layer of the stack.</p>
-            </div>
-            <div className="feature">
-              <h3>Performance</h3>
-              <p>Optimized for speed, reliability, and high-concurrency workloads.</p>
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-1 xl:grid-cols-3 xl:gap-6">
+              {benefits.map((benefit, idx) => (
+                <div key={idx} className="glass-card min-h-[220px] space-y-3 rounded-2xl p-6">
+                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white font-bold text-sm">
+                    0{idx + 1}
+                  </div>
+                  <h3 className="font-instrument-sans font-semibold text-lg text-white">
+                    {benefit.title}
+                  </h3>
+                  <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Technologies Section */}
-      <section className="section">
-        <div className="container">
-          <h2 className="section-title">Technologies We Use</h2>
-          <div className="tech-grid">
-            <div className="tech-item">Java</div>
-            <div className="tech-item">Python</div>
-            <div className="tech-item">Go</div>
-            <div className="tech-item">Deployment</div>
-            <div className="tech-item">AI/ML</div>
-            <div className="tech-item">Node.js</div>
-            <div className="tech-item">TensorFlow</div>
-            <div className="tech-item">PyTorch</div>
-            <div className="tech-item">Kubernetes</div>
-            <div className="tech-item">Docker</div>
-            <div className="tech-item">AWS</div>
-            <div className="tech-item">GCP</div>
-            <div className="tech-item">Next.js</div>
-            <div className="tech-item">React Native</div>
-            <div className="tech-item">Kafka</div>
-            <div className="tech-item">Redis</div>
-            <div className="tech-item">PostgreSQL</div>
-            <div className="tech-item">Terraform</div>
+      <section className="py-24 px-6 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto text-center space-y-12">
+          <div className="space-y-3">
+            <h2 className="font-instrument-serif text-3xl sm:text-5xl text-white">
+              Powered by Next-Gen Technologies
+            </h2>
+            <p className="font-instrument-sans text-white/60 text-base max-w-xl mx-auto">
+              Our AI architecture interfaces seamlessly with industry-standard stacks and high-throughput frameworks.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {technologies.map((tech, i) => (
+              <span
+                key={i}
+                className="px-4 py-2 rounded-full text-sm font-instrument-sans bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 hover:border-[#3054ff]/40 transition-all duration-200 cursor-default"
+              >
+                {tech}
+              </span>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      {/* <section className="section bg-dark"> */}
-      {/* <div className="container">
-          <h2 className="section-title">What Our Clients Say</h2>
-          <div className="testimonials">
-            <div className="testimonial-card">
-              <p>"RECNOS transformed our legacy infrastructure into a scalable, AI-driven platform. The performance gains were immediate."</p>
-              <h4>- CTO, FinTech Corp</h4>
-            </div>
-            <div className="testimonial-card">
-              <p>"Their expertise in distributed systems and mobile development helped us launch our app to millions of users seamlessly."</p>
-              <h4>- Founder, HealthTech Startup</h4>
-            </div>
-          </div>
-        </div> */}
-      {/* </section> */}
+      {/* Contact & Calendar Booking Section */}
+      <section id="contact" className="py-28 px-6 relative bg-gradient-to-b from-black via-black to-[#050814]">
+        <div className="max-w-6xl mx-auto">
+          <div className="glass-card rounded-3xl p-8 sm:p-12 border border-white/10 relative overflow-hidden">
+            <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 bg-[#3054ff]/20 blur-[100px] rounded-full" />
 
-      {/* Contact Section */}
-      <section id="contact" className="section contact-section">
-        <div className="container">
-          <div className="contact-content">
-            <h2 className="section-title">Build with RECNOS</h2>
-            <p>Ready to engineer the future? Let's discuss your project.</p>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
+              <div className="lg:col-span-5 space-y-6">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
+                  <Calendar className="w-3.5 h-3.5" /> Book A Demo
+                </span>
+                <h2 className="font-instrument-serif text-4xl sm:text-5xl text-white leading-tight">
+                  Build with RECNOS Today
+                </h2>
+                <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
+                  Schedule a direct 1-on-1 demo or strategy session with our engineering team to turn your ideas into a live product.
+                </p>
 
-            {/* Google Calendar Appointment Scheduling */}
-            <div style={{ margin: '2rem 0', width: '100%' }}>
-              <iframe
-                src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0G0XnyW8usBYIMjx0Nz8Iy_6h9foZJudVZi2LpH2XezXViud_Ceu0qYX2OM7HNMVJacMK6Kvta?gv=true"
-                style={{ border: 0 }}
-                width="100%"
-                height="600"
-                frameBorder="0"
-                title="Schedule an appointment"
-              ></iframe>
-            </div>
+                <div className="space-y-4 pt-4 border-t border-white/10">
+                  <a
+                    href="mailto:dev@recnos.com"
+                    className="flex items-center gap-3 text-white/80 hover:text-white transition-colors font-instrument-sans text-sm group"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#3054ff] group-hover:text-white transition-all">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-white/40">Email Us</div>
+                      <div className="font-medium">dev@recnos.com</div>
+                    </div>
+                  </a>
 
-            <div className="contact-details">
-              <a href="mailto:dev@recnos.com" className="contact-item">
-                <span className="label">Email:</span> dev@recnos.com
-              </a>
-              <a href="tel:+917892883611" className="contact-item">
-                <span className="label">Mobile:</span> +91 7892883611
-              </a>
+                  <a
+                    href="tel:+917892883611"
+                    className="flex items-center gap-3 text-white/80 hover:text-white transition-colors font-instrument-sans text-sm group"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#3054ff] group-hover:text-white transition-all">
+                      <Phone className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-white/40">Call Directly</div>
+                      <div className="font-medium">+91 7892883611</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-2xl border border-white/15 bg-white p-2 shadow-2xl lg:col-span-7">
+                <iframe
+                  src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0G0XnyW8usBYIMjx0Nz8Iy_6h9foZJudVZi2LpH2XezXViud_Ceu0qYX2OM7HNMVJacMK6Kvta?gv=true"
+                  style={{ border: 0, backgroundColor: "#ffffff" }}
+                  width="100%"
+                  height="580"
+                  className="rounded-xl bg-white"
+                  title="Schedule an appointment"
+                ></iframe>
+              </div>
             </div>
-            <a href="mailto:dev@recnos.com" className="btn btn-primary">Contact Us</a>
           </div>
         </div>
       </section>
-
-    </>
+    </div>
   );
 }

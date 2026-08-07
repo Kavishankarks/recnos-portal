@@ -1,69 +1,118 @@
 "use client";
-import { useState, useEffect } from 'react';
+
+import { useEffect, useRef } from "react";
+import Hls from "hls.js";
+import { motion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import styles from "./Hero.module.css";
 
 export default function Hero() {
-    const textOptions = [
-        "RECNOS is your end-to-end engineering partner for AI foundation models, distributed systems, and enterprise-grade digital solutions.",
-        "Building the next generation of scalable, high-performance software for the AI era.",
-        "Transforming complex challenges into elegant, enterprise-grade digital systems.",
-        "Expertise in Cloud, AI, and Distributed Computing – delivered with precision."
-    ];
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoSrc = "https://stream.mux.com/T6oQJQ02cQ6N01TR6iHwZkKFkbepS34dkkIc9iukgy400g.m3u8";
 
-    const [text, setText] = useState("");
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [loopNum, setLoopNum] = useState(0);
-    const [typingSpeed, setTypingSpeed] = useState(50);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
 
-    useEffect(() => {
-        const i = loopNum % textOptions.length;
-        const fullText = textOptions[i];
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch((e) => console.log("Auto-play prevented:", e));
+      });
+      return () => {
+        hls.destroy();
+      };
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = videoSrc;
+      video.addEventListener("loadedmetadata", () => {
+        video.play().catch((e) => console.log("Auto-play prevented:", e));
+      });
+    }
+  }, [videoSrc]);
 
-        const handleTyping = () => {
-            setText(isDeleting
-                ? fullText.substring(0, text.length - 1)
-                : fullText.substring(0, text.length + 1)
-            );
+  return (
+    <section className={styles.hero}>
+      {/* Background Video Layer */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <video
+          ref={videoRef}
+          poster="https://images.unsplash.com/photo-1647356191320-d7a1f80ca777?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGRhcmslMjB0ZWNobm9sb2d5JTIwbmV1cmFsJTIwbmV0d29ya3xlbnwxfHx8fDE3Njg5NzIyNTV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-60"
+        />
+        {/* Video Overlay */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
+      </div>
 
-            // Determine typing speed
-            setTypingSpeed(isDeleting ? 30 : 50);
+      {/* Decorative Gradients */}
+      <div className="pointer-events-none absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/20 blur-[120px] mix-blend-screen rounded-full z-0" />
+      <div className="pointer-events-none absolute bottom-[-10%] right-[20%] w-[500px] h-[500px] bg-indigo-900/20 blur-[120px] mix-blend-screen rounded-full z-0" />
 
-            if (!isDeleting && text === fullText) {
-                // Finished typing, pause before deleting
-                setTimeout(() => setIsDeleting(true), 2000);
-            } else if (isDeleting && text === "") {
-                // Finished deleting, move to next text
-                setIsDeleting(false);
-                setLoopNum(loopNum + 1);
-                setTypingSpeed(500); // Pause before typing new text
-            }
-        };
+      {/* Content Container */}
+      <div className={styles.content}>
+        {/* Pre-headline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className={styles.eyebrow}
+        >
+          Design at the speed of thought
+        </motion.p>
 
-        const timer = setTimeout(handleTyping, typingSpeed);
+        {/* Main Headline */}
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className={styles.title}
+        >
+          Build Faster
+        </motion.h1>
 
-        return () => clearTimeout(timer);
-    }, [text, isDeleting, loopNum, typingSpeed, textOptions]);
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.7 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className={styles.description}
+        >
+          Create fully functional, SEO-optimized websites in seconds with our advanced AI engine.
+        </motion.p>
 
-    return (
-        <section className="hero">
-            <div className="container hero-content">
-                <div className="hero-text">
-                    <h1 className="hero-title">
-                        <span className="anim-left" style={{ display: 'inline-block' }}>Engineering the Future with </span> <span className="highlight2 anim-pop" style={{ display: 'inline-block' }}>AI</span> <span className="highlight anim-right" style={{ display: 'inline-block' }}>+ Scalable Software</span>
-                    </h1>
-                    <p className="hero-subtitle" style={{ minHeight: '3.2em' }}>
-                        {text}<span className="cursor">|</span>
-                    </p>
-                    <div className="hero-actions">
-                        <a href="#contact" className="btn btn-primary">Get Started</a>
-                        <a href="#services" className="btn btn-secondary">Explore Services</a>
-                    </div>
-                </div>
-                <div className="hero-visual">
-                    {/* Abstract AI Visual Placeholder */}
-                    <div className="visual-circle"></div>
-                    <div className="visual-grid"></div>
-                </div>
-            </div>
-        </section>
-    );
+        {/* CTA Buttons Container */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className={styles.actions}
+        >
+          {/* Primary Button */}
+          <Link
+            href="/#contact"
+            className={styles.primaryCta}
+          >
+            <span>Start Building Free</span>
+            <span className={styles.primaryIcon}>
+              <ArrowRight size={20} aria-hidden="true" />
+            </span>
+          </Link>
+
+          {/* Secondary Button */}
+          <Link
+            href="/portfolio"
+            className={styles.secondaryCta}
+          >
+            <span>See Examples</span>
+            <ArrowRight className={styles.secondaryIcon} size={16} aria-hidden="true" />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

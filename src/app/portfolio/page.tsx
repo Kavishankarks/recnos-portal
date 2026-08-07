@@ -1,281 +1,230 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
+import { ExternalLink, ArrowRight, Sparkles, FolderGit2 } from "lucide-react";
+import Link from "next/link";
+import { motion } from "motion/react";
 
 const projects = [
   {
     id: 1,
-    title: "Rolit AI - Making Content Creation Truly AI-Native",
+    title: "Rolit AI - Content Creation Platform",
     category: "AI",
-    description: "From a feature-rich AI generator to the definitive go-to platform for creators — built on persistent creator memory, multi-agent orchestration, and proprietary style flywheels.",
+    description:
+      "AI-native platform built on persistent creator memory, multi-agent orchestration, and style flywheels for high-velocity creation.",
     tech: ["Python", "Java", "Golang", "React Native", "PostgreSQL", "MongoDB"],
-    impact: "Persistent creator memory & multi-agent orchestration, purpose-built for creators",
-    link: "https://rolit.ai/"
+    impact: "Persistent memory & multi-agent pipeline",
+    link: "https://rolit.ai/",
   },
   {
     id: 2,
-    title: "PG Market place",
+    title: "PG Marketplace Engine",
     category: "Distributed Systems",
-    description: "Trovare helps you find the best paying guest (PG) accommodations in Bangalore. Browse verified PGs near IT parks, Koramangala, and Indiranagar.",
-    tech: ["Java", "React", "PostgreSQL", "AI Search", "Payment Integration"],
-    impact: "1000+ active users",
-    link: "https://trovare.in/"
+    description:
+      "Real-time PG accommodations discovery engine in Bangalore with AI search indexing, interactive maps, and payment integration.",
+    tech: ["Java", "React", "PostgreSQL", "AI Search", "Stripe"],
+    impact: "1000+ active monthly users",
+    link: "https://trovare.in/",
   },
   {
     id: 7,
-    title: "Mr. Ads - In-Restaurant Digital Ad Network",
+    title: "Mr. Ads - In-Restaurant Digital Signage Network",
     category: "Marketing",
-    description: "Mr. Ads helps brands connect with customers inside high-footfall restaurants across Bengaluru. Our digital displays are placed in dining and waiting areas, ensuring your brand gets repeated visibility when customers are relaxed and attentive. Ads play every 5 minutes, ensuring repeated visibility during dining time.",
-    tech: ["Digital Signage", "Next.js", "Node.js"],
-    impact: "Repeated visibility across high-footfall restaurants in Bengaluru",
-    link: "https://mr-ads.in/"
+    description:
+      "Digital ad network operating high-definition display hardware in dining venues across Bengaluru with scheduled content rotation.",
+    tech: ["Digital Signage", "Next.js", "Node.js", "HLS.js"],
+    impact: "High-density venue visibility network",
+    link: "https://mr-ads.in/",
   },
   {
     id: 3,
-    title: "FinTech Mobile Ecosystem",
+    title: "FinTech Mobile Banking Ecosystem",
     category: "Mobile",
-    description: "End-to-end mobile banking solution with biometric security and real-time transactions.",
+    description:
+      "End-to-end mobile banking application featuring zero-knowledge biometric security and instant transaction processing.",
     tech: ["React Native", "Node.js", "GraphQL"],
-    impact: "1000+ active users"
+    impact: "100,000+ transactions executed",
   },
   {
     id: 4,
-    title: "E-Commerce SEO Overhaul",
+    title: "E-Commerce AI SEO Overhaul",
     category: "Web",
-    description: "Complete platform re-engineering focusing on Core Web Vitals and SEO performance.",
-    tech: ["Next.js", "Vercel", "Sanity CMS"],
-    impact: "300% increase in organic traffic"
+    description:
+      "Complete platform re-engineering focusing on sub-second Core Web Vitals and dynamic AI search answer engine optimization.",
+    tech: ["Next.js", "Vercel", "Sanity CMS", "Tailwind CSS"],
+    impact: "300% surge in organic traffic",
   },
   {
     id: 5,
     title: "Cloud Infrastructure Modernization",
     category: "Cloud",
-    description: "Migration of legacy on-prem systems to a cloud-native serverless architecture.",
-    tech: ["AWS Lambda", "Terraform", "Docker"],
-    impact: "50% cost savings"
+    description:
+      "Migration of legacy monoliths to a serverless, event-driven Kubernetes architecture with automated terraform scripts.",
+    tech: ["AWS Lambda", "Terraform", "Docker", "Kubernetes"],
+    impact: "50% reduction in cloud infrastructure costs",
   },
   {
     id: 6,
     title: "AIOps Monitoring Pipeline",
     category: "DevOps",
-    description: "Intelligent monitoring system using AI to predict and prevent system outages.",
-    tech: ["Prometheus", "Grafana", "Python"],
-    impact: "Reduced MTTR by 60%"
-  }
+    description:
+      "Predictive machine learning telemetry system monitoring distributed logs to forecast and mitigate system outages.",
+    tech: ["Prometheus", "Grafana", "Python", "PyTorch"],
+    impact: "60% reduction in Mean-Time-To-Resolution",
+  },
 ];
 
-const categories = ["All", "AI", "Distributed Systems", "Mobile", "Web", "Cloud", "DevOps", "Marketing"];
+const categories = [
+  "All",
+  "AI",
+  "Distributed Systems",
+  "Mobile",
+  "Web",
+  "Cloud",
+  "DevOps",
+  "Marketing",
+];
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filteredProjects = activeCategory === "All"
-    ? projects
-    : projects.filter(p => p.category === activeCategory);
+  const filteredProjects =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <div className="portfolio-page">
-      {/* Portfolio Hero */}
-      <section className="hero-section">
-        <div className="container">
-          <h1 className="page-title">Our Work</h1>
-          <p className="page-subtitle">Engineering That Scales. Results That Matter.</p>
-        </div>
-      </section>
+    <div
+      className="bg-[#000000] text-white min-h-screen pb-24 px-6 sm:px-12 relative selection:bg-[#3054ff] selection:text-white"
+      style={{ paddingTop: "140px" }}
+    >
+      {/* Decorative Gradient Background */}
+      <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-900/15 blur-[140px] rounded-full z-0" />
 
-      {/* Filters */}
-      <section className="filter-section">
-        <div className="container">
-          <div className="filters">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                className={`filter-btn ${activeCategory === cat ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat)}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+      <div className="max-w-7xl mx-auto relative z-10 space-y-16">
+        {/* Header */}
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-[#b4c0ff]">
+            <FolderGit2 className="w-3.5 h-3.5" /> Client Case Studies
+          </span>
+          <h1 className="font-instrument-serif text-5xl sm:text-7xl text-white tracking-tight">
+            Engineering That Scales
+          </h1>
+          <p className="font-instrument-sans text-white/60 text-lg leading-relaxed">
+            Explore how we help forward-thinking teams launch AI-native software, resilient microservices, and high-converting platforms.
+          </p>
         </div>
-      </section>
 
-      {/* Projects Grid */}
-      <section className="projects-section">
-        <div className="container">
-          <div className="projects-grid">
-            {filteredProjects.map(project => (
-              <div key={project.id} className="project-card">
-                <div className="card-header">
-                  <span className="category-tag">{project.category}</span>
-                  <h3>{project.title}</h3>
-                </div>
-                <p className="description">{project.description}</p>
-                <div className="tech-stack">
-                  {project.tech.map(t => (
-                    <span key={t} className="tech-tag">{t}</span>
-                  ))}
-                </div>
-                <div className="card-footer">
-                  <div className="impact">
-                    <strong>Impact:</strong> {project.impact}
-                  </div>
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap justify-center gap-2.5 max-w-4xl mx-auto">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-5 py-2.5 rounded-full text-xs font-medium font-instrument-sans transition-all duration-300 cursor-pointer ${
+                activeCategory === cat
+                  ? "bg-white text-black font-semibold shadow-[0_0_20px_rgba(255,255,255,0.25)] scale-105"
+                  : "bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.08, duration: 0.4 }}
+              className="glass-card p-8 rounded-2xl flex flex-col justify-between group border border-white/10 hover:border-[#3054ff]/40 transition-all duration-300"
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-semibold tracking-wider uppercase text-[#b4c0ff] bg-[#3054ff]/15 px-3 py-1 rounded-full border border-[#3054ff]/30">
+                    {project.category}
+                  </span>
+
                   {project.link && (
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="view-project-btn"
+                      className="text-white/40 hover:text-white transition-colors p-1"
+                      aria-label="Visit external link"
                     >
-                      View Project →
+                      <ExternalLink className="w-4 h-4" />
                     </a>
                   )}
                 </div>
+
+                <h3 className="font-instrument-sans font-semibold text-xl text-white group-hover:text-[#b4c0ff] transition-colors leading-snug">
+                  {project.title}
+                </h3>
+
+                <p className="font-instrument-sans text-sm text-white/60 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Tech Badges */}
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2.5 py-1 rounded-md text-xs font-instrument-sans bg-white/5 text-white/70 border border-white/5"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-            ))}
+
+              {/* Card Footer */}
+              <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
+                <div className="text-[#b4c0ff] font-medium">
+                  <span className="text-white/40">Impact: </span>
+                  {project.impact}
+                </div>
+
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[#3054ff] font-semibold hover:text-[#b4c0ff] transition-colors"
+                  >
+                    Live Site <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                ) : (
+                  <span className="text-white/30 italic">Case Study</span>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Banner */}
+        <div className="glass-card rounded-3xl p-12 text-center space-y-6 relative overflow-hidden border border-white/10">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#3054ff]/10 via-transparent to-indigo-900/10" />
+          <h2 className="font-instrument-serif text-4xl sm:text-5xl text-white relative z-10">
+            Have an Ambitious Project in Mind?
+          </h2>
+          <p className="font-instrument-sans text-white/60 text-base max-w-xl mx-auto relative z-10">
+            Let's turn your concept into an enterprise-ready platform designed for speed, scale, and intelligence.
+          </p>
+          <div className="relative z-10 pt-2">
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-3 bg-white text-black font-semibold font-instrument-sans px-8 py-3.5 rounded-full hover:bg-white/90 transition-all hover:scale-105 active:scale-95 shadow-xl"
+            >
+              Let's Build It <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta-section">
-        <div className="container">
-          <h2>Have a project in mind?</h2>
-          <a href="/#contact" className="btn btn-primary">Let's Build It</a>
-        </div>
-      </section>
-
-      <style jsx>{`
-        .portfolio-page {
-          padding-top: 80px;
-          min-height: 100vh;
-        }
-        .hero-section {
-          padding: 4rem 0;
-          text-align: center;
-          background: radial-gradient(circle at 50% 0%, rgba(10, 25, 47, 0.5) 0%, transparent 70%);
-        }
-        .page-title {
-          font-size: 3rem;
-          margin-bottom: 1rem;
-          color: var(--color-saffron);
-        }
-        .page-subtitle {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 1.2rem;
-        }
-        .filter-section {
-          padding: 2rem 0;
-          border-bottom: 1px solid var(--border-color);
-        }
-        .filters {
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-        .filter-btn {
-          background: transparent;
-          border: 1px solid var(--border-color);
-          color: rgba(255, 255, 255, 0.6);
-          padding: 0.5rem 1.5rem;
-          border-radius: 20px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        .filter-btn:hover, .filter-btn.active {
-          background: var(--color-saffron);
-          color: #000;
-          border-color: var(--color-saffron);
-          box-shadow: 0 0 10px var(--color-saffron-glow);
-        }
-        .projects-section {
-          padding: 4rem 0;
-        }
-        .projects-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-          gap: 2rem;
-        }
-        .project-card {
-          background: var(--gradient-card);
-          border: 1px solid var(--border-color);
-          border-radius: 8px;
-          padding: 2rem;
-          transition: transform 0.3s ease;
-          display: flex;
-          flex-direction: column;
-        }
-        .project-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--color-saffron);
-        }
-        .card-header {
-          margin-bottom: 1rem;
-        }
-        .category-tag {
-          font-size: 0.8rem;
-          color: var(--color-blue-neon);
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          display: block;
-          margin-bottom: 0.5rem;
-        }
-        .project-card h3 {
-          font-size: 1.5rem;
-          color: #fff;
-        }
-        .description {
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 1.5rem;
-          line-height: 1.6;
-          flex-grow: 1;
-        }
-        .tech-stack {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          margin-bottom: 1.5rem;
-        }
-        .tech-tag {
-          background: rgba(255, 255, 255, 0.05);
-          padding: 0.25rem 0.75rem;
-          border-radius: 12px;
-          font-size: 0.8rem;
-          color: rgba(255, 255, 255, 0.8);
-        }
-        .card-footer {
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          gap: 1rem;
-          padding-top: 1rem;
-          border-top: 1px solid var(--border-color);
-        }
-        .impact {
-          color: var(--color-saffron);
-          font-size: 0.9rem;
-        }
-        .view-project-btn {
-          flex-shrink: 0;
-          color: var(--color-blue-neon);
-          font-size: 0.85rem;
-          font-weight: 600;
-          white-space: nowrap;
-          transition: color 0.3s ease;
-        }
-        .view-project-btn:hover {
-          color: var(--color-saffron);
-        }
-        .cta-section {
-          text-align: center;
-          padding: 4rem 0;
-          background: rgba(255, 255, 255, 0.02);
-        }
-        .cta-section h2 {
-          margin-bottom: 2rem;
-        }
-      `}</style>
+      </div>
     </div>
   );
 }
