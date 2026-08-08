@@ -2,14 +2,27 @@
 
 import { useEffect, useRef } from "react";
 import Hls from "hls.js";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Magnetic from "./Magnetic";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const videoSrc = "https://stream.mux.com/T6oQJQ02cQ6N01TR6iHwZkKFkbepS34dkkIc9iukgy400g.m3u8";
+
+  // 3D scroll parallax: content recedes into depth as the hero scrolls away
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.88]);
+  const contentRotateX = useTransform(scrollYProgress, [0, 1], [0, 14]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -34,11 +47,12 @@ export default function Hero() {
   }, [videoSrc]);
 
   return (
-    <section className={styles.hero}>
+    <section ref={sectionRef} className={styles.hero}>
       {/* Background Video Layer */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <video
+        <motion.video
           ref={videoRef}
+          style={{ scale: videoScale }}
           muted
           loop
           playsInline
@@ -53,7 +67,16 @@ export default function Hero() {
       <div className="pointer-events-none absolute bottom-[-10%] right-[20%] w-[500px] h-[500px] bg-indigo-900/20 blur-[120px] mix-blend-screen rounded-full z-0" />
 
       {/* Content Container */}
-      <div className={styles.content}>
+      <motion.div
+        style={{
+          y: contentY,
+          scale: contentScale,
+          rotateX: contentRotateX,
+          opacity: contentOpacity,
+          transformPerspective: 1000,
+        }}
+        className={styles.content}
+      >
         {/* Pre-headline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -93,26 +116,30 @@ export default function Hero() {
           className={styles.actions}
         >
           {/* Primary Button */}
-          <Link
-            href="/#contact"
-            className={styles.primaryCta}
-          >
-            <span>Get Started</span>
-            <span className={styles.primaryIcon}>
-              <ArrowRight size={20} aria-hidden="true" />
-            </span>
-          </Link>
+          <Magnetic>
+            <Link
+              href="/#contact"
+              className={styles.primaryCta}
+            >
+              <span>Get Started</span>
+              <span className={styles.primaryIcon}>
+                <ArrowRight size={20} aria-hidden="true" />
+              </span>
+            </Link>
+          </Magnetic>
 
           {/* Secondary Button */}
-          <Link
-            href="/#services"
-            className={styles.secondaryCta}
-          >
-            <span>Explore Services</span>
-            <ArrowRight className={styles.secondaryIcon} size={16} aria-hidden="true" />
-          </Link>
+          <Magnetic strength={0.25}>
+            <Link
+              href="/#services"
+              className={styles.secondaryCta}
+            >
+              <span>Explore Services</span>
+              <ArrowRight className={styles.secondaryIcon} size={16} aria-hidden="true" />
+            </Link>
+          </Magnetic>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
