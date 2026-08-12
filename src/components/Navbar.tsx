@@ -2,13 +2,27 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const productMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!productsOpen) return;
+
+    function handlePointerDown(event: MouseEvent) {
+      if (!productMenuRef.current?.contains(event.target as Node)) {
+        setProductsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [productsOpen]);
 
   return (
     <header className={styles.header}>
@@ -26,7 +40,11 @@ export default function Navbar() {
         </Link>
 
         <nav className={styles.desktopNav} aria-label="Primary navigation">
-          <div className={styles.productMenu}>
+          <div
+            ref={productMenuRef}
+            className={styles.productMenu}
+            onMouseLeave={() => setProductsOpen(false)}
+          >
             <button
               onClick={() => setProductsOpen(!productsOpen)}
               onMouseEnter={() => setProductsOpen(true)}
@@ -42,10 +60,7 @@ export default function Navbar() {
 
             {/* Dropdown Menu */}
             {productsOpen && (
-              <div
-                onMouseLeave={() => setProductsOpen(false)}
-                className={styles.dropdown}
-              >
+              <div className={styles.dropdown}>
                 <Link
                   href="/#services"
                   className={styles.dropdownLink}
