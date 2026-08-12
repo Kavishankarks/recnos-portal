@@ -8,7 +8,6 @@ import Section3D from "@/components/Section3D";
 import VisionSection from "@/components/VisionSection";
 import StatsSection from "@/components/StatsSection";
 import ScrollProgress from "@/components/ScrollProgress";
-import CursorSpotlight from "@/components/CursorSpotlight";
 import Magnetic from "@/components/Magnetic";
 import RevealHeading from "@/components/RevealHeading";
 import { motion } from "motion/react";
@@ -128,7 +127,6 @@ export default function Home() {
     <div className="bg-[#000000] text-white selection:bg-[#3054ff] selection:text-white relative">
       {/* Immersive overlays */}
       <ScrollProgress />
-      <CursorSpotlight />
 
       {/* 3D Parallax Floating Elements */}
       <Floating3DOrbs />
