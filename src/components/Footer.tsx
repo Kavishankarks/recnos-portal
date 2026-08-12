@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -6,31 +7,14 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
         {/* Brand Column */}
         <div className="md:col-span-5 space-y-4">
-          <Link href="/" className="flex items-center gap-2 text-white group">
-            <div className="w-6 h-6 flex items-center justify-center text-white transition-transform duration-300 group-hover:rotate-45">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-6 h-6 text-white"
-              >
-                <circle cx="12" cy="12" r="3.5" fill="currentColor" />
-                <path d="M12 2v2.5" />
-                <path d="M12 19.5V22" />
-                <path d="M4.93 4.93l1.77 1.77" />
-                <path d="M17.3 17.3l1.77 1.77" />
-                <path d="M2 12h2.5" />
-                <path d="M19.5 12H22" />
-                <path d="M4.93 19.07l1.77-1.77" />
-                <path d="M17.3 6.7l1.77-1.77" />
-              </svg>
-            </div>
-            <span className="font-instrument-sans font-bold text-xl tracking-tight text-white">RECNOS</span>
+          <Link href="/" className="flex items-center text-white group">
+            <Image
+              src="/logo.svg"
+              alt="RECNOS"
+              width={926}
+              height={200}
+              className="h-7 w-auto"
+            />
           </Link>
           <p className="text-white/60 text-sm max-w-sm leading-relaxed">
             Engineering the future of AI website generation, high-performance distributed systems, and enterprise digital solutions.

@@ -25,29 +25,14 @@
   display: inline-flex;
   align-items: center;
   justify-self: start;
-  gap: 10px;
   color: #fff;
   text-decoration: none;
   white-space: nowrap;
 }
 
-.brandIcon {
-  display: grid;
-  width: 26px;
-  height: 26px;
-  place-items: center;
-  transition: transform 300ms ease;
-}
-
-.brand:hover .brandIcon {
-  transform: rotate(45deg);
-}
-
-.brandName {
-  font-family: "Instrument Sans", sans-serif;
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.brandLogo {
+  width: auto;
+  height: 30px;
 }
 
 .desktopNav {
@@ -246,7 +231,7 @@
 }
 
 @media (max-width: 370px) {
-  .brandName {
-    display: none;
+  .brandLogo {
+    height: 24px;
   }
 }
