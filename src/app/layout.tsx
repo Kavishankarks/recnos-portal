@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import MouseSparks from "@/components/MouseSparks";
 import Scroll3DScene from "@/components/Scroll3DScene";
 
 export const metadata: Metadata = {
@@ -19,7 +18,6 @@ export default function RootLayout({
     <html lang="en" className="dark bg-black">
       <body className="bg-black text-white font-instrument-sans antialiased min-h-screen selection:bg-[#3054ff] selection:text-white">
         <Scroll3DScene />
-        <MouseSparks />
         <Navbar />
         <main className="relative z-10">{children}</main>
         <Footer />
