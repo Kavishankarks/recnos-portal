@@ -67,7 +67,7 @@ export default function Scroll3DCard({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         transition={{ type: "spring", stiffness: 350, damping: 25 }}
-        className={`preserve-3d transition-shadow duration-300 ${className}`}
+        className={`preserve-3d transition-shadow duration-300 h-full ${className}`}
       >
         {children}
       </motion.div>

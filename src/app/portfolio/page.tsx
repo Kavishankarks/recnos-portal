@@ -120,9 +120,9 @@ export default function Portfolio() {
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
-              <Scroll3DCard key={project.id} depth={15}>
-                <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
-                  <div className="space-y-4">
+              <Scroll3DCard key={project.id} depth={15} className="h-full">
+                <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full min-h-[440px] group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
+                  <div className="space-y-4 flex-1 flex flex-col">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-semibold tracking-wider uppercase text-[#64CEFB] bg-[#64CEFB]/10 px-3 py-1 rounded-full border border-[#64CEFB]/30">
                         {project.category}
@@ -141,16 +141,16 @@ export default function Portfolio() {
                       )}
                     </div>
 
-                    <h3 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug">
+                    <h3 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
                       {project.title}
                     </h3>
 
-                    <p className="font-sans text-sm text-white/70 leading-relaxed">
+                    <p className="font-sans text-sm text-white/70 leading-relaxed flex-1">
                       {project.description}
                     </p>
 
                     {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 pt-2">
+                    <div className="flex flex-wrap gap-1.5 pt-2 mt-auto">
                       {project.tech.map((t) => (
                         <span
                           key={t}
