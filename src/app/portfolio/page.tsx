@@ -162,24 +162,24 @@ export default function Portfolio() {
                     </div>
                   </div>
 
-                  {/* Card Footer */}
-                  <div className="mt-8 pt-4 border-t border-white/15 flex items-center justify-between text-xs">
-                    <div className="font-medium text-white/90">
-                      <span className="text-white/40">Impact: </span>
-                      <span className="text-[#64CEFB] font-semibold">{project.impact}</span>
-                    </div>
-
+                  {/* Card Footer - Small Visit Site Box on Bottom Right */}
+                  <div className="mt-6 pt-4 border-t border-white/15 flex justify-end">
                     {project.link ? (
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/link inline-flex items-center gap-1 text-[#64CEFB] font-semibold hover:text-white transition-colors"
+                        className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/5 hover:bg-[#64CEFB]/15 border border-white/15 hover:border-[#64CEFB]/50 text-white font-sans text-xs font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(100,206,251,0.2)]"
                       >
-                        Live Site <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
+                        <span className="group-hover/btn:text-[#64CEFB] transition-colors">
+                          Visit Site
+                        </span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#64CEFB] group-hover/btn:translate-x-1 transition-transform" />
                       </a>
                     ) : (
-                      <span className="text-white/30 italic">Case Study</span>
+                      <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-white/40 font-sans text-xs font-medium italic">
+                        <span>Case Study</span>
+                      </div>
                     )}
                   </div>
                 </div>
