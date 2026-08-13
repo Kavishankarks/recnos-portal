@@ -42,40 +42,14 @@ const projects = [
     link: "https://mr-ads.in/",
   },
   {
-    id: 3,
-    title: "FinTech Mobile Banking Ecosystem",
-    category: "Mobile",
-    description:
-      "End-to-end mobile banking application featuring zero-knowledge biometric security and instant transaction processing.",
-    tech: ["React Native", "Node.js", "GraphQL"],
-    impact: "100,000+ transactions executed",
-  },
-  {
     id: 4,
-    title: "E-Commerce AI SEO Overhaul",
-    category: "Web",
+    title: "Synapse - Industrial Training Platform",
+    category: "EdTech",
     description:
-      "Complete platform re-engineering focusing on sub-second Core Web Vitals and dynamic AI search answer engine optimization.",
-    tech: ["Next.js", "Vercel", "Sanity CMS", "Tailwind CSS"],
-    impact: "300% surge in organic traffic",
-  },
-  {
-    id: 5,
-    title: "Cloud Infrastructure Modernization",
-    category: "Cloud",
-    description:
-      "Migration of legacy monoliths to a serverless, event-driven Kubernetes architecture with automated terraform scripts.",
-    tech: ["AWS Lambda", "Terraform", "Docker", "Kubernetes"],
-    impact: "50% reduction in cloud infrastructure costs",
-  },
-  {
-    id: 6,
-    title: "AIOps Monitoring Pipeline",
-    category: "DevOps",
-    description:
-      "Predictive machine learning telemetry system monitoring distributed logs to forecast and mitigate system outages.",
-    tech: ["Prometheus", "Grafana", "Python", "PyTorch"],
-    impact: "60% reduction in Mean-Time-To-Resolution",
+      "Industrial training & talent development platform connecting institutions with industry experts, featuring AI-generated learning plans, proposal bidding, and hands-on lab environments.",
+    tech: ["Java", "Spring Boot", "Vaadin", "TypeScript", "PostgreSQL"],
+    impact: "End-to-end industrial training & lab automation",
+    link: "https://synapse.recnos.com/",
   },
 ];
 
@@ -83,10 +57,7 @@ const categories = [
   "All",
   "AI",
   "Distributed Systems",
-  "Mobile",
-  "Web",
-  "Cloud",
-  "DevOps",
+  "EdTech",
   "Marketing",
 ];
 
