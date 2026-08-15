@@ -42,40 +42,14 @@ const projects = [
     link: "https://mr-ads.in/",
   },
   {
-    id: 3,
-    title: "FinTech Mobile Banking Ecosystem",
-    category: "Mobile",
-    description:
-      "End-to-end mobile banking application featuring zero-knowledge biometric security and instant transaction processing.",
-    tech: ["React Native", "Node.js", "GraphQL"],
-    impact: "100,000+ transactions executed",
-  },
-  {
     id: 4,
-    title: "E-Commerce AI SEO Overhaul",
-    category: "Web",
+    title: "Synapse - Industrial Training Platform",
+    category: "EdTech",
     description:
-      "Complete platform re-engineering focusing on sub-second Core Web Vitals and dynamic AI search answer engine optimization.",
-    tech: ["Next.js", "Vercel", "Sanity CMS", "Tailwind CSS"],
-    impact: "300% surge in organic traffic",
-  },
-  {
-    id: 5,
-    title: "Cloud Infrastructure Modernization",
-    category: "Cloud",
-    description:
-      "Migration of legacy monoliths to a serverless, event-driven Kubernetes architecture with automated terraform scripts.",
-    tech: ["AWS Lambda", "Terraform", "Docker", "Kubernetes"],
-    impact: "50% reduction in cloud infrastructure costs",
-  },
-  {
-    id: 6,
-    title: "AIOps Monitoring Pipeline",
-    category: "DevOps",
-    description:
-      "Predictive machine learning telemetry system monitoring distributed logs to forecast and mitigate system outages.",
-    tech: ["Prometheus", "Grafana", "Python", "PyTorch"],
-    impact: "60% reduction in Mean-Time-To-Resolution",
+      "Industrial training & talent development platform connecting institutions with industry experts, featuring AI-generated learning plans, proposal bidding, and hands-on lab environments.",
+    tech: ["Java", "Spring Boot", "Vaadin", "TypeScript", "PostgreSQL"],
+    impact: "End-to-end industrial training & lab automation",
+    link: "https://synapse.recnos.com/",
   },
 ];
 
@@ -83,10 +57,7 @@ const categories = [
   "All",
   "AI",
   "Distributed Systems",
-  "Mobile",
-  "Web",
-  "Cloud",
-  "DevOps",
+  "EdTech",
   "Marketing",
 ];
 
@@ -149,9 +120,9 @@ export default function Portfolio() {
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
-              <Scroll3DCard key={project.id} depth={15}>
-                <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
-                  <div className="space-y-4">
+              <Scroll3DCard key={project.id} depth={15} className="h-full">
+                <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full min-h-[440px] group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
+                  <div className="space-y-4 flex-1 flex flex-col">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-semibold tracking-wider uppercase text-[#64CEFB] bg-[#64CEFB]/10 px-3 py-1 rounded-full border border-[#64CEFB]/30">
                         {project.category}
@@ -170,16 +141,16 @@ export default function Portfolio() {
                       )}
                     </div>
 
-                    <h3 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug">
+                    <h3 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
                       {project.title}
                     </h3>
 
-                    <p className="font-sans text-sm text-white/70 leading-relaxed">
+                    <p className="font-sans text-sm text-white/70 leading-relaxed flex-1">
                       {project.description}
                     </p>
 
                     {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 pt-2">
+                    <div className="flex flex-wrap gap-1.5 pt-2 mt-auto">
                       {project.tech.map((t) => (
                         <span
                           key={t}
@@ -191,24 +162,24 @@ export default function Portfolio() {
                     </div>
                   </div>
 
-                  {/* Card Footer */}
-                  <div className="mt-8 pt-4 border-t border-white/15 flex items-center justify-between text-xs">
-                    <div className="font-medium text-white/90">
-                      <span className="text-white/40">Impact: </span>
-                      <span className="text-[#64CEFB] font-semibold">{project.impact}</span>
-                    </div>
-
+                  {/* Card Footer - Small Visit Site Box on Bottom Right */}
+                  <div className="mt-6 pt-4 border-t border-white/15 flex justify-end">
                     {project.link ? (
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/link inline-flex items-center gap-1 text-[#64CEFB] font-semibold hover:text-white transition-colors"
+                        className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/5 hover:bg-[#64CEFB]/15 border border-white/15 hover:border-[#64CEFB]/50 text-white font-sans text-xs font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(100,206,251,0.2)]"
                       >
-                        Live Site <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
+                        <span className="group-hover/btn:text-[#64CEFB] transition-colors">
+                          Visit Site
+                        </span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#64CEFB] group-hover/btn:translate-x-1 transition-transform" />
                       </a>
                     ) : (
-                      <span className="text-white/30 italic">Case Study</span>
+                      <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-white/40 font-sans text-xs font-medium italic">
+                        <span>Case Study</span>
+                      </div>
                     )}
                   </div>
                 </div>
