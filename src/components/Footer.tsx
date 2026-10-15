@@ -17,32 +17,32 @@ export default function Footer() {
             />
           </Link>
           <p className="text-white/60 text-sm max-w-sm leading-relaxed">
-            Engineering the future of AI website generation, high-performance distributed systems, and enterprise digital solutions.
+            An engineering studio building AI products, distributed systems, and the platforms enterprises run on.
           </p>
         </div>
 
-        {/* Links Column 1: Product */}
+        {/* Links Column 1: Services */}
         <div className="md:col-span-2 space-y-3">
-          <h2 className="text-sm font-semibold text-white uppercase tracking-wider">Product</h2>
+          <h2 className="text-sm font-semibold text-white uppercase tracking-wider">Services</h2>
           <ul className="space-y-2 text-sm text-white/60">
             <li>
               <Link href="/#services" className="hover:text-white transition-colors">
-                AI Engine
+                AI Engineering
+              </Link>
+            </li>
+            <li>
+              <Link href="/#services" className="hover:text-white transition-colors">
+                Distributed Systems
+              </Link>
+            </li>
+            <li>
+              <Link href="/#services" className="hover:text-white transition-colors">
+                SEO &amp; AEO
               </Link>
             </li>
             <li>
               <Link href="/portfolio" className="hover:text-white transition-colors">
-                Templates
-              </Link>
-            </li>
-            <li>
-              <Link href="/#services" className="hover:text-white transition-colors">
-                SEO & AEO
-              </Link>
-            </li>
-            <li>
-              <Link href="/#contact" className="hover:text-white transition-colors">
-                Pricing
+                Portfolio
               </Link>
             </li>
           </ul>
@@ -53,18 +53,18 @@ export default function Footer() {
           <h2 className="text-sm font-semibold text-white uppercase tracking-wider">Company</h2>
           <ul className="space-y-2 text-sm text-white/60">
             <li>
-              <Link href="/portfolio" className="hover:text-white transition-colors">
-                Customer Stories
+              <Link href="/#vision" className="hover:text-white transition-colors">
+                About
               </Link>
             </li>
             <li>
               <Link href="/#services" className="hover:text-white transition-colors">
-                Resources
+                Capabilities
               </Link>
             </li>
             <li>
               <Link href="/#contact" className="hover:text-white transition-colors">
-                Book A Demo
+                Book A Call
               </Link>
             </li>
           </ul>
@@ -94,7 +94,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-4">
         <p>&copy; {new Date().getFullYear()} RECNOS Inc. All rights reserved.</p>
         <p className="font-instrument-serif text-sm text-white/60">
-          Design at the speed of thought.
+          Engineering, end to end.
         </p>
       </div>
     </footer>
