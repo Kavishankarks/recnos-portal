@@ -29,7 +29,7 @@ export async function generateMetadata({
     return { title: "Case study not found" };
   }
 
-  const description = project.outcome || project.description;
+  const description = project.metaDescription;
   const url = `https://recnos.com/portfolio/${project.slug}`;
 
   return {
@@ -74,7 +74,7 @@ export default async function ProjectPage({ params }: PageProps) {
     "@id": `https://recnos.com/portfolio/${project.slug}#casestudy`,
     name: project.title,
     about: project.category,
-    description: project.outcome || project.description,
+    description: project.metaDescription,
     url: `https://recnos.com/portfolio/${project.slug}`,
     keywords: project.tech.join(", "),
     ...(project.source

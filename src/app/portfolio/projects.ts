@@ -33,6 +33,12 @@ export type Project = {
   title: string;
   category: string;
   description: string;
+  /**
+   * Search-result snippet, 50–160 characters. Kept separate from `outcome`,
+   * which is written as a full paragraph for the page body and overruns the
+   * length a snippet is allowed.
+   */
+  metaDescription: string;
   tech: string[];
   impact: string;
   link: string;
@@ -58,6 +64,8 @@ export const projects: Project[] = [
     category: "AI",
     description:
       "From a feature-rich AI generator to the definitive go-to platform for creators — built on persistent creator memory, multi-agent orchestration, and proprietary style flywheels.",
+    metaDescription:
+      "How RECNOS built Rolit AI: an autonomous agent managing a brand's full marketing pipeline, on persistent creator memory and multi-agent orchestration.",
     tech: ["Python", "Java", "Golang", "React Native", "PostgreSQL", "MongoDB"],
     impact:
       "Persistent creator memory & multi-agent orchestration, purpose-built for creators",
@@ -75,6 +83,8 @@ export const projects: Project[] = [
     category: "Distributed Systems",
     description:
       "Real-time PG accommodations discovery engine in Bangalore with AI search indexing, interactive maps, and payment integration.",
+    metaDescription:
+      "How RECNOS built Trovare: a real-time PG marketplace in Bangalore, with programmatic locality pages, geospatial search and Razorpay subscriptions.",
     tech: ["Next.js 16", "React 19", "TypeScript", "Vite", "Razorpay"],
     impact: "1000+ active monthly users",
     link: "https://trovare.in/",
@@ -171,6 +181,8 @@ export const projects: Project[] = [
     category: "Marketing",
     description:
       "Digital ad network operating high-definition display hardware in dining venues across Bengaluru with scheduled content rotation.",
+    metaDescription:
+      "How RECNOS built Mr. Ads: a statically-rendered site for a Bengaluru digital signage network, covering eight venue types with no CMS or database.",
     tech: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS"],
     impact: "High-density venue visibility network",
     link: "https://mr-ads.in/",
@@ -238,6 +250,8 @@ export const projects: Project[] = [
     category: "EdTech",
     description:
       "Industrial training & talent development platform connecting institutions with industry experts, featuring AI-generated learning plans, proposal bidding, and hands-on lab environments.",
+    metaDescription:
+      "How RECNOS built Synapse: an industrial training platform with AI-generated learning plans, proposal bidding and hands-on lab environments.",
     tech: ["Java", "Spring Boot", "Vaadin", "TypeScript", "PostgreSQL"],
     impact: "End-to-end industrial training & lab automation",
     link: "https://synapse.recnos.com/",

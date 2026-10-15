@@ -31,6 +31,33 @@ export default function PortfolioProjects() {
         {/* Subtle Ambient Glow */}
         <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-900/15 blur-[140px] rounded-full z-0" />
 
+        {/*
+          Crawlable summary of every case study. The grid below is client
+          rendered, so this is the copy a crawler without JavaScript actually
+          sees — including the links, which make the four detail pages
+          reachable in the raw HTML.
+        */}
+        <nav aria-label="Case studies" className="sr-only">
+          <h2>RECNOS client case studies</h2>
+          <p>
+            RECNOS is an engineering studio. These four case studies document
+            the AI, distributed-systems, and marketing platforms the studio
+            has designed, built, and scaled. Each page records the challenge,
+            the engineering approach, and the verified outcome.
+          </p>
+          <ul>
+            {projects.map((project) => (
+              <li key={project.slug}>
+                <Link href={`/portfolio/${project.slug}`}>
+                  {project.title}
+                </Link>
+                {" — "}
+                {project.description}
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="max-w-7xl mx-auto relative z-10 space-y-16">
           {/* Header */}
           <div className="text-center space-y-4 max-w-3xl mx-auto">
@@ -107,11 +134,11 @@ export default function PortfolioProjects() {
                       )}
                     </div>
 
-                    <h3 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
+                    <h2 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
                       <Link href={`/portfolio/${project.slug}`} className="hover:underline decoration-white/30 underline-offset-4">
                         {project.title}
                       </Link>
-                    </h3>
+                    </h2>
 
                     <p className="font-sans text-sm text-white/70 leading-relaxed flex-1">
                       {project.description}

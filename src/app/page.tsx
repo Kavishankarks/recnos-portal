@@ -215,7 +215,7 @@ export default function Home() {
             </span>
             <RevealHeading
               text="What Does RECNOS Build?"
-              as="h3"
+              as="h2"
               className="font-instrument-serif text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] text-white"
             />
             <p className="mx-auto max-w-2xl font-instrument-sans text-base leading-relaxed text-white/60 sm:text-lg">
@@ -268,7 +268,7 @@ export default function Home() {
                         >
                           <Icon className="w-6 h-6" />
                         </div>
-                        <h4
+                        <h3
               className={`font-instrument-sans font-semibold text-lg mb-2.5 transition-colors ${
                 isSelected
                   ? "text-[#b4c0ff]"
@@ -276,7 +276,7 @@ export default function Home() {
               }`}
             >
               {item.title}
-            </h4>
+            </h3>
                         <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
                           {item.description}
                         </p>
@@ -321,7 +321,7 @@ export default function Home() {
               </span>
               <RevealHeading
                 text="Why Choose RECNOS?"
-                as="h3"
+                as="h2"
                 className="font-instrument-serif text-[clamp(2.5rem,4.5vw,3.5rem)] leading-[1.08] text-white"
               />
               <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
@@ -365,9 +365,9 @@ export default function Home() {
                       <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white font-bold text-sm">
                         0{idx + 1}
                       </div>
-                      <h4 className="font-instrument-sans font-semibold text-lg text-white">
+                      <h3 className="font-instrument-sans font-semibold text-lg text-white">
                         {benefit.title}
-                      </h4>
+                      </h3>
                       <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
                         {benefit.description}
                       </p>
@@ -392,7 +392,7 @@ export default function Home() {
           >
             <RevealHeading
               text="Which Technologies Does RECNOS Use?"
-              as="h3"
+              as="h2"
               className="font-instrument-serif text-3xl sm:text-5xl text-white"
             />
             <p className="font-instrument-sans text-white/60 text-base max-w-xl mx-auto">
@@ -453,7 +453,7 @@ export default function Home() {
                 </span>
                 <RevealHeading
                   text="How Do You Start a Project with RECNOS?"
-                  as="h3"
+                  as="h2"
                   className="font-instrument-serif text-3xl sm:text-5xl text-white leading-tight"
                 />
                 <p className="font-instrument-sans text-white/70 text-base leading-relaxed">

@@ -10,6 +10,14 @@ export default function Scroll3DScene() {
     const container = mountRef.current;
     if (!container) return;
 
+    // Respect reduced-motion: the scene animates continuously and renders
+    // every frame, so for anyone who has asked for less motion the whole
+    // canvas is skipped rather than just slowed down.
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+    if (prefersReducedMotion.matches) return;
+
     // 1. Scene & Camera Setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(

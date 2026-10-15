@@ -96,6 +96,11 @@ export default function Hero() {
         >
           <span className={styles.aiHighlight}>AI</span>{" "}
           <span className={styles.titleGradientText}>+ Scalable Software</span>
+          <span className="sr-only">
+            {" "}
+            engineering studio — RECNOS builds AI foundation models,
+            distributed systems, and enterprise web and mobile platforms
+          </span>
         </motion.h1>
 
         {/* Subheadline */}
