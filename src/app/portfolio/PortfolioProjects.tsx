@@ -4,7 +4,6 @@ import { useState } from "react";
 import { ExternalLink, ArrowRight, FolderGit2 } from "lucide-react";
 import Link from "next/link";
 import Scroll3DCard from "@/components/Scroll3DCard";
-import DesignProHero from "@/components/DesignProHero";
 import ShinyText from "@/components/ShinyText";
 import Scroll3DScene from "@/components/Scroll3DScene";
 import Floating3DOrbs from "@/components/Floating3DOrbs";
@@ -24,11 +23,11 @@ export default function PortfolioProjects() {
       <Scroll3DScene />
       <Floating3DOrbs />
 
-      {/* DesignPro / RECNOS Full-Screen Hero Section */}
-      <DesignProHero />
-
-      {/* Case Studies Section */}
-      <div id="projects" className="pb-28 px-4 sm:px-8 lg:px-12 relative pt-20 sm:pt-28 bg-[#000000]/80 backdrop-blur-[2px]">
+      {/* Case Studies Section.
+          This section's own heading is the page's h1 — the full-screen
+          DesignProHero was removed because it stacked a second, near-identical
+          "Engineer Scalable AI Systems." heading directly above it. */}
+      <div id="projects" className="pb-28 px-4 sm:px-8 lg:px-12 relative pt-32 sm:pt-40 bg-[#000000]/80 backdrop-blur-[2px]">
         {/* Subtle Ambient Glow */}
         <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-900/15 blur-[140px] rounded-full z-0" />
 
@@ -38,10 +37,10 @@ export default function PortfolioProjects() {
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-black/40 border border-gray-700 text-white/80 backdrop-blur-md">
               <FolderGit2 className="w-3.5 h-3.5" /> Client Case Studies
             </span>
-            <h2 className="font-sans font-bold text-4xl sm:text-6xl text-white tracking-tight leading-tight">
+            <h1 className="font-sans font-bold text-4xl sm:text-6xl text-white tracking-tight leading-tight">
               Engineering That{" "}
               <ShinyText text="Scales." speed={3} className="font-bold" />
-            </h2>
+            </h1>
             <p className="font-sans text-white/80 text-base sm:text-lg leading-relaxed">
               Explore how we help forward-thinking teams launch AI-native software, resilient microservices, and high-converting platforms.
             </p>
@@ -82,13 +81,13 @@ export default function PortfolioProjects() {
 
           {/* Projects Grid */}
           <div className="space-y-8">
-            <h3 className="font-sans text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+            <h2 className="font-sans text-2xl sm:text-3xl font-semibold text-white tracking-tight">
               What Has RECNOS Built?
-            </h3>
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
               <Scroll3DCard key={project.id} depth={15} className="h-full">
-                <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full min-h-[440px] group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
+                <div className="glass-card p-7 rounded-2xl flex flex-col justify-between h-full min-h-[360px] group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
                   <div className="space-y-4 flex-1 flex flex-col">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-semibold tracking-wider uppercase text-[#64CEFB] bg-[#64CEFB]/10 px-3 py-1 rounded-full border border-[#64CEFB]/30">
@@ -108,66 +107,34 @@ export default function PortfolioProjects() {
                       )}
                     </div>
 
-                    <h4 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
+                    <h3 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
                       <Link href={`/portfolio/${project.slug}`} className="hover:underline decoration-white/30 underline-offset-4">
                         {project.title}
                       </Link>
-                    </h4>
+                    </h3>
 
                     <p className="font-sans text-sm text-white/70 leading-relaxed flex-1">
                       {project.description}
                     </p>
 
-                    {/* Evidence — only rendered once real detail is supplied.
-                        Kept empty rather than padded with capability claims. */}
-                    {(project.challenge ||
-                      project.approach ||
-                      project.outcome) && (
-                      <dl className="space-y-2 pt-1 text-left">
-                        {project.challenge && (
-                          <div>
-                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
-                              Challenge
-                            </dt>
-                            <dd className="text-sm text-white/70 leading-relaxed">
-                              {project.challenge}
-                            </dd>
-                          </div>
+                    {/* Evidence summary — counts only. The full challenge,
+                        approach and engineering detail live on the case study
+                        page, so cards stay uniform in height. */}
+                    {(project.engineering?.length || project.pages?.length) && (
+                      <ul className="space-y-1.5 pt-1 text-left">
+                        {project.engineering && project.engineering.length > 0 && (
+                          <li className="flex items-center gap-2 text-xs font-sans text-white/55">
+                            <span className="w-1 h-1 rounded-full bg-[#64CEFB]/70 shrink-0" />
+                            {project.engineering.length} engineering details
+                          </li>
                         )}
-                        {project.approach && (
-                          <div>
-                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
-                              Approach
-                            </dt>
-                            <dd className="text-sm text-white/70 leading-relaxed">
-                              {project.approach}
-                            </dd>
-                          </div>
+                        {project.pages && project.pages.length > 0 && (
+                          <li className="flex items-center gap-2 text-xs font-sans text-white/55">
+                            <span className="w-1 h-1 rounded-full bg-[#64CEFB]/70 shrink-0" />
+                            {project.pages.length} routes documented
+                          </li>
                         )}
-                        {project.outcome && (
-                          <div>
-                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
-                              Outcome
-                            </dt>
-                            <dd className="text-sm text-white/70 leading-relaxed">
-                              {project.outcome}
-                              {project.source && (
-                                <>
-                                  {" "}
-                                  <a
-                                    href={project.source.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[#64CEFB] underline decoration-[#64CEFB]/40 underline-offset-2 hover:decoration-[#64CEFB]"
-                                  >
-                                    {project.source.label}
-                                  </a>
-                                </>
-                              )}
-                            </dd>
-                          </div>
-                        )}
-                      </dl>
+                      </ul>
                     )}
 
                     {/* Tech Badges */}
