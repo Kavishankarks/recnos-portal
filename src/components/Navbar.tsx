@@ -51,7 +51,7 @@ export default function Navbar() {
               className={styles.productTrigger}
               aria-expanded={productsOpen}
             >
-              Products
+              Services
               <ChevronDown
                 className={`${styles.chevron} ${productsOpen ? styles.chevronOpen : ""}`}
                 aria-hidden="true"
@@ -66,21 +66,21 @@ export default function Navbar() {
                   className={styles.dropdownLink}
                   onClick={() => setProductsOpen(false)}
                 >
-                  AI Builder Core
-                </Link>
-                <Link
-                  href="/portfolio"
-                  className={styles.dropdownLink}
-                  onClick={() => setProductsOpen(false)}
-                >
-                  Enterprise Templates
+                  AI Engineering
                 </Link>
                 <Link
                   href="/#services"
                   className={styles.dropdownLink}
                   onClick={() => setProductsOpen(false)}
                 >
-                  SEO & AEO Engine
+                  Distributed Systems
+                </Link>
+                <Link
+                  href="/#services"
+                  className={styles.dropdownLink}
+                  onClick={() => setProductsOpen(false)}
+                >
+                  SEO &amp; AEO
                 </Link>
               </div>
             )}
@@ -90,32 +90,32 @@ export default function Navbar() {
             href="/portfolio"
             className={styles.navLink}
           >
-            Customer Stories
+            Portfolio
           </Link>
 
           <Link
-            href="/#services"
+            href="/#vision"
             className={styles.navLink}
           >
-            Resources
+            About
           </Link>
 
           <Link
             href="/#contact"
             className={styles.navLink}
           >
-            Pricing
+            Contact
           </Link>
         </nav>
 
         {/* Right Section */}
         <div className={styles.actions}>
-          {/* Book A Demo link */}
+          {/* Book A Call link */}
           <Link
             href="/#contact"
             className={styles.demoLink}
           >
-            Book A Demo
+            Book A Call
           </Link>
 
           {/* Get Started button */}
@@ -146,35 +146,35 @@ export default function Navbar() {
             className={styles.mobileLink}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Products
+            Services
           </Link>
           <Link
             href="/portfolio"
             className={styles.mobileLink}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Customer Stories
+            Portfolio
           </Link>
           <Link
-            href="/#services"
+            href="/#vision"
             className={styles.mobileLink}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Resources
-          </Link>
-          <Link
-            href="/#contact"
-            className={styles.mobileLink}
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Pricing
+            About
           </Link>
           <Link
             href="/#contact"
             className={styles.mobileLink}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Book A Demo
+            Contact
+          </Link>
+          <Link
+            href="/#contact"
+            className={styles.mobileLink}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Book A Call
           </Link>
         </nav>
       )}
