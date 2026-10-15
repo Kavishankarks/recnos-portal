@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Rolit tool artifacts
 .rolit/
+
+# Vendored client source trees, copied in for case-study research only.
+# Never commit these — they belong to other repos.
+/.research/

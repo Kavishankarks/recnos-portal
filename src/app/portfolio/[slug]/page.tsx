@@ -194,7 +194,100 @@ export default async function ProjectPage({ params }: PageProps) {
           )}
         </div>
 
-        {/* Stack */}
+        {/* Stack — verified versions from the client's source tree */}
+        {project.stack && project.stack.length > 0 && (
+          <section className="mt-10">
+            <h2 className="font-sans text-xl font-semibold text-white tracking-tight">
+              Stack
+            </h2>
+            <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+              {project.stack.map((row) => (
+                <div
+                  key={row.label}
+                  className="flex flex-col gap-0.5 border-t border-white/10 pt-2.5"
+                >
+                  <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+                    {row.label}
+                  </dt>
+                  <dd className="font-sans text-sm text-white/85">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+
+        {/* Engineering detail — each item is something that exists in the code */}
+        {project.engineering && project.engineering.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-sans text-xl font-semibold text-white tracking-tight">
+              Engineering
+            </h2>
+            <ul className="mt-5 space-y-6">
+              {project.engineering.map((item) => (
+                <li key={item.title} className="border-l-2 border-[#64CEFB]/30 pl-5">
+                  <h3 className="font-sans text-base font-semibold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1.5 font-sans text-sm text-white/70 leading-relaxed">
+                    {item.detail}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/* Page inventory */}
+        {project.pages && project.pages.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-sans text-xl font-semibold text-white tracking-tight">
+              Pages
+            </h2>
+            <p className="mt-2 font-sans text-sm text-white/55">
+              {project.pages.length} routes in the shipped product.
+            </p>
+            <div className="mt-5 overflow-hidden rounded-xl border border-white/12">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-white/[0.04]">
+                    <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-white/45 w-[38%]">
+                      Route
+                    </th>
+                    <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-white/45">
+                      What it does
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {project.pages.map((page) => (
+                    <tr key={page.path} className="border-t border-white/10 align-top">
+                      <td className="px-4 py-2.5 font-mono text-xs text-[#64CEFB] break-all">
+                        {page.path}
+                      </td>
+                      <td className="px-4 py-2.5 font-sans text-sm text-white/70 leading-relaxed">
+                        {page.summary}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {/* Scope note — what this build does not include */}
+        {project.scopeNote && (
+          <aside className="mt-12 rounded-2xl border border-white/12 bg-white/[0.03] p-6 sm:p-7">
+            <h2 className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+              Scope
+            </h2>
+            <p className="mt-2.5 font-sans text-sm text-white/65 leading-relaxed">
+              {project.scopeNote}
+            </p>
+          </aside>
+        )}
+
+        {/* Technology tags */}
         <section className="mt-10">
           <h2 className="font-sans text-xl font-semibold text-white tracking-tight">
             Technology

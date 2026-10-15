@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored client source trees copied in for case-study research.
+    // Not part of this app — linting them buries real findings.
+    ".research/**",
   ]),
 ]);
 
