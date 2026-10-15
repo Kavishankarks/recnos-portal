@@ -134,6 +134,32 @@ export default function Home() {
       {/* Dark Mode Hero Component */}
       <Hero />
 
+      {/* Answer-first intro — gives readers and AI answer engines a direct, quotable summary */}
+      <section className="relative border-t border-white/5 bg-white/[0.01] px-4 py-14 sm:px-6 sm:py-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="font-instrument-sans text-base leading-relaxed text-white/80 sm:text-lg">
+            RECNOS is an engineering studio that builds AI foundation models,
+            distributed systems, and enterprise web and mobile platforms. Teams
+            hire RECNOS to design, ship, and scale production software — from
+            multi-agent AI products to high-traffic marketplaces — with SEO and
+            answer-engine optimization built in from the first commit.
+          </p>
+          <p className="mt-6 font-instrument-sans text-xs text-white/45">
+            Last updated: <time dateTime="2026-10-15">15 October 2026</time>
+            {" · "}
+            <span>
+              By{" "}
+              <a
+                href="mailto:dev@recnos.com"
+                className="underline decoration-white/20 underline-offset-2 hover:text-white/80"
+              >
+                The RECNOS Engineering Team
+              </a>
+            </span>
+          </p>
+        </div>
+      </section>
+
       {/* Company Vision — scroll-driven word reveal with 3D parallax */}
       <VisionSection />
 
@@ -240,15 +266,15 @@ export default function Home() {
                         >
                           <Icon className="w-6 h-6" />
                         </div>
-                        <h3
-                          className={`font-instrument-sans font-semibold text-lg mb-2.5 transition-colors ${
-                            isSelected
-                              ? "text-[#b4c0ff]"
-                              : "text-white group-hover:text-[#b4c0ff]"
-                          }`}
-                        >
-                          {item.title}
-                        </h3>
+                        <h4
+              className={`font-instrument-sans font-semibold text-lg mb-2.5 transition-colors ${
+                isSelected
+                  ? "text-[#b4c0ff]"
+                  : "text-white group-hover:text-[#b4c0ff]"
+              }`}
+            >
+              {item.title}
+            </h4>
                         <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
                           {item.description}
                         </p>
@@ -336,9 +362,9 @@ export default function Home() {
                       <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white font-bold text-sm">
                         0{idx + 1}
                       </div>
-                      <h3 className="font-instrument-sans font-semibold text-lg text-white">
+                      <h4 className="font-instrument-sans font-semibold text-lg text-white">
                         {benefit.title}
-                      </h3>
+                      </h4>
                       <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
                         {benefit.description}
                       </p>
@@ -370,7 +396,7 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <motion.div
+          <motion.ul
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
@@ -378,10 +404,10 @@ export default function Home() {
               hidden: {},
               show: { transition: { staggerChildren: 0.035 } },
             }}
-            className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto perspective-1000"
+            className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto perspective-1000 list-none"
           >
             {technologies.map((tech, i) => (
-              <motion.span
+              <motion.li
                 key={i}
                 variants={{
                   hidden: { opacity: 0, scale: 0.6, rotateX: 60, y: 20 },
@@ -392,9 +418,9 @@ export default function Home() {
                 className="px-4 py-2 rounded-full text-sm font-instrument-sans bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 hover:border-[#3054ff]/40 transition-colors duration-200 cursor-default"
               >
                 {tech}
-              </motion.span>
+              </motion.li>
             ))}
-          </motion.div>
+          </motion.ul>
         </Section3D>
       </section>
 
@@ -426,7 +452,7 @@ export default function Home() {
                   className="font-instrument-serif text-4xl sm:text-5xl text-white leading-tight"
                 />
                 <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
-                  Ready to engineer the future? Let's discuss your project.
+                  Ready to engineer the future? Let&apos;s discuss your project.
                 </p>
 
                 <div className="space-y-4 pt-4 border-t border-white/10">

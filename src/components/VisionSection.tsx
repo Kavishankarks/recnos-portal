@@ -107,20 +107,19 @@ export default function VisionSection() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl">
-        <motion.div
-          style={{ z: badgeZ }}
-          className="preserve-3d mb-10 flex justify-center"
-        >
-          <motion.span
+        {/* Section heading */}
+        <div className="perspective-1000 mb-10 flex justify-center">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.6 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 rounded-full border border-[#3054ff]/25 bg-[#3054ff]/10 px-4 py-1.5 text-xs font-medium text-[#b4c0ff]"
+            style={{ z: badgeZ }}
+            className="inline-flex items-center gap-2 rounded-full border border-[#3054ff]/25 bg-[#3054ff]/10 px-4 py-1.5 font-instrument-sans text-xs font-medium text-[#b4c0ff]"
           >
             <Eye className="h-3.5 w-3.5" /> Our Vision
-          </motion.span>
-        </motion.div>
+          </motion.h2>
+        </div>
 
         {/* Scroll-driven word-by-word 3D reveal */}
         <div ref={textRef} className="perspective-1000">
@@ -165,9 +164,9 @@ export default function VisionSection() {
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#3054ff]/20 bg-[#3054ff]/10 text-[#3054ff]">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h3 className="font-instrument-sans text-lg font-semibold text-white">
+                    <h4 className="font-instrument-sans text-lg font-semibold text-white">
                       {pillar.title}
-                    </h3>
+                    </h4>
                     <p className="font-instrument-sans text-xs leading-relaxed text-white/60">
                       {pillar.description}
                     </p>

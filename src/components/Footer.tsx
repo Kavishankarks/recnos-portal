@@ -23,7 +23,7 @@ export default function Footer() {
 
         {/* Links Column 1: Product */}
         <div className="md:col-span-2 space-y-3">
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Product</h4>
+          <h2 className="text-sm font-semibold text-white uppercase tracking-wider">Product</h2>
           <ul className="space-y-2 text-sm text-white/60">
             <li>
               <Link href="/#services" className="hover:text-white transition-colors">
@@ -50,7 +50,7 @@ export default function Footer() {
 
         {/* Links Column 2: Company */}
         <div className="md:col-span-2 space-y-3">
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Company</h4>
+          <h2 className="text-sm font-semibold text-white uppercase tracking-wider">Company</h2>
           <ul className="space-y-2 text-sm text-white/60">
             <li>
               <Link href="/portfolio" className="hover:text-white transition-colors">
@@ -72,7 +72,7 @@ export default function Footer() {
 
         {/* Links Column 3: Connect */}
         <div className="md:col-span-3 space-y-3">
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wider">Contact</h4>
+          <h2 className="text-sm font-semibold text-white uppercase tracking-wider">Contact</h2>
           <ul className="space-y-2 text-sm text-white/60">
             <li>
               <a href="mailto:dev@recnos.com" className="hover:text-white transition-colors">
