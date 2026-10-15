@@ -1,304 +1,239 @@
-"use client";
-
-import { useState } from "react";
-import { ExternalLink, ArrowRight, FolderGit2 } from "lucide-react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import Scroll3DCard from "@/components/Scroll3DCard";
-import DesignProHero from "@/components/DesignProHero";
-import ShinyText from "@/components/ShinyText";
-import Scroll3DScene from "@/components/Scroll3DScene";
-import Floating3DOrbs from "@/components/Floating3DOrbs";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { getProjectBySlug, projects } from "../projects";
 
-const projects = [
-  {
-    id: 1,
-    title: "Rolit AI - Making Content Creation Truly AI-Native",
-    category: "AI",
-    description:
-      "From a feature-rich AI generator to the definitive go-to platform for creators — built on persistent creator memory, multi-agent orchestration, and proprietary style flywheels.",
-    tech: ["Python", "Java", "Golang", "React Native", "PostgreSQL", "MongoDB"],
-    impact:
-      "Persistent creator memory & multi-agent orchestration, purpose-built for creators",
-    link: "https://rolit.ai/",
-    outcome:
-      "An autonomous AI agent that manages a brand's full marketing pipeline from research to ready-to-post content, learning voice, style and identity from existing material. Publicly documented at rolit.ai (retrieved 15 Oct 2026).",
-    source: { label: "rolit.ai", url: "https://rolit.ai/" },
-    challenge: "",
-    approach: "",
-  },
-  {
-    id: 2,
-    title: "PG Marketplace Engine",
-    category: "Distributed Systems",
-    description:
-      "Real-time PG accommodations discovery engine in Bangalore with AI search indexing, interactive maps, and payment integration.",
-    tech: ["Java", "React", "PostgreSQL", "AI Search", "Stripe"],
-    impact: "1000+ active monthly users",
-    link: "https://trovare.in/",
-    outcome:
-      "Trovare publicly lists 500+ verified PG listings across Bangalore, covering Koramangala, Indiranagar, HSR Layout and Whitefield, with search near IT parks and no-broker direct owner contact. Source: trovare.in (retrieved 15 Oct 2026).",
-    source: { label: "trovare.in", url: "https://trovare.in/" },
-    challenge: "",
-    approach: "",
-  },
-  {
-    id: 7,
-    title: "Mr. Ads - In-Restaurant Digital Signage Network",
-    category: "Marketing",
-    description:
-      "Digital ad network operating high-definition display hardware in dining venues across Bengaluru with scheduled content rotation.",
-    tech: ["Digital Signage", "Next.js", "Node.js", "HLS.js"],
-    impact: "High-density venue visibility network",
-    link: "https://mr-ads.in/",
-    outcome:
-      "The network publicly reports 2,400+ screens in restaurants and bistros, 1,100+ in residential apartments, 310+ gym locations and 180+ hostel clusters — 31,400+ screens live across 8 ad environments, reaching 18M+ monthly. Source: mr-ads.in (retrieved 15 Oct 2026).",
-    source: { label: "mr-ads.in", url: "https://mr-ads.in/" },
-    challenge: "",
-    approach: "",
-  },
-  {
-    id: 4,
-    title: "Synapse - Industrial Training Platform",
-    category: "EdTech",
-    description:
-      "Industrial training & talent development platform connecting institutions with industry experts, featuring AI-generated learning plans, proposal bidding, and hands-on lab environments.",
-    tech: ["Java", "Spring Boot", "Vaadin", "TypeScript", "PostgreSQL"],
-    impact: "End-to-end industrial training & lab automation",
-    link: "https://synapse.recnos.com/",
-    challenge: "",
-    approach: "",
-    outcome: "",
-  },
-];
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
 
-const categories = [
-  "All",
-  "AI",
-  "Distributed Systems",
-  "EdTech",
-  "Marketing",
-];
+/**
+ * Pre-render one page per known project. Anything outside this list is not a
+ * valid route, so `dynamicParams = false` turns unknown slugs into a real 404
+ * instead of a soft-404 that serves the listing page.
+ */
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
 
-export default function Portfolio() {
-  const [activeCategory, setActiveCategory] = useState("All");
+export const dynamicParams = false;
 
-  const filteredProjects =
-    activeCategory === "All"
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+
+  if (!project) {
+    return { title: "Case study not found" };
+  }
+
+  const description = project.outcome || project.description;
+  const url = `https://recnos.com/portfolio/${project.slug}`;
+
+  return {
+    title: project.title,
+    description,
+    alternates: {
+      canonical: `/portfolio/${project.slug}`,
+    },
+    openGraph: {
+      type: "article",
+      url,
+      siteName: "RECNOS",
+      title: `${project.title} | RECNOS`,
+      description,
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: `${project.title} — RECNOS case study`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | RECNOS`,
+      description,
+      images: ["/og.png"],
+    },
+  };
+}
+
+export default async function ProjectPage({ params }: PageProps) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+
+  if (!project) notFound();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `https://recnos.com/portfolio/${project.slug}#casestudy`,
+    name: project.title,
+    about: project.category,
+    description: project.outcome || project.description,
+    url: `https://recnos.com/portfolio/${project.slug}`,
+    keywords: project.tech.join(", "),
+    ...(project.source
+      ? { citation: { "@type": "CreativeWork", name: project.source.label, url: project.source.url } }
+      : {}),
+    isPartOf: { "@id": "https://recnos.com/portfolio#casestudies" },
+    publisher: { "@id": "https://recnos.com/#organization" },
+  };
 
   return (
     <div className="bg-[#000000] text-white min-h-screen font-sans selection:bg-[#64CEFB] selection:text-black relative">
-      {/* 3D WebGL Interactive Particle & Geometry Background */}
-      <Scroll3DScene />
-      <Floating3DOrbs />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-      {/* DesignPro / RECNOS Full-Screen Hero Section */}
-      <DesignProHero />
+      {/* Ambient glow, consistent with the listing page */}
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-900/15 blur-[140px] rounded-full z-0" />
 
-      {/* Case Studies Section */}
-      <div id="projects" className="pb-28 px-4 sm:px-8 lg:px-12 relative pt-20 sm:pt-28 bg-[#000000]/80 backdrop-blur-[2px]">
-        {/* Subtle Ambient Glow */}
-        <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-blue-900/15 blur-[140px] rounded-full z-0" />
+      <article className="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 pt-32 sm:pt-40 pb-24">
+        {/* Back to the listing */}
+        <Link
+          href="/portfolio"
+          className="group inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-medium transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          All case studies
+        </Link>
 
-        <div className="max-w-7xl mx-auto relative z-10 space-y-16">
-          {/* Header */}
-          <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-black/40 border border-gray-700 text-white/80 backdrop-blur-md">
-              <FolderGit2 className="w-3.5 h-3.5" /> Client Case Studies
-            </span>
-            <h2 className="font-sans font-bold text-4xl sm:text-6xl text-white tracking-tight leading-tight">
-              Engineering That{" "}
-              <ShinyText text="Scales." speed={3} className="font-bold" />
+        <header className="mt-8 space-y-5">
+          <span className="inline-block text-[11px] font-semibold tracking-wider uppercase text-[#64CEFB] bg-[#64CEFB]/10 px-3 py-1 rounded-full border border-[#64CEFB]/30">
+            {project.category}
+          </span>
+
+          <h1 className="font-sans font-bold text-3xl sm:text-5xl tracking-tight leading-tight text-white">
+            {project.title}
+          </h1>
+
+          <p className="font-sans text-white/80 text-base sm:text-lg leading-relaxed">
+            {project.description}
+          </p>
+
+          <p className="font-sans text-xs text-white/45">
+            Last updated:{" "}
+            <time dateTime="2026-10-15">15 October 2026</time>
+            {" · "}
+            By{" "}
+            <a
+              href="mailto:dev@recnos.com"
+              rel="author"
+              className="underline decoration-white/20 underline-offset-2 hover:text-white/80"
+            >
+              The RECNOS Engineering Team
+            </a>
+          </p>
+        </header>
+
+        {/* Impact */}
+        {project.impact && (
+          <div className="mt-10 glass-card rounded-2xl border border-white/15 p-6 sm:p-8">
+            <h2 className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+              Impact
             </h2>
-            <p className="font-sans text-white/80 text-base sm:text-lg leading-relaxed">
-              Explore how we help forward-thinking teams launch AI-native software, resilient microservices, and high-converting platforms.
-            </p>
-            <p className="font-sans text-xs text-white/45">
-              Last updated: <time dateTime="2026-10-15">15 October 2026</time>
-              {" · "}
-              <span>
-                By{" "}
-                <a
-                  href="mailto:dev@recnos.com"
-                  rel="author"
-                  className="underline decoration-white/20 underline-offset-2 hover:text-white/80"
-                >
-                  The RECNOS Engineering Team
-                </a>
-              </span>
+            <p className="mt-2 font-sans text-white/85 text-base sm:text-lg leading-relaxed">
+              {project.impact}
             </p>
           </div>
+        )}
 
-          {/* Category Filter Pills */}
-          <div className="flex justify-center">
-            <div className="inline-flex flex-wrap justify-center gap-2 p-2 rounded-full border border-gray-700 bg-black/40 backdrop-blur-md max-w-4xl">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2 rounded-full text-xs font-medium font-sans transition-all duration-300 cursor-pointer ${
-                    activeCategory === cat
-                      ? "bg-white text-black font-semibold shadow-lg scale-105"
-                      : "text-white/80 hover:text-white hover:bg-white/10"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
+        {/* Challenge / Approach / Outcome — each rendered only when supplied.
+            Left empty rather than padded with capability claims. */}
+        <div className="mt-10 space-y-8">
+          {project.challenge && (
+            <section>
+              <h2 className="font-sans text-xl font-semibold text-white tracking-tight">
+                Challenge
+              </h2>
+              <p className="mt-3 font-sans text-white/70 leading-relaxed">
+                {project.challenge}
+              </p>
+            </section>
+          )}
 
-          {/* Projects Grid */}
-          <div className="space-y-8">
-            <h3 className="font-sans text-2xl sm:text-3xl font-semibold text-white tracking-tight">
-              What Has RECNOS Built?
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
-              <Scroll3DCard key={project.id} depth={15} className="h-full">
-                <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full min-h-[440px] group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
-                  <div className="space-y-4 flex-1 flex flex-col">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-semibold tracking-wider uppercase text-[#64CEFB] bg-[#64CEFB]/10 px-3 py-1 rounded-full border border-[#64CEFB]/30">
-                        {project.category}
-                      </span>
+          {project.approach && (
+            <section>
+              <h2 className="font-sans text-xl font-semibold text-white tracking-tight">
+                Approach
+              </h2>
+              <p className="mt-3 font-sans text-white/70 leading-relaxed">
+                {project.approach}
+              </p>
+            </section>
+          )}
 
-                      {project.link && (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-white/40 hover:text-white transition-colors p-1"
-                          aria-label="Visit external link"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-
-                    <h4 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
-                      {project.title}
-                    </h4>
-
-                    <p className="font-sans text-sm text-white/70 leading-relaxed flex-1">
-                      {project.description}
-                    </p>
-
-                    {/* Evidence — only rendered once real detail is supplied.
-                        Kept empty rather than padded with capability claims. */}
-                    {(project.challenge ||
-                      project.approach ||
-                      project.outcome) && (
-                      <dl className="space-y-2 pt-1 text-left">
-                        {project.challenge && (
-                          <div>
-                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
-                              Challenge
-                            </dt>
-                            <dd className="text-sm text-white/70 leading-relaxed">
-                              {project.challenge}
-                            </dd>
-                          </div>
-                        )}
-                        {project.approach && (
-                          <div>
-                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
-                              Approach
-                            </dt>
-                            <dd className="text-sm text-white/70 leading-relaxed">
-                              {project.approach}
-                            </dd>
-                          </div>
-                        )}
-                        {project.outcome && (
-                          <div>
-                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
-                              Outcome
-                            </dt>
-                            <dd className="text-sm text-white/70 leading-relaxed">
-                              {project.outcome}
-                              {project.source && (
-                                <>
-                                  {" "}
-                                  <a
-                                    href={project.source.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[#64CEFB] underline decoration-[#64CEFB]/40 underline-offset-2 hover:decoration-[#64CEFB]"
-                                  >
-                                    {project.source.label}
-                                  </a>
-                                </>
-                              )}
-                            </dd>
-                          </div>
-                        )}
-                      </dl>
-                    )}
-
-                    {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 pt-2 mt-auto">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="px-3 py-1 rounded-full text-xs font-sans bg-white/5 text-white/80 border border-white/15 group-hover:border-white/30 transition-colors"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Card Footer - Small Visit Site Box on Bottom Right */}
-                  <div className="mt-6 pt-4 border-t border-white/15 flex justify-end">
-                    {project.link ? (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/btn inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/5 hover:bg-[#64CEFB]/15 border border-white/15 hover:border-[#64CEFB]/50 text-white font-sans text-xs font-semibold tracking-wide transition-all duration-300 shadow-sm hover:shadow-[0_0_15px_rgba(100,206,251,0.2)]"
-                      >
-                        <span className="group-hover/btn:text-[#64CEFB] transition-colors">
-                          Visit Site
-                        </span>
-                        <ArrowRight className="w-3.5 h-3.5 text-[#64CEFB] group-hover/btn:translate-x-1 transition-transform" />
-                      </a>
-                    ) : (
-                      <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-white/40 font-sans text-xs font-medium italic">
-                        <span>Case Study</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </Scroll3DCard>
-            ))}
-            </div>
-          </div>
-
-          {/* CTA Banner */}
-          <div className="glass-card rounded-3xl p-10 sm:p-14 text-center space-y-6 relative overflow-hidden border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.25)] transition-all duration-300">
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#64CEFB]/10 via-transparent to-indigo-900/15" />
-            <h2 className="font-sans font-bold text-3xl sm:text-5xl text-white relative z-10 tracking-tight">
-              Have an Ambitious Project in Mind?
-            </h2>
-            <p className="font-sans text-white/70 text-base max-w-xl mx-auto relative z-10 leading-relaxed">
-              Let&apos;s turn your concept into an enterprise-ready platform designed for speed, scale, and intelligence.
-            </p>
-            <div className="relative z-10 pt-2">
-              <Link
-                href="/#contact"
-                className="group inline-flex items-center gap-3 bg-white text-black font-semibold font-sans px-8 py-4 rounded-full hover:bg-white/90 transition-all hover:scale-105 active:scale-95 shadow-2xl"
-              >
-                <span>Let&apos;s Build It</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-          </div>
+          {project.outcome && (
+            <section>
+              <h2 className="font-sans text-xl font-semibold text-white tracking-tight">
+                Outcome
+              </h2>
+              <p className="mt-3 font-sans text-white/70 leading-relaxed">
+                {project.outcome}
+                {project.source && (
+                  <>
+                    {" "}
+                    <a
+                      href={project.source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#64CEFB] underline decoration-[#64CEFB]/40 underline-offset-2 hover:decoration-[#64CEFB]"
+                    >
+                      {project.source.label}
+                    </a>
+                  </>
+                )}
+              </p>
+            </section>
+          )}
         </div>
-      </div>
+
+        {/* Stack */}
+        <section className="mt-10">
+          <h2 className="font-sans text-xl font-semibold text-white tracking-tight">
+            Technology
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="px-3 py-1 rounded-full text-xs font-sans bg-white/5 text-white/80 border border-white/15"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* Outbound link to the live product */}
+        {project.link && (
+          <div className="mt-12 pt-8 border-t border-white/15 flex flex-wrap items-center gap-4">
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/5 hover:bg-[#64CEFB]/15 border border-white/15 hover:border-[#64CEFB]/50 text-white font-sans text-sm font-semibold transition-all duration-300"
+            >
+              Visit {project.source?.label ?? "the live site"}
+              <ExternalLink className="w-4 h-4 text-[#64CEFB]" />
+            </a>
+
+            <Link
+              href="/#contact"
+              className="group inline-flex items-center gap-2 text-white/70 hover:text-white font-sans text-sm font-semibold transition-colors"
+            >
+              Discuss a similar project
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        )}
+      </article>
     </div>
   );
 }
-
-

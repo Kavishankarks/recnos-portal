@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PortfolioProjects from "./[slug]/page";
+import PortfolioProjects from "./PortfolioProjects";
 
 export const metadata: Metadata = {
   title: "Portfolio",
