@@ -25,7 +25,7 @@ const pillars = [
     icon: Rocket,
     title: "Built to Scale",
     description:
-      "Architectures designed for millions of users from day one — distributed, fault-tolerant, fast.",
+      "Architectures we design for growth — distributed where the load demands it, with the trade-offs documented.",
   },
   {
     icon: InfinityIcon,

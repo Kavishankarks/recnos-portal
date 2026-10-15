@@ -20,6 +20,11 @@ const projects = [
     impact:
       "Persistent creator memory & multi-agent orchestration, purpose-built for creators",
     link: "https://rolit.ai/",
+    outcome:
+      "An autonomous AI agent that manages a brand's full marketing pipeline from research to ready-to-post content, learning voice, style and identity from existing material. Publicly documented at rolit.ai (retrieved 15 Oct 2026).",
+    source: { label: "rolit.ai", url: "https://rolit.ai/" },
+    challenge: "",
+    approach: "",
   },
   {
     id: 2,
@@ -30,6 +35,11 @@ const projects = [
     tech: ["Java", "React", "PostgreSQL", "AI Search", "Stripe"],
     impact: "1000+ active monthly users",
     link: "https://trovare.in/",
+    outcome:
+      "Trovare publicly lists 500+ verified PG listings across Bangalore, covering Koramangala, Indiranagar, HSR Layout and Whitefield, with search near IT parks and no-broker direct owner contact. Source: trovare.in (retrieved 15 Oct 2026).",
+    source: { label: "trovare.in", url: "https://trovare.in/" },
+    challenge: "",
+    approach: "",
   },
   {
     id: 7,
@@ -40,6 +50,11 @@ const projects = [
     tech: ["Digital Signage", "Next.js", "Node.js", "HLS.js"],
     impact: "High-density venue visibility network",
     link: "https://mr-ads.in/",
+    outcome:
+      "The network publicly reports 2,400+ screens in restaurants and bistros, 1,100+ in residential apartments, 310+ gym locations and 180+ hostel clusters — 31,400+ screens live across 8 ad environments, reaching 18M+ monthly. Source: mr-ads.in (retrieved 15 Oct 2026).",
+    source: { label: "mr-ads.in", url: "https://mr-ads.in/" },
+    challenge: "",
+    approach: "",
   },
   {
     id: 4,
@@ -50,6 +65,9 @@ const projects = [
     tech: ["Java", "Spring Boot", "Vaadin", "TypeScript", "PostgreSQL"],
     impact: "End-to-end industrial training & lab automation",
     link: "https://synapse.recnos.com/",
+    challenge: "",
+    approach: "",
+    outcome: "",
   },
 ];
 
@@ -166,6 +184,58 @@ export default function Portfolio() {
                     <p className="font-sans text-sm text-white/70 leading-relaxed flex-1">
                       {project.description}
                     </p>
+
+                    {/* Evidence — only rendered once real detail is supplied.
+                        Kept empty rather than padded with capability claims. */}
+                    {(project.challenge ||
+                      project.approach ||
+                      project.outcome) && (
+                      <dl className="space-y-2 pt-1 text-left">
+                        {project.challenge && (
+                          <div>
+                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+                              Challenge
+                            </dt>
+                            <dd className="text-sm text-white/70 leading-relaxed">
+                              {project.challenge}
+                            </dd>
+                          </div>
+                        )}
+                        {project.approach && (
+                          <div>
+                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+                              Approach
+                            </dt>
+                            <dd className="text-sm text-white/70 leading-relaxed">
+                              {project.approach}
+                            </dd>
+                          </div>
+                        )}
+                        {project.outcome && (
+                          <div>
+                            <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/45">
+                              Outcome
+                            </dt>
+                            <dd className="text-sm text-white/70 leading-relaxed">
+                              {project.outcome}
+                              {project.source && (
+                                <>
+                                  {" "}
+                                  <a
+                                    href={project.source.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#64CEFB] underline decoration-[#64CEFB]/40 underline-offset-2 hover:decoration-[#64CEFB]"
+                                  >
+                                    {project.source.label}
+                                  </a>
+                                </>
+                              )}
+                            </dd>
+                          </div>
+                        )}
+                      </dl>
+                    )}
 
                     {/* Tech Badges */}
                     <div className="flex flex-wrap gap-1.5 pt-2 mt-auto">

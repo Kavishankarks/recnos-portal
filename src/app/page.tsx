@@ -106,17 +106,17 @@ const benefits = [
   {
     title: "Engineering Excellence",
     description:
-      "We prioritize code quality, scalability, and long-term maintainability across all architectures.",
+      "Code review on every change, documented architecture decisions, and maintainability treated as a delivery requirement.",
   },
   {
     title: "Security First",
     description:
-      "Enterprise-grade security integrated into every layer of the software stack.",
+      "Authentication, secrets handling, and dependency review are part of our standard build process, not an add-on.",
   },
   {
     title: "Performance",
     description:
-      "Optimized for extreme speed, high reliability, and massive concurrency workloads.",
+      "We profile before we optimise, and we publish the methodology behind any performance number we quote.",
   },
 ];
 

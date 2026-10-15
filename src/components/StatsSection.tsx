@@ -10,11 +10,32 @@ import {
   useScroll,
 } from "motion/react";
 
-const stats = [
-  { value: 50, suffix: "+", label: "Projects Delivered" },
-  { value: 99.9, suffix: "%", label: "Uptime Across Deployments", decimals: 1 },
-  { value: 12, suffix: "+", label: "Industries Served" },
-  { value: 24, suffix: "/7", label: "Engineering Support" },
+const stats: {
+  value: number;
+  suffix: string;
+  label: string;
+  decimals?: number;
+}[] = [
+  {
+    value: 31400,
+    suffix: "+",
+    label: "Screens live on Mr. Ads' network",
+  },
+  {
+    value: 18,
+    suffix: "M+",
+    label: "Monthly audience reach (Mr. Ads)",
+  },
+  {
+    value: 500,
+    suffix: "+",
+    label: "Verified PG listings on Trovare",
+  },
+  {
+    value: 4,
+    suffix: "",
+    label: "Production platforms in our portfolio",
+  },
 ];
 
 function Counter({
@@ -44,9 +65,14 @@ function Counter({
     return unsubscribe;
   }, [spring, suffix, decimals]);
 
+  const finalValue = value.toFixed(decimals) + suffix;
+
   return (
+    // The true value is always in the markup, so crawlers, social unfurlers and
+    // no-JS clients read the real figure instead of the animation's start value.
+    // The client effect only overwrites it while the count-up runs.
     <span ref={ref} className="tabular-nums">
-      0{suffix}
+      {finalValue}
     </span>
   );
 }
