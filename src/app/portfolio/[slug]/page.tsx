@@ -113,6 +113,13 @@ export default async function ProjectPage({ params }: PageProps) {
             {project.title}
           </h1>
 
+          {/* Answer-first opening: names the entity and what it does, so the
+              paragraph stands alone for a reader or an answer engine arriving
+              at it without the H1 above. */}
+          <p className="font-sans text-white/85 text-base sm:text-lg leading-relaxed">
+            {project.answer}
+          </p>
+
           <p className="font-sans text-white/80 text-base sm:text-lg leading-relaxed">
             {project.description}
           </p>

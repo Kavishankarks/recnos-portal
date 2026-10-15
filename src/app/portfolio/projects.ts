@@ -39,6 +39,16 @@ export type Project = {
    * length a snippet is allowed.
    */
   metaDescription: string;
+  /**
+   * Self-contained answer to "what is this?", 60 words or fewer, opening the
+   * page above `description`.
+   *
+   * Distinct from `description`: that field reads as a caption completing the
+   * H1 ("Digital ad network operating…"), so it names no subject and answers
+   * nothing on its own. This one states the entity. Every figure below is
+   * traceable to the project's own `outcome` field and its cited source.
+   */
+  answer: string;
   tech: string[];
   impact: string;
   link: string;
@@ -66,6 +76,8 @@ export const projects: Project[] = [
       "From a feature-rich AI generator to the definitive go-to platform for creators — built on persistent creator memory, multi-agent orchestration, and proprietary style flywheels.",
     metaDescription:
       "How RECNOS built Rolit AI: an autonomous agent managing a brand's full marketing pipeline, on persistent creator memory and multi-agent orchestration.",
+    answer:
+      "Rolit AI is an autonomous agent that runs a brand's full marketing pipeline, from research through to ready-to-post content. It learns a brand's voice, style and identity from existing material. RECNOS built the platform on persistent creator memory, multi-agent orchestration and proprietary style flywheels.",
     tech: ["Python", "Java", "Golang", "React Native", "PostgreSQL", "MongoDB"],
     impact:
       "Persistent creator memory & multi-agent orchestration, purpose-built for creators",
@@ -85,6 +97,8 @@ export const projects: Project[] = [
       "Real-time PG accommodations discovery engine in Bangalore with AI search indexing, interactive maps, and payment integration.",
     metaDescription:
       "How RECNOS built Trovare: a real-time PG marketplace in Bangalore, with programmatic locality pages, geospatial search and Razorpay subscriptions.",
+    answer:
+      "Trovare is a real-time PG accommodation marketplace in Bangalore. It lists 500+ verified PGs across Koramangala, Indiranagar, HSR Layout and Whitefield, with no-broker owner contact. RECNOS built the platform as two applications on one API: a server-rendered public site with programmatically generated locality pages, and an authenticated owner and administrator app.",
     tech: ["Next.js 16", "React 19", "TypeScript", "Vite", "Razorpay"],
     impact: "1000+ active monthly users",
     link: "https://trovare.in/",
@@ -183,6 +197,8 @@ export const projects: Project[] = [
       "Digital ad network operating high-definition display hardware in dining venues across Bengaluru with scheduled content rotation.",
     metaDescription:
       "How RECNOS built Mr. Ads: a statically-rendered site for a Bengaluru digital signage network, covering eight venue types with no CMS or database.",
+    answer:
+      "Mr. Ads operates an in-restaurant digital signage network across Bengaluru, running on 2,400+ screens in restaurants and bistros alongside residential, corporate, fitness, hostel, mall and play-zone venues. RECNOS built the network's public site as a statically-rendered Next.js application covering eight venue environments.",
     tech: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS"],
     impact: "High-density venue visibility network",
     link: "https://mr-ads.in/",
@@ -252,6 +268,8 @@ export const projects: Project[] = [
       "Industrial training & talent development platform connecting institutions with industry experts, featuring AI-generated learning plans, proposal bidding, and hands-on lab environments.",
     metaDescription:
       "How RECNOS built Synapse: an industrial training platform with AI-generated learning plans, proposal bidding and hands-on lab environments.",
+    answer:
+      "Synapse is an industrial training and talent development platform that connects institutions with industry experts. It generates learning plans with AI, runs proposal bidding between institutions and trainers, and provides hands-on lab environments. RECNOS built the platform on Java, Spring Boot and PostgreSQL.",
     tech: ["Java", "Spring Boot", "Vaadin", "TypeScript", "PostgreSQL"],
     impact: "End-to-end industrial training & lab automation",
     link: "https://synapse.recnos.com/",
