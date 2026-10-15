@@ -154,9 +154,9 @@ export default function Portfolio() {
                       )}
                     </div>
 
-                    <h3 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
+                    <h4 className="font-sans font-semibold text-xl text-white group-hover:text-[#64CEFB] transition-colors leading-snug min-h-[3.5rem] flex items-center">
                       {project.title}
-                    </h3>
+                    </h4>
 
                     <p className="font-sans text-sm text-white/70 leading-relaxed flex-1">
                       {project.description}

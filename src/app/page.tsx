@@ -214,6 +214,7 @@ export default function Home() {
             </span>
             <RevealHeading
               text="Our Expertise"
+              as="h3"
               className="font-instrument-serif text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] text-white"
             />
             <p className="mx-auto max-w-2xl font-instrument-sans text-base leading-relaxed text-white/60 sm:text-lg">
@@ -319,6 +320,7 @@ export default function Home() {
               </span>
               <RevealHeading
                 text="Why RECNOS?"
+                as="h3"
                 className="font-instrument-serif text-[clamp(2.5rem,4.5vw,3.5rem)] leading-[1.08] text-white"
               />
               <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
@@ -389,6 +391,7 @@ export default function Home() {
           >
             <RevealHeading
               text="Technologies We Use"
+              as="h3"
               className="font-instrument-serif text-3xl sm:text-5xl text-white"
             />
             <p className="font-instrument-sans text-white/60 text-base max-w-xl mx-auto">
@@ -449,6 +452,7 @@ export default function Home() {
                 </span>
                 <RevealHeading
                   text="Build with RECNOS"
+                  as="h3"
                   className="font-instrument-serif text-4xl sm:text-5xl text-white leading-tight"
                 />
                 <p className="font-instrument-sans text-white/70 text-base leading-relaxed">

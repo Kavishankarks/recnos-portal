@@ -4,7 +4,7 @@ import PortfolioProjects from "./[slug]/page";
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Case studies from RECNOS: AI-native creator platforms, real-time marketplaces, digital signage networks, and industrial training systems we designed, built, and scaled.",
+    "Case studies from RECNOS: AI-native creator platforms, real-time marketplaces, digital signage networks, and industrial training systems we built and scaled.",
   alternates: {
     canonical: "/portfolio",
   },
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     siteName: "RECNOS",
     title: "Portfolio | RECNOS",
     description:
-      "Case studies from RECNOS: AI-native creator platforms, real-time marketplaces, digital signage networks, and industrial training systems we designed, built, and scaled.",
+      "Case studies from RECNOS: AI-native creator platforms, real-time marketplaces, digital signage networks, and industrial training systems we built and scaled.",
     images: [
       {
         url: "/og.png",

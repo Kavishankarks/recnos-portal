@@ -164,9 +164,9 @@ export default function VisionSection() {
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#3054ff]/20 bg-[#3054ff]/10 text-[#3054ff]">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h4 className="font-instrument-sans text-lg font-semibold text-white">
+                    <h3 className="font-instrument-sans text-lg font-semibold text-white">
                       {pillar.title}
-                    </h4>
+                    </h3>
                     <p className="font-instrument-sans text-xs leading-relaxed text-white/60">
                       {pillar.description}
                     </p>
