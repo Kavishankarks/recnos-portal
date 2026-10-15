@@ -151,6 +151,7 @@ export default function Home() {
               By{" "}
               <a
                 href="mailto:dev@recnos.com"
+                rel="author"
                 className="underline decoration-white/20 underline-offset-2 hover:text-white/80"
               >
                 The RECNOS Engineering Team
@@ -213,7 +214,7 @@ export default function Home() {
               <Sparkles className="w-3.5 h-3.5" /> Core Services
             </span>
             <RevealHeading
-              text="Our Expertise"
+              text="What Does RECNOS Build?"
               as="h3"
               className="font-instrument-serif text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] text-white"
             />
@@ -319,7 +320,7 @@ export default function Home() {
                 <ShieldCheck className="w-3.5 h-3.5" /> Why Choose Us
               </span>
               <RevealHeading
-                text="Why RECNOS?"
+                text="Why Choose RECNOS?"
                 as="h3"
                 className="font-instrument-serif text-[clamp(2.5rem,4.5vw,3.5rem)] leading-[1.08] text-white"
               />
@@ -390,7 +391,7 @@ export default function Home() {
             className="space-y-3"
           >
             <RevealHeading
-              text="Technologies We Use"
+              text="Which Technologies Does RECNOS Use?"
               as="h3"
               className="font-instrument-serif text-3xl sm:text-5xl text-white"
             />
@@ -451,12 +452,14 @@ export default function Home() {
                   <Calendar className="w-3.5 h-3.5" /> Book A Call
                 </span>
                 <RevealHeading
-                  text="Build with RECNOS"
+                  text="How Do You Start a Project with RECNOS?"
                   as="h3"
-                  className="font-instrument-serif text-4xl sm:text-5xl text-white leading-tight"
+                  className="font-instrument-serif text-3xl sm:text-5xl text-white leading-tight"
                 />
                 <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
-                  Ready to engineer the future? Let&apos;s discuss your project.
+                  Book a 30-minute engineering consultation and we will scope
+                  your project. Email dev@recnos.com or pick a time on the
+                  calendar below.
                 </p>
 
                 <div className="space-y-4 pt-4 border-t border-white/10">

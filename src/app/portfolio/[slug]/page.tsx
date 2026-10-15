@@ -103,6 +103,7 @@ export default function Portfolio() {
                 By{" "}
                 <a
                   href="mailto:dev@recnos.com"
+                  rel="author"
                   className="underline decoration-white/20 underline-offset-2 hover:text-white/80"
                 >
                   The RECNOS Engineering Team
@@ -131,7 +132,11 @@ export default function Portfolio() {
           </div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="space-y-8">
+            <h3 className="font-sans text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+              What Has RECNOS Built?
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project) => (
               <Scroll3DCard key={project.id} depth={15} className="h-full">
                 <div className="glass-card p-8 rounded-2xl flex flex-col justify-between h-full min-h-[440px] group border border-white/15 hover:border-[#64CEFB]/60 hover:shadow-[0_12px_40px_rgba(100,206,251,0.2)] transition-all duration-300">
@@ -198,6 +203,7 @@ export default function Portfolio() {
                 </div>
               </Scroll3DCard>
             ))}
+            </div>
           </div>
 
           {/* CTA Banner */}

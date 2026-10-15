@@ -70,6 +70,7 @@ const websiteJsonLd = {
   name: "RECNOS",
   url: "https://recnos.com/",
   inLanguage: "en",
+  dateModified: "2026-10-15",
   publisher: { "@id": "https://recnos.com/#organization" },
 };
 
