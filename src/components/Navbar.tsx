@@ -62,25 +62,32 @@ export default function Navbar() {
             {productsOpen && (
               <div className={styles.dropdown}>
                 <Link
-                  href="/#services"
+                  href="/services/ai-foundation-models"
                   className={styles.dropdownLink}
                   onClick={() => setProductsOpen(false)}
                 >
                   AI Engineering
                 </Link>
                 <Link
-                  href="/#services"
+                  href="/services/distributed-systems"
                   className={styles.dropdownLink}
                   onClick={() => setProductsOpen(false)}
                 >
                   Distributed Systems
                 </Link>
                 <Link
-                  href="/#services"
+                  href="/services/seo-aeo"
                   className={styles.dropdownLink}
                   onClick={() => setProductsOpen(false)}
                 >
                   SEO &amp; AEO
+                </Link>
+                <Link
+                  href="/services"
+                  className={styles.dropdownLink}
+                  onClick={() => setProductsOpen(false)}
+                >
+                  All services
                 </Link>
               </div>
             )}
@@ -94,14 +101,14 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/#vision"
+            href="/about"
             className={styles.navLink}
           >
             About
           </Link>
 
           <Link
-            href="/#contact"
+            href="/contact"
             className={styles.navLink}
           >
             Contact

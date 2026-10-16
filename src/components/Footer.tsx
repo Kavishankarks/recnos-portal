@@ -26,18 +26,23 @@ export default function Footer() {
           <h2 className="text-sm font-semibold text-white uppercase tracking-wider">Services</h2>
           <ul className="space-y-2 text-sm text-white/60">
             <li>
-              <Link href="/#services" className="hover:text-white transition-colors">
+              <Link href="/services/ai-foundation-models" className="hover:text-white transition-colors">
                 AI Engineering
               </Link>
             </li>
             <li>
-              <Link href="/#services" className="hover:text-white transition-colors">
+              <Link href="/services/distributed-systems" className="hover:text-white transition-colors">
                 Distributed Systems
               </Link>
             </li>
             <li>
-              <Link href="/#services" className="hover:text-white transition-colors">
+              <Link href="/services/seo-aeo" className="hover:text-white transition-colors">
                 SEO &amp; AEO
+              </Link>
+            </li>
+            <li>
+              <Link href="/services" className="hover:text-white transition-colors">
+                All services
               </Link>
             </li>
             <li>
@@ -53,17 +58,17 @@ export default function Footer() {
           <h2 className="text-sm font-semibold text-white uppercase tracking-wider">Company</h2>
           <ul className="space-y-2 text-sm text-white/60">
             <li>
-              <Link href="/#vision" className="hover:text-white transition-colors">
+              <Link href="/about" className="hover:text-white transition-colors">
                 About
               </Link>
             </li>
             <li>
-              <Link href="/#services" className="hover:text-white transition-colors">
+              <Link href="/services" className="hover:text-white transition-colors">
                 Capabilities
               </Link>
             </li>
             <li>
-              <Link href="/#contact" className="hover:text-white transition-colors">
+              <Link href="/contact" className="hover:text-white transition-colors">
                 Book A Call
               </Link>
             </li>

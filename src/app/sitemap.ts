@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projects } from "./portfolio/projects";
+import { services } from "./services/services";
 
 /**
  * Only pages served by this application belong here. A subdomain such as
@@ -24,6 +25,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: "https://recnos.com/services",
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: "https://recnos.com/about",
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: "https://recnos.com/contact",
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    ...services.map((service) => ({
+      url: `https://recnos.com/services/${service.slug}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     ...projects.map((project) => ({
       url: `https://recnos.com/portfolio/${project.slug}`,
       lastModified,
