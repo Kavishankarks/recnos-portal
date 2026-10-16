@@ -331,7 +331,7 @@ export default function Home() {
               <div className="pt-4">
                 <Magnetic>
                   <Link
-                    href="/#contact"
+                    href="/contact"
                     className="inline-flex items-center gap-3 bg-white text-black font-semibold font-instrument-sans px-6 py-3 rounded-full hover:bg-white/90 transition-colors active:scale-95"
                   >
                     Build with Us <ArrowRight className="w-4 h-4" />

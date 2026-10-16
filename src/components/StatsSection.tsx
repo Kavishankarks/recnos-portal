@@ -93,41 +93,53 @@ export default function StatsSection() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#3054ff]/10 blur-[130px]"
       />
 
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.4 }}
-        variants={{
-          hidden: {},
-          show: { transition: { staggerChildren: 0.1 } },
-        }}
-        className="relative z-10 mx-auto grid max-w-6xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6"
-      >
-        {stats.map((stat, i) => (
-          <motion.div
-            key={i}
-            variants={{
-              hidden: { opacity: 0, y: 40, rotateX: 30, scale: 0.92 },
-              show: { opacity: 1, y: 0, rotateX: 0, scale: 1 },
-            }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="perspective-1000"
-          >
-            <div className="glass-card flex h-full flex-col items-center justify-center gap-2 rounded-2xl px-4 py-8 text-center">
-              <div className="font-instrument-serif text-4xl text-white sm:text-5xl">
-                <Counter
-                  value={stat.value}
-                  suffix={stat.suffix}
-                  decimals={stat.decimals}
-                />
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-8 text-center font-instrument-serif text-3xl text-white sm:mb-10 sm:text-4xl"
+        >
+          RECNOS by the numbers
+        </motion.h2>
+
+        <motion.dl
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.4 }}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.1 } },
+          }}
+          className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6"
+        >
+          {stats.map((stat, i) => (
+            <motion.div
+              key={i}
+              variants={{
+                hidden: { opacity: 0, y: 40, rotateX: 30, scale: 0.92 },
+                show: { opacity: 1, y: 0, rotateX: 0, scale: 1 },
+              }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="perspective-1000"
+            >
+              <div className="glass-card flex h-full flex-col items-center justify-center gap-2 rounded-2xl px-4 py-8 text-center">
+                <dt className="font-instrument-serif text-4xl text-white sm:text-5xl">
+                  <Counter
+                    value={stat.value}
+                    suffix={stat.suffix}
+                    decimals={stat.decimals}
+                  />
+                </dt>
+                <dd className="font-instrument-sans text-xs text-white/55 sm:text-sm">
+                  {stat.label}
+                </dd>
               </div>
-              <div className="font-instrument-sans text-xs text-white/55 sm:text-sm">
-                {stat.label}
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.div>
+          ))}
+        </motion.dl>
+      </div>
     </section>
   );
 }

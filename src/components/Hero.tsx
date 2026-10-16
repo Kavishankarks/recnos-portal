@@ -96,12 +96,16 @@ export default function Hero() {
         >
           <span className={styles.aiHighlight}>AI</span>{" "}
           <span className={styles.titleGradientText}>+ Scalable Software</span>
-          <span className="sr-only">
-            {" "}
-            engineering studio — RECNOS builds AI foundation models,
-            distributed systems, and enterprise web and mobile platforms
-          </span>
         </motion.h1>
+
+        {/*
+          The visible headline is intentionally short and brand-led. The
+          descriptive tail that used to sit here in an `sr-only` span is gone:
+          hiding keywords inside the H1 is a pattern search engines treat as
+          deceptive, and it made the heading disagree with the text a reader
+          actually sees. The subheadline below carries the description, and it
+          is visible to everyone.
+        */}
 
         {/* Subheadline */}
         <motion.p
@@ -123,7 +127,7 @@ export default function Hero() {
           {/* Primary Button */}
           <Magnetic>
             <Link
-              href="/#contact"
+              href="/contact"
               className={styles.primaryCta}
             >
               <span>Get Started</span>
@@ -136,7 +140,7 @@ export default function Hero() {
           {/* Secondary Button */}
           <Magnetic strength={0.25}>
             <Link
-              href="/#services"
+              href="/services"
               className={styles.secondaryCta}
             >
               <span>Explore Services</span>
