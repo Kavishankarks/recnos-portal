@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { projects } from "./portfolio/projects";
 import { services } from "./services/services";
+import { posts } from "./blog/posts";
 
 /**
  * Only pages served by this application belong here. A subdomain such as
@@ -43,6 +44,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: "https://recnos.com/blog",
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
     ...services.map((service) => ({
       url: `https://recnos.com/services/${service.slug}`,
       lastModified,
@@ -54,6 +61,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...posts.map((post) => ({
+      url: `https://recnos.com/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
     })),
   ];
 }

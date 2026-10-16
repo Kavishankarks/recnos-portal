@@ -108,6 +108,13 @@ export default function Navbar() {
           </Link>
 
           <Link
+            href="/blog"
+            className={styles.navLink}
+          >
+            Notes
+          </Link>
+
+          <Link
             href="/contact"
             className={styles.navLink}
           >
