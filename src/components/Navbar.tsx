@@ -126,10 +126,10 @@ export default function Navbar() {
         <div className={styles.actions}>
           {/* Book A Call link */}
           <Link
-            href="/#contact"
+            href="/portfolio"
             className={styles.demoLink}
           >
-            Book A Call
+            View Our Work
           </Link>
 
           {/* Get Started button */}
@@ -137,7 +137,7 @@ export default function Navbar() {
             href="/#contact"
             className={styles.getStarted}
           >
-            Get Started
+            Book an Engineering Call
           </Link>
 
           {/* Mobile menu button toggle */}
@@ -161,6 +161,13 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
           >
             Services
+          </Link>
+          <Link
+            href="/#work"
+            className={styles.mobileLink}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Our Work
           </Link>
           <Link
             href="/portfolio"

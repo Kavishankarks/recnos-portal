@@ -11,11 +11,11 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Magnetic from "@/components/Magnetic";
 import RevealHeading from "@/components/RevealHeading";
 import { motion } from "motion/react";
+import { projects } from "./portfolio/projects";
 import {
   Sparkles,
   Zap,
   Cpu,
-  Globe,
   Search,
   Figma,
   ShieldCheck,
@@ -30,54 +30,82 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-const expertiseList = [
+/**
+ * The three case studies shown on the homepage.
+ *
+ * Chosen to cover the studio's three pillars rather than to pad a grid:
+ * Rolit AI (AI agents), Trovare (distributed systems and programmatic SEO),
+ * and Mr. Ads (web platform delivery at scale). Synapse is reachable from the
+ * portfolio index but is excluded here — it has no published challenge,
+ * approach or outcome, so a homepage card would have to claim more than the
+ * case study itself supports.
+ */
+const featuredProjects = ["rolit-ai", "pg-marketplace-engine", "mr-ads"]
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is (typeof projects)[number] => Boolean(project));
+
+/**
+ * Three primary pillars, plus the services that support them.
+ *
+ * The eight offerings were previously rendered as eight identical cards, which
+ * presented RECNOS as a generalist agency rather than an AI engineering studio.
+ * The split below makes the core offering the core offering; every entry still
+ * links to its real `/services/<slug>` page.
+ */
+const primaryPillars = [
   {
+    slug: "ai-foundation-models",
     icon: Sparkles,
-    title: "AI Foundation Software",
+    title: "AI Engineering",
     description:
-      "Building intelligent agent systems and foundation models for enterprise automation.",
+      "Agent systems, foundation-model work, persistent memory, and retrieval over your own corpus — shipped as production services, not demos.",
   },
   {
-    icon: Cpu,
-    title: "Distributed Systems",
-    description:
-      "Scalable backend architectures, microservices, and event-driven systems.",
-  },
-  {
+    slug: "web-platforms",
     icon: Layers,
+    title: "Custom Software",
+    description:
+      "Server-rendered web platforms and mobile apps built for Core Web Vitals, structured data, and search visibility from the first release.",
+  },
+  {
+    slug: "distributed-systems",
+    icon: Cpu,
+    title: "Scalable Platforms",
+    description:
+      "Distributed backend architecture, microservices, search indexing and caching — designed for production traffic, with the trade-offs documented.",
+  },
+];
+
+const supportingCapabilities = [
+  {
+    slug: "devops-aiops",
+    icon: ShieldCheck,
     title: "DevOps & AIOps",
-    description:
-      "Automated CI/CD pipelines, monitoring, and AI-driven operations.",
+    description: "CI/CD, containers, monitoring, AI-assisted operations.",
   },
   {
-    icon: Globe,
-    title: "Mobile & Web",
-    description:
-      "High-performance iOS/Android apps and SEO-optimized web platforms.",
-  },
-  {
+    slug: "seo-aeo",
     icon: Search,
     title: "SEO & AEO",
-    description:
-      "Search and answer-engine optimization to rank on Google and get cited by AI assistants like ChatGPT and Gemini.",
+    description: "Crawlability, structured data, and AI citation share.",
   },
   {
+    slug: "product-design",
     icon: Figma,
-    title: "Figma & Product Design",
-    description:
-      "End-to-end UI/UX design systems, wireframes, and high-fidelity prototypes in Figma.",
+    title: "Product Design",
+    description: "Design systems, wireframes, Figma prototypes.",
   },
   {
+    slug: "marketing",
     icon: TrendingUp,
-    title: "Marketing",
-    description:
-      "Growth strategy, brand positioning, and campaign execution across digital channels.",
+    title: "Growth Marketing",
+    description: "Positioning, channel strategy, campaign execution.",
   },
   {
+    slug: "content-production",
     icon: Video,
-    title: "Daily Content & Video",
-    description:
-      "Consistent, high-quality short-form videos and content produced daily to grow your audience.",
+    title: "Content & Video",
+    description: "Daily short-form video and written content.",
   },
 ];
 
@@ -164,6 +192,110 @@ export default function Home() {
       {/* Company Vision — scroll-driven word reveal with 3D parallax */}
       <VisionSection />
 
+      {/* Selected Work — the proof that the positioning above is real.
+          The portfolio was previously reachable only through the nav, so a
+          visitor reading the homepage saw capability claims with no evidence
+          attached. Three projects, each with the figure that supports it. */}
+      <section
+        id="work"
+        className="relative border-t border-white/5 px-4 py-20 sm:px-6 sm:py-24 lg:py-28"
+      >
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mx-auto mb-12 max-w-3xl space-y-4 text-center sm:mb-16"
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-[#b4c0ff]">
+              <Layers className="h-3.5 w-3.5" /> Selected Work
+            </span>
+            <RevealHeading
+              text="What We Have Shipped"
+              as="h2"
+              className="font-instrument-serif text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] text-white"
+            />
+            <p className="mx-auto max-w-2xl font-instrument-sans text-base leading-relaxed text-white/60 sm:text-lg">
+              Four production platforms, each documented with the engineering
+              decisions and the figures behind it.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.1 } },
+            }}
+            className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-6"
+          >
+            {featuredProjects.map((project) => (
+              <motion.div
+                key={project.slug}
+                variants={{
+                  hidden: { opacity: 0, y: 32, scale: 0.96 },
+                  show: { opacity: 1, y: 0, scale: 1 },
+                }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
+              >
+                <Scroll3DCard depth={16}>
+                  <Link
+                    href={`/portfolio/${project.slug}`}
+                    className="glass-card group flex h-full min-h-[300px] flex-col justify-between rounded-2xl p-6 sm:p-7"
+                  >
+                    <div>
+                      <span className="inline-block rounded-full border border-[#3054ff]/25 bg-[#3054ff]/10 px-3 py-1 text-[11px] font-medium text-[#b4c0ff]">
+                        {project.category}
+                      </span>
+                      <h3 className="mt-5 font-instrument-sans text-lg font-semibold text-white transition-colors group-hover:text-[#b4c0ff]">
+                        {project.title}
+                      </h3>
+                      <p className="mt-2.5 font-instrument-sans text-xs leading-relaxed text-white/60">
+                        {project.answer}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 space-y-3 border-t border-white/5 pt-4">
+                      <div className="font-instrument-serif text-2xl text-white">
+                        {project.impact}
+                      </div>
+                      <ul className="flex flex-wrap gap-1.5">
+                        {project.tech.slice(0, 4).map((tech) => (
+                          <li
+                            key={tech}
+                            className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] text-white/60"
+                          >
+                            {tech}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex items-center justify-between text-xs text-white/40 transition-colors group-hover:text-white/80">
+                        <span>Read the case study</span>
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </Link>
+                </Scroll3DCard>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <div className="mt-10 flex justify-center">
+            <Magnetic strength={0.25}>
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 font-instrument-sans text-sm font-medium text-white/80 transition-colors hover:border-white/30 hover:text-white"
+              >
+                All case studies <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Magnetic>
+          </div>
+        </div>
+      </section>
+
       {/* Animated count-up stats */}
       <StatsSection />
 
@@ -214,31 +346,35 @@ export default function Home() {
               <Sparkles className="w-3.5 h-3.5" /> Core Services
             </span>
             <RevealHeading
-              text="What Does RECNOS Build?"
+              text="Three Things We Do Best"
               as="h2"
               className="font-instrument-serif text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] text-white"
             />
             <p className="mx-auto max-w-2xl font-instrument-sans text-base leading-relaxed text-white/60 sm:text-lg">
-              End-to-end engineering capabilities built for foundation models, cloud scale, and enterprise digital transformation.
+              AI engineering, custom software, and scalable platforms. Design,
+              marketing and content sit underneath as supporting capabilities.
             </p>
           </motion.div>
 
+          {/* Primary pillars — three, given full width so the core offering
+              reads as the core offering. Previously eight equal cards diluted
+              it into a generalist services list. */}
           <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.15 }}
             variants={{
               hidden: {},
-              show: { transition: { staggerChildren: 0.08 } },
+              show: { transition: { staggerChildren: 0.1 } },
             }}
-            className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
+            className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-6"
           >
-            {expertiseList.map((item, index) => {
+            {primaryPillars.map((item, index) => {
               const Icon = item.icon;
               const isSelected = selectedIndex === index;
               return (
                 <motion.div
-                  key={index}
+                  key={item.title}
                   variants={{
                     hidden: { opacity: 0, y: 32, scale: 0.96 },
                     show: { opacity: 1, y: 0, scale: 1 },
@@ -246,13 +382,11 @@ export default function Home() {
                   transition={{ duration: 0.55, ease: "easeOut" }}
                 >
                   <Scroll3DCard depth={18}>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setSelectedIndex(isSelected ? null : index)
-                      }
+                    <Link
+                      href={`/services/${item.slug}`}
+                      onClick={() => setSelectedIndex(isSelected ? null : index)}
                       aria-pressed={isSelected}
-                      className={`glass-card group flex h-full w-full min-h-[260px] flex-col justify-between rounded-2xl p-6 text-left sm:p-7 ${
+                      className={`glass-card group flex h-full min-h-[280px] flex-col justify-between rounded-2xl p-6 text-left sm:p-7 ${
                         isSelected
                           ? "border-[#3054ff]/70 bg-[#3054ff]/[0.08] shadow-[0_0_0_1px_rgba(48,84,255,0.4),0_20px_50px_rgba(48,84,255,0.3)]"
                           : ""
@@ -269,14 +403,14 @@ export default function Home() {
                           <Icon className="w-6 h-6" />
                         </div>
                         <h3
-              className={`font-instrument-sans font-semibold text-lg mb-2.5 transition-colors ${
-                isSelected
-                  ? "text-[#b4c0ff]"
-                  : "text-white group-hover:text-[#b4c0ff]"
-              }`}
-            >
-              {item.title}
-            </h3>
+                          className={`font-instrument-sans font-semibold text-lg mb-2.5 transition-colors ${
+                            isSelected
+                              ? "text-[#b4c0ff]"
+                              : "text-white group-hover:text-[#b4c0ff]"
+                          }`}
+                        >
+                          {item.title}
+                        </h3>
                         <p className="font-instrument-sans text-xs text-white/60 leading-relaxed">
                           {item.description}
                         </p>
@@ -296,11 +430,47 @@ export default function Home() {
                           }`}
                         />
                       </div>
-                    </button>
+                    </Link>
                   </Scroll3DCard>
                 </motion.div>
               );
             })}
+          </motion.div>
+
+          {/* Supporting capabilities — the remaining services, kept on the page
+              but deliberately smaller so they read as support for the pillars
+              rather than as five more equally-weighted offerings. */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:mt-12 sm:p-8"
+          >
+            <h3 className="font-instrument-sans text-sm font-semibold text-white">
+              Supporting capabilities
+            </h3>
+            <p className="mt-2 max-w-2xl font-instrument-sans text-xs leading-relaxed text-white/55">
+              Design, growth and content work alongside the three pillars — the
+              same team, engaged when a product needs them.
+            </p>
+            <ul className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {supportingCapabilities.map((capability) => (
+                <li key={capability.slug}>
+                  <Link
+                    href={`/services/${capability.slug}`}
+                    className="group flex h-full flex-col gap-1 rounded-xl border border-white/5 bg-white/[0.02] p-4 transition-colors hover:border-[#3054ff]/40 hover:bg-white/[0.05]"
+                  >
+                    <span className="font-instrument-sans text-sm font-medium text-white/85 group-hover:text-[#b4c0ff]">
+                      {capability.title}
+                    </span>
+                    <span className="font-instrument-sans text-[11px] leading-relaxed text-white/45">
+                      {capability.description}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         </div>
       </section>
@@ -449,7 +619,7 @@ export default function Home() {
                 className="lg:col-span-5 space-y-6"
               >
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
-                  <Calendar className="w-3.5 h-3.5" /> Book A Call
+                  <Calendar className="w-3.5 h-3.5" /> Book An Engineering Call
                 </span>
                 <RevealHeading
                   text="How Do You Start a Project with RECNOS?"
@@ -457,10 +627,31 @@ export default function Home() {
                   className="font-instrument-serif text-3xl sm:text-5xl text-white leading-tight"
                 />
                 <p className="font-instrument-sans text-white/70 text-base leading-relaxed">
-                  Book a 30-minute engineering consultation and we will scope
-                  your project. Email dev@recnos.com or pick a time on the
-                  calendar below.
+                  Book a 30-minute engineering consultation — you will speak
+                  with an engineer, not a salesperson. We scope the problem,
+                  flag the risks we can already see, and tell you honestly
+                  whether we are the right team for it.
                 </p>
+
+                {/* What happens next — the question a visitor actually has
+                    before they hand over a calendar slot. */}
+                <ol className="space-y-3 pt-2">
+                  {[
+                    "You pick a slot and tell us what you are building.",
+                    "We review your goals and constraints before the call, so the 30 minutes are spent on the problem.",
+                    "You leave with a scope, a rough timeline, and a written next step — whether or not you hire us.",
+                  ].map((step, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 font-instrument-sans text-sm text-white/70"
+                    >
+                      <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-[#3054ff]/30 bg-[#3054ff]/10 text-[11px] font-semibold text-[#b4c0ff]">
+                        {i + 1}
+                      </span>
+                      <span className="leading-relaxed">{step}</span>
+                    </li>
+                  ))}
+                </ol>
 
                 <div className="space-y-4 pt-4 border-t border-white/10">
                   <a

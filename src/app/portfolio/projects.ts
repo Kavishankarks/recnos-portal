@@ -198,7 +198,7 @@ export const projects: Project[] = [
     metaDescription:
       "How RECNOS built Mr. Ads: a statically-rendered site for a Bengaluru digital signage network, covering eight venue types with no CMS or database.",
     answer:
-      "Mr. Ads operates an in-restaurant digital signage network across Bengaluru, running on 2,400+ screens in restaurants and bistros alongside residential, corporate, fitness, hostel, mall and play-zone venues. RECNOS built the network's public site as a statically-rendered Next.js application covering eight venue environments.",
+      "Mr. Ads operates an in-restaurant digital signage network across Bengaluru. The network publishes coverage across eight venue types — 2,400+ screens in restaurants and bistros, 1,100+ in residential apartments, 420+ in corporate tech parks, 310+ in fitness centres, 180+ in PG and student hostels, 85+ mall properties and 60+ play zones, roughly 4,555 screens in total. RECNOS built the network's public site as a statically-rendered Next.js application covering all eight environments.",
     tech: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS"],
     impact: "High-density venue visibility network",
     link: "https://mr-ads.in/",

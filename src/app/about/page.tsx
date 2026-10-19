@@ -40,10 +40,14 @@ export const metadata: Metadata = {
  * Figures mirror `StatsSection`, which states each one is verified against the
  * project it describes. Kept as data here so the page renders them in markup
  * rather than relying on the homepage animation's final frame.
+ *
+ * These are the reconciled numbers: the Mr. Ads screen count is the sum of the
+ * venue breakdown the network publishes, not the unsupported 31,400+ figure
+ * this page previously repeated from the homepage.
  */
 const stats = [
-  { value: "31,400+", label: "Screens live on Mr. Ads' network" },
-  { value: "18M", label: "Monthly audience reach (Mr. Ads)" },
+  { value: "4,555+", label: "Screens across Mr. Ads' 8 venue types" },
+  { value: "8", label: "Ad environments covered by Mr. Ads" },
   { value: "500+", label: "Verified PG listings on Trovare" },
   { value: `${projects.length}`, label: "Production platforms in our portfolio" },
 ];

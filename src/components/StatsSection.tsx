@@ -10,31 +10,46 @@ import {
   useScroll,
 } from "motion/react";
 
+/**
+ * Every figure here is traceable to the case study it describes, and each one
+ * carries the measurement basis in its own label. The strip previously led with
+ * a 31,400+ screen count that no case study supported — the Mr. Ads venue
+ * breakdown in `portfolio/projects.ts` sums to roughly 4,555 screens — so the
+ * headline number and the page it cited contradicted each other.
+ *
+ * `suffix` is rendered by the counter; `note` states the basis so a reader can
+ * check the figure rather than take it on trust.
+ */
 const stats: {
   value: number;
   suffix: string;
   label: string;
+  note: string;
   decimals?: number;
 }[] = [
   {
-    value: 31400,
+    value: 4555,
     suffix: "+",
-    label: "Screens live on Mr. Ads' network",
-  },
-  {
-    value: 18,
-    suffix: "M+",
-    label: "Monthly audience reach (Mr. Ads)",
+    label: "Screens across Mr. Ads' 8 venue types",
+    note: "Sum of the venue breakdown published by mr-ads.in",
   },
   {
     value: 500,
     suffix: "+",
     label: "Verified PG listings on Trovare",
+    note: "Listings published on trovare.in, Bangalore",
+  },
+  {
+    value: 8,
+    suffix: "",
+    label: "Ad environments covered by Mr. Ads",
+    note: "Restaurants, residential, corporate, fitness, hostels, malls, play zones",
   },
   {
     value: 4,
     suffix: "",
     label: "Production platforms in our portfolio",
+    note: "Documented as case studies on this site",
   },
 ];
 
@@ -135,6 +150,9 @@ export default function StatsSection() {
                 <dd className="font-instrument-sans text-xs text-white/55 sm:text-sm">
                   {stat.label}
                 </dd>
+                <p className="font-instrument-sans text-[10px] leading-snug text-white/35">
+                  {stat.note}
+                </p>
               </div>
             </motion.div>
           ))}

@@ -84,7 +84,7 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className={styles.eyebrow}
         >
-          Engineering the Future with
+          We build AI products and software
         </motion.p>
 
         {/* Main Headline */}
@@ -94,8 +94,7 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className={styles.title}
         >
-          <span className={styles.aiHighlight}>AI</span>{" "}
-          <span className={styles.titleGradientText}>+ Scalable Software</span>
+          <span className={styles.titleGradientText}>that scale.</span>
         </motion.h1>
 
         {/*
@@ -114,7 +113,7 @@ export default function Hero() {
           transition={{ delay: 0.4, duration: 0.6 }}
           className={styles.description}
         >
-          RECNOS is your end-to-end engineering partner for AI foundation models, distributed systems, and enterprise-grade digital solutions.
+          RECNOS is an engineering studio. We build AI agents and automation platforms, custom software, and the distributed systems behind them — from first prototype to production traffic.
         </motion.p>
 
         {/* CTA Buttons Container */}
@@ -130,7 +129,7 @@ export default function Hero() {
               href="/contact"
               className={styles.primaryCta}
             >
-              <span>Get Started</span>
+              <span>Book an Engineering Call</span>
               <span className={styles.primaryIcon}>
                 <ArrowRight size={20} aria-hidden="true" />
               </span>
@@ -140,10 +139,10 @@ export default function Hero() {
           {/* Secondary Button */}
           <Magnetic strength={0.25}>
             <Link
-              href="/services"
+              href="/portfolio"
               className={styles.secondaryCta}
             >
-              <span>Explore Services</span>
+              <span>View Our Work</span>
               <ArrowRight className={styles.secondaryIcon} size={16} aria-hidden="true" />
             </Link>
           </Magnetic>

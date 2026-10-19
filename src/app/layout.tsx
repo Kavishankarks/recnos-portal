@@ -7,11 +7,11 @@ import Scroll3DScene from "@/components/Scroll3DScene";
 export const metadata: Metadata = {
   metadataBase: new URL("https://recnos.com"),
   title: {
-    default: "RECNOS | AI & Scalable Software Engineering Studio",
+    default: "RECNOS | AI Engineering Studio",
     template: "%s | RECNOS",
   },
   description:
-    "RECNOS is an engineering studio building AI foundation models, distributed systems, and SEO-optimized web and mobile platforms for enterprises.",
+    "RECNOS is an AI engineering studio. We build AI agents and automation platforms, custom software, and the scalable distributed systems behind them.",
   alternates: {
     canonical: "/",
   },
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://recnos.com/",
     siteName: "RECNOS",
-    title: "RECNOS | AI & Scalable Software Engineering Studio",
+    title: "RECNOS | AI Engineering Studio",
     description:
-      "RECNOS is an engineering studio building AI foundation models, distributed systems, and SEO-optimized web and mobile platforms for enterprises.",
+      "RECNOS is an AI engineering studio. We build AI agents and automation platforms, custom software, and the scalable distributed systems behind them.",
     images: [
       {
         url: "/og.png",
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RECNOS | AI & Scalable Software Engineering Studio",
+    title: "RECNOS | AI Engineering Studio",
     description:
-      "RECNOS is an engineering studio building AI foundation models, distributed systems, and SEO-optimized web and mobile platforms for enterprises.",
+      "RECNOS is an AI engineering studio. We build AI agents and automation platforms, custom software, and the scalable distributed systems behind them.",
     images: ["/og.png"],
   },
 };
@@ -48,7 +48,7 @@ const organizationJsonLd = {
   url: "https://recnos.com/",
   logo: "https://recnos.com/logo.svg",
   description:
-    "RECNOS is an engineering studio building AI foundation models, distributed systems, and SEO-optimized web and mobile platforms.",
+    "RECNOS is an AI engineering studio building AI agents, custom software, and scalable distributed systems.",
   email: "dev@recnos.com",
   telephone: "+91-7892883611",
   sameAs: ["https://rolit.ai/"],
