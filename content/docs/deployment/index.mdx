@@ -1,0 +1,50 @@
+---
+title: Deployment
+description: The processes that make up a deployment and how they relate.
+---
+
+A full deployment has five parts.
+
+| Part | Purpose | Exposure |
+|------|---------|----------|
+| **PostgreSQL** | All tenant and platform data | Private |
+| **Redis** | Login rate limiting and short-lived state | Private |
+| **Public API** | Tenant staff and website traffic | Public, behind your load balancer |
+| **Platform-admin service** | Operator tenant management | **Private network only** |
+| **RECNOS site** | Hosts the two consoles and these docs | Public |
+
+## The platform-admin service
+
+It is the same application as the public API, started with the `admin` profile. It serves only `/admin/v1`, uses
+its own limited database role (`recnos_admin`), and does not run migrations.
+
+<Callout type="warn">
+Keep this service off the public load balancer. The RECNOS site reaches it server-to-server through
+`SETU_ADMIN_URL`; browsers never do.
+</Callout>
+
+### One-time setup
+
+1. Run the migrations with the owner role (starting the public API does this). They create `recnos_admin` with no
+   password and no login, the operator tables, and the append-only audit log.
+2. Enable the role with a password from your secrets manager:
+   `ALTER ROLE recnos_admin LOGIN PASSWORD '<secret>'`
+3. The first operator is seeded. Add or disable operators with SQL on `platform_admins`, as the owner role.
+
+The service refuses to start if the database password, the HMAC pepper or the mail host is missing.
+
+## Starting order
+
+1. PostgreSQL and Redis.
+2. Public API (applies migrations).
+3. Enable the `recnos_admin` role.
+4. Platform-admin service.
+5. The RECNOS site, with `SETU_ADMIN_URL` and `SETU_API_URL` set.
+
+## Operating tenants
+
+- **Suspend** a tenant from the Superadmin console; it takes effect on the next request.
+- **Rotate keys** with the dashboard; old keys keep working for the grace period.
+- **Audit**: read `admin_audit_log` with SQL. There is no endpoint for it yet.
+
+See [Configuration](/docs/deployment/configuration) for every setting.

@@ -1,0 +1,44 @@
+---
+title: Tenant dashboard
+description: Sign in and find your way around.
+---
+
+The dashboard, at `/dashboard`, is where a tenant's team builds forms, works enquiries and manages the keys its
+website uses.
+
+## Signing in
+
+You need three things from your platform operator:
+
+- your **Tenant ID** (a long identifier made of letters, digits and hyphens),
+- your **email**, and
+- your **password**.
+
+Wrong details show "Tenant ID, email or password is incorrect." Repeated attempts are rate limited; wait a
+moment and try again. Your session renews itself while you work and lasts up to 30 days of activity.
+
+<Callout type="info">
+The Tenant ID is not the slug. Operators can copy it from the Superadmin tenant list.
+</Callout>
+
+## Tabs
+
+| Tab | What it is for |
+|-----|----------------|
+| **Overview** | Counts of new and in-progress enquiries, active forms and active site keys, plus the latest enquiries. |
+| **[Enquiries](/docs/dashboard/enquiries)** | Read enquiries and move them through their statuses. |
+| **[Forms](/docs/dashboard/forms)** | Build forms, view their structure and submissions. |
+| **[Sites & keys](/docs/dashboard/sites-and-keys)** | Issue and manage the keys your website uses. |
+
+## What your role allows
+
+What you can do depends on your role. If a button is refused you will see "You don't have permission to do that."
+
+| Role | Can do |
+|------|--------|
+| **Owner** | Everything: forms, enquiries and site keys. |
+| **Admin** | Forms and enquiries; can view site keys but not change them. |
+| **Agent** | View forms; work enquiries. No access to site keys. |
+| **Submitter** | View forms only in this dashboard. |
+
+See the full matrix under [Authentication](/docs/architecture/authentication#roles).

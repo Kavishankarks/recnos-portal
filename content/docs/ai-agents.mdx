@@ -1,0 +1,77 @@
+---
+title: Using the docs with AI agents
+description: Machine-readable versions of these docs, and a compact guide for agents that call the API.
+---
+
+These docs are available in forms that AI assistants and coding agents can read without scraping HTML.
+
+## Machine-readable endpoints
+
+| What | Where |
+|------|-------|
+| **Index of every page**, with titles and links | `/llms.txt` |
+| **The whole documentation** as one text file | `/llms-full.txt` |
+| **Any single page as markdown** | The page's address with `.md` added, for example `/docs/forms/formats.md` |
+| **Any page via content negotiation** | Request the normal page address with the header `Accept: text/markdown` |
+
+`/docs/index.md` is the overview page. Every page has a **Copy Markdown** button and an **Open** menu at the top
+that hands the page to an assistant.
+
+<Callout type="info">
+Start with `/llms.txt`. It lists each page with a one-line description, so an agent can fetch only the pages it
+needs, and `/llms-full.txt` is there when it wants everything in a single request.
+</Callout>
+
+## Quick reference for agents that call the API
+
+Everything an agent needs to act for a tenant, in order. Full detail is in the [API reference](/docs/api).
+
+### 1. Sign in as tenant staff
+
+```http
+POST /api/v1/auth/login
+X-Tenant-ID: <tenant id>
+Content-Type: application/json
+
+{ "email": "<email>", "password": "<password>" }
+```
+
+Use `accessToken` as `Authorization: Bearer <token>`. It lasts 15 minutes; refresh it with
+`POST /api/v1/auth/refresh` (see [Authentication endpoints](/docs/api/authentication)).
+
+### 2. Read and act
+
+| Goal | Request |
+|------|---------|
+| List forms | `GET /api/v1/forms` |
+| Create or version a form | `POST /api/v1/forms` with `name` and `jsonSchema` |
+| Read submissions | `GET /api/v1/forms/{id}/submissions` |
+| List enquiries | `GET /api/v1/enquiries` |
+| Move an enquiry along | `PUT /api/v1/enquiries/{id}/status` with `{ "status": "in_progress" }` |
+
+Lists are cursor-paginated: repeat the call with `cursor` set to `nextCursor` until it is `null`.
+
+### 3. Send data from a website or integration
+
+Use a **site key**, not a staff token: `POST /api/v1/forms/{id}/submissions` with the header
+`X-Site-Key: <key>` and a body of `{ "payload": { ... } }`. Always send an `Idempotency-Key` header so retries are safe.
+See [Website integration](/docs/website-integration).
+
+## Rules worth knowing before you act
+
+- **Roles limit what you can do.** A `403` means the signed-in user's role does not allow the call. Do not retry; see
+  the [role table](/docs/architecture/authentication#roles).
+- **Forms are versioned and immutable.** Never try to edit a version; create a new one.
+- **Enquiry status moves are restricted.** Only the moves in the [status table](/docs/api/enquiries#statuses) work, and
+  `closed` is final.
+- **Schemas are a safe subset of JSON Schema.** No `$ref`, and `format` must be one of the
+  [built-in formats](/docs/forms/formats). Read `message` in a `400` response to find the failing field.
+- **A site key is shown once** when issued or rotated. Capture it from the response; it cannot be fetched again.
+- **Throttling is normal.** Back off on `429` and honour any retry hint.
+- **Quote `ref`.** Every error body has a `ref` correlation ID; include it when reporting a failure.
+
+## What agents should not do
+
+- Do not use a staff token in a public website, or store it where visitors can read it.
+- Do not guess or enumerate Tenant IDs. A wrong Tenant ID, email or password gives the same generic failure.
+- Do not call the platform-admin API; it is for operators and is not reachable from the public API.

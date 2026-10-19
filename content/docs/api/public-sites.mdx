@@ -1,0 +1,35 @@
+---
+title: Site keys
+description: Endpoints for managing website keys.
+---
+
+These endpoints manage the keys described in [Sites and keys](/docs/dashboard/sites-and-keys). Reading needs the
+tenant-settings read permission; changing needs write (Owner only). A site key itself can never call them.
+
+## Site object
+
+```json
+{
+  "id": "...",
+  "siteGroupId": "...",
+  "status": "active",
+  "allowedOrigins": ["https://www.example.com"],
+  "allowedFormIds": ["7c1d9a40-2b6e-4f3a-8d15-9e0b3a6c5f21"],
+  "quotaPerMinute": 30,
+  "graceExpiresAt": null,
+  "lastUsedAt": null,
+  "createdAt": "2026-10-19T10:55:00Z"
+}
+```
+
+The raw key and its hash are never part of this object.
+
+## Endpoints
+
+| Method and path | Description |
+|-----------------|-------------|
+| `POST /api/v1/public-sites` | Issue a key. Body: `allowedOrigins`, `allowedFormIds`, optional `quotaPerMinute`. Returns `201` with `{ "siteId", "rawKey" }`. **The raw key is shown only here.** |
+| `GET /api/v1/public-sites` | List sites. |
+| `PUT /api/v1/public-sites/{id}` | Replace settings. Body: `allowedOrigins`, `allowedFormIds`, `quotaPerMinute`. |
+| `POST /api/v1/public-sites/{id}/rotate` | Issue a replacement key (`201`, `{ "siteId", "rawKey" }`). The old key works for the grace period. |
+| `POST /api/v1/public-sites/{id}/revoke` | Revoke immediately. Returns `204`. |

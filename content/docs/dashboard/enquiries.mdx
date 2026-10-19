@@ -1,0 +1,33 @@
+---
+title: Enquiries
+description: Read enquiries from your website and move them through their statuses.
+---
+
+An **enquiry** is a message a visitor sent from your website. Each has a **source** (a short label such as
+`contact-page`), a **payload** with whatever the visitor submitted, a status, and a received time.
+
+## Reading enquiries
+
+The tab lists enquiries 25 at a time, newest first. Choose **View** on a row to expand its payload as JSON, and
+**Load more** for older ones.
+
+## Statuses
+
+```text
+ new ──► in progress ──► resolved ──► closed
+  │            │             │
+  └──► closed ◄┘             └──► in progress  (reopen)
+```
+
+| From | You can move it to |
+|------|--------------------|
+| New | In progress, Closed |
+| In progress | Resolved, Closed |
+| Resolved | Closed, In progress (**Reopen**) |
+| Closed | Nothing; closed is final |
+
+The buttons on each row show only the moves that are allowed. Any other move is refused by the server.
+
+## Who can change status
+
+Owners, Admins and Agents can read and update enquiries. Submitters cannot see them.

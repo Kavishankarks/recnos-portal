@@ -46,3 +46,6 @@ next-env.d.ts
 # Vendored client source trees, copied in for case-study research only.
 # Never commit these — they belong to other repos.
 /.research/
+
+# fumadocs-mdx generated output
+.source

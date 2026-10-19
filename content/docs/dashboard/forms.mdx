@@ -1,0 +1,70 @@
+---
+title: Forms
+description: Build forms visually, review their structure and read submissions.
+---
+
+A **form** defines the fields a visitor fills in. Behind the scenes it is a [JSON Schema](/docs/forms/schema-reference);
+the dashboard lets you build one without writing JSON.
+
+## Create a form
+
+1. Open the **Forms** tab.
+2. Enter a **form name**.
+3. Add fields in the builder (see below).
+4. Choose **Create form**.
+
+<Callout type="info">
+Creating a form with a name that already exists does not make a duplicate. It adds a **new version** of that
+form. See [Versions](/docs/forms#versions).
+</Callout>
+
+### The visual builder
+
+Each field has a **label** (what visitors see), a **key** (the name in the saved data, suggested from the label,
+for example "Full name" becomes `fullName`), a **type**, and a **Required** toggle.
+
+| Type | Visitor sees | Checked as |
+|------|--------------|------------|
+| Short text | One-line box | String, up to 200 characters |
+| Long text | Multi-line box | String, up to 2000 characters |
+| Email | Email box | String in `email` format |
+| Phone | Phone box | String of digits and `+ ( ) -` and spaces, 6 to 20 long |
+| Website (URL) | URL box | String in `uri` format |
+| Number | Number box | Number, with optional minimum and maximum |
+| Date | Date picker | String in `date` format |
+| Date & time | Date and time picker | String in `date-time` format |
+| Dropdown | List of your options | One of the options (one per line) |
+| Checkbox | Tick box | True or false |
+
+Use the arrows to reorder fields and the cross to remove one. The **Preview** beside the builder shows the form as
+a visitor would see it. It is read-only: it exists so you can check order, required markers and field types
+before saving, and nothing you type there is stored.
+
+The builder refuses to submit if a key is missing, invalid or used twice, if a dropdown has no options, or if a
+number's minimum is above its maximum.
+
+### JSON mode
+
+Switch to **JSON** to write the schema by hand. Switching back to **Visual** works as long as the schema uses
+only flat fields the builder understands; nested objects and arrays stay in JSON mode.
+
+## Review a form's structure
+
+Choose **Structure** on any row:
+
+- **Fields**: a table of label, key, type, required and details.
+- **Preview**: the visitor's view.
+- **JSON**: the raw schema.
+
+Right after you create a form, its structure opens automatically.
+
+## New version, archive, IDs
+
+| Button | Does |
+|--------|------|
+| **New version** | Loads the form into the builder so you can save a changed copy as the next version. |
+| **Archive** | Stops the form from accepting submissions. Asks you to confirm. |
+| **Copy ID** | Copies the form's ID, which your website needs. |
+| **Submissions** | Lists what visitors submitted, newest first, with each payload expandable. |
+
+Submissions show **Website** for visitor submissions and **Staff** for ones entered by a team member.

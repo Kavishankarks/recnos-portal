@@ -1,0 +1,44 @@
+---
+title: RECNOS Platform
+description: Multi-tenant forms, enquiries and site keys, with a platform console and a tenant dashboard.
+---
+
+The RECNOS platform lets many client websites share one backend. Each client is a **tenant**: it has its own
+forms, enquiries, team and website keys, and it can never see another tenant's data.
+
+There are three ways people use it:
+
+| Who | What they use | What they do |
+|-----|---------------|--------------|
+| **Platform operators** (RECNOS staff) | The **Superadmin** console | Create tenants, suspend and reactivate them. |
+| **Tenant staff** (a client's own team) | The **Tenant dashboard** | Build forms, work enquiries, manage website keys. |
+| **Website visitors** | A client's own website | Submit forms and enquiries, anonymously. |
+
+<Cards>
+  <Card title="Getting started" href="/docs/getting-started">
+    Run the platform locally and sign in for the first time.
+  </Card>
+  <Card title="Superadmin console" href="/docs/superadmin">
+    Provision and manage tenants.
+  </Card>
+  <Card title="Tenant dashboard" href="/docs/dashboard">
+    Forms, enquiries and website keys.
+  </Card>
+  <Card title="Website integration" href="/docs/website-integration">
+    Send submissions from a client's website.
+  </Card>
+  <Card title="API reference" href="/docs/api">
+    Every endpoint, request and response.
+  </Card>
+  <Card title="Deployment" href="/docs/deployment">
+    Services, environment variables and operations.
+  </Card>
+</Cards>
+
+## The pieces
+
+- **recnos-setu** is the backend: a Java 21 service on PostgreSQL that holds all tenant data and exposes a
+  versioned REST API.
+- **The RECNOS site** hosts both consoles. The consoles never talk to the backend from the browser; the site's
+  server forwards each request, so the backend's address and the session tokens stay out of page code.
+- **The platform-admin service** is a separate process of the same backend, used only by the Superadmin console.

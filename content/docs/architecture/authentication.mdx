@@ -1,0 +1,49 @@
+---
+title: Authentication
+description: How operators, tenant staff and website visitors prove who they are.
+---
+
+## Operators: emailed one-time code
+
+Operators have no password. They request a code for their email address and enter it.
+
+| Property | Value |
+|----------|-------|
+| Code | 8 digits |
+| Lifetime | 10 minutes |
+| Use | Single use |
+| Wrong guesses | The code dies after 5 |
+| Resend | 60 second cooldown per operator |
+| Session | 30 minutes |
+
+Only keyed hashes of codes and session tokens are stored. Asking for a code always returns the same response,
+whether or not the address belongs to an operator, so the endpoint cannot be used to discover operators.
+
+Every sign-in event and every tenant change is written to an append-only audit log.
+
+## Tenant staff: password and tokens
+
+Staff sign in with a **Tenant ID**, email and password. A successful login returns:
+
+- an **access token** (a JWT) valid for 15 minutes, sent as `Authorization: Bearer <token>`, and
+- a **refresh token**, delivered in an `HttpOnly` cookie, valid for 30 days.
+
+Refresh tokens **rotate**: each refresh issues a new one and retires the old. The refresh call is protected by a
+double-submit CSRF check. Logins are rate limited (5 attempts per minute by default) and respond `429` when the
+limit is hit.
+
+### Roles
+
+| Role | Forms | Submissions | Enquiries | Site keys |
+|------|-------|-------------|-----------|-----------|
+| **Owner** | read, write | read | read, write | read, write |
+| **Admin** | read, write | read | read, write | read |
+| **Agent** | read | read | read, write | none |
+| **Submitter** | read | write (own) | none | none |
+
+Anything not listed is denied.
+
+## Website visitors: site keys
+
+A **site key** identifies a tenant's website. It is sent in the `X-Site-Key` header, can only create
+submissions and enquiries, and never grants access to read anything. See [Sites and keys](/docs/dashboard/sites-and-keys).

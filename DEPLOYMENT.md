@@ -10,7 +10,7 @@ This document describes the production deployment setup for the Recnos Portal ap
 
 | Component | Technology | Version |
 |-----------|------------|---------|
-| Application | Next.js | 16.0.7 |
+| Application | Next.js | 16.4.2 |
 | Runtime | Node.js | v20.19.4 |
 | Process Manager | PM2 | Latest |
 | Web Server | Nginx | 1.28.0 (Ubuntu) |
@@ -40,7 +40,7 @@ ssh root@187.127.138.111
 │   ├── app/                  # Next.js app directory (incl. favicon.ico, icon.svg, apple-icon.png)
 │   └── components/           # React components
 ├── package.json
-├── next.config.ts
+├── next.config.mjs
 └── tsconfig.json
 ```
 
@@ -362,3 +362,22 @@ Regularly back up:
 ## Contact
 
 For issues or questions regarding this deployment, contact the system administrator (dev@recnos.com).
+
+## Consoles (`/superadmin`, `/dashboard`) and docs (`/docs`)
+
+The Superadmin console and the tenant dashboard talk to the recnos-setu backend through server-side route
+handlers (`/api/superadmin/*`, `/api/tenant/*`). Their addresses come from server environment variables
+(never `NEXT_PUBLIC_*`, never committed):
+
+| Variable | Enables |
+|----------|---------|
+| `SETU_ADMIN_URL` | `/superadmin`, the platform-admin service address (internal network only) |
+| `SETU_API_URL` | `/dashboard`, the public API address |
+
+**A console whose variable is unset returns 404**, so nothing broken is shown while no backend exists. To switch one
+on, add the variable to the `env` block in `.deploy/ecosystem.config.js` (or the server's environment) and re-run
+`./.deploy/deploy.sh`. The addresses are never rendered or sent to the browser, and session tokens live in httpOnly
+cookies.
+
+The docs at `/docs` are MDX under `content/docs/`. They are also served to AI agents as `/llms.txt`,
+`/llms-full.txt`, `/docs/<page>.md` and via `Accept: text/markdown`.

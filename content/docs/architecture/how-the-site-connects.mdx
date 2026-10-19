@@ -1,0 +1,34 @@
+---
+title: How the site connects
+description: Why the consoles call the site's own endpoints instead of the backend.
+---
+
+The Superadmin console and the Tenant dashboard run in the browser, but the browser never calls the backend.
+Instead each console calls a small set of endpoints on the RECNOS site, and the site's server forwards the
+request.
+
+```text
+ Browser ──► /api/superadmin/*  ──► platform-admin service
+ Browser ──► /api/tenant/*      ──► public API
+```
+
+## Why
+
+- **The backend address stays private.** It lives in the server-side variables `SETU_ADMIN_URL` and
+  `SETU_API_URL`, never in page code or responses. The platform-admin service can stay on an internal network.
+- **Tokens stay out of reach of page scripts.** Session tokens are stored in `HttpOnly`, `SameSite=Strict`
+  cookies scoped to the proxy path, so JavaScript on the page cannot read them.
+- **Only known operations pass.** Each proxy has an allow-list of method and path patterns; anything else is a `404`.
+- **Same-origin writes only.** State-changing requests must come from the site's own origin.
+
+## Session handling
+
+| Console | Cookies | Behaviour |
+|---------|---------|-----------|
+| Superadmin | one session cookie | Valid for the 30-minute operator session. When it ends, the page returns to sign-in. |
+| Dashboard | access, refresh, CSRF, tenant | The access token is refreshed automatically when it expires; if the refresh token is no longer valid, the page returns to sign-in. |
+
+## Failure messages
+
+The proxies report failures with short codes such as `unavailable` (the backend cannot be reached) and
+`unauthenticated` (the session ended). They never include the backend's address.

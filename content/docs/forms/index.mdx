@@ -1,0 +1,38 @@
+---
+title: Forms and submissions
+description: The concepts behind forms, versions and submissions.
+---
+
+## Forms
+
+A form has a **name**, a **version**, a **JSON Schema** describing its fields, and a **status** (`active` or
+`archived`). Every submission is checked against the form's schema before it is stored; invalid data is
+refused with a `400` and a message that names the problem field.
+
+## Versions
+
+A form's schema is **immutable once saved**. Changing a form creates a new version instead of editing the old
+one, so existing submissions always refer to the exact schema they were checked against.
+
+- Creating a form with an existing name adds a new version of it.
+- `PUT` on a form's ID also adds a new version.
+- Archiving a form stops it accepting submissions.
+
+## Submissions
+
+A submission is the data a visitor sent, stored with the form it belongs to and a timestamp.
+
+| Source | How it arrives | What the sender gets back |
+|--------|----------------|---------------------------|
+| **Website** | A request carrying a site key | Only an acknowledgement with the new ID. The data is never echoed back. |
+| **Staff** | A signed-in team member with the right role | The stored submission. |
+
+Submissions are read through the dashboard's **Submissions** view or the API; they cannot be edited.
+
+## Enquiries are separate
+
+Enquiries are free-form messages with a **source** label and any JSON payload, not tied to a form schema. Use
+forms when you want validated, structured data; use enquiries for simple contact messages. See
+[Enquiries](/docs/dashboard/enquiries).
+
+Learn what a schema may contain in the [Schema reference](/docs/forms/schema-reference).

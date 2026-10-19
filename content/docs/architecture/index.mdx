@@ -1,0 +1,39 @@
+---
+title: Architecture overview
+description: How the backend, the site and the two consoles fit together.
+---
+
+```text
+ Browser ──► RECNOS site (Next.js) ──► Public API        ──► PostgreSQL
+                  │                                            ▲
+                  └────────────────► Platform-admin service ───┘
+                                      (separate process)
+
+ Client website ───────────────────► Public API  (site key)
+```
+
+## Two services from one codebase
+
+The backend is a single application started in two modes:
+
+- **Public API** serves tenants and website visitors under `/api/v1`.
+- **Platform-admin service** serves operators under `/admin/v1`. It runs as its own process, connects to the
+  database as a narrowly-granted role, and is meant to live on an internal network. The public API serves no
+  admin routes, and the admin service refuses tenant traffic.
+
+## Runtime
+
+The backend runs on Java 21 with virtual threads, so each request can block cheaply on I/O. Redis backs login
+rate limiting and other short-lived state. PostgreSQL holds everything else.
+
+## Who may do what
+
+| Audience | Credential | Scope |
+|----------|-----------|-------|
+| Operators | Emailed one-time code, then a 30-minute session | Tenant provisioning and status |
+| Tenant staff | Email and password, then a short-lived access token | Forms, enquiries, site keys, by role |
+| Website visitors | A tenant **site key** | Create-only submissions and enquiries |
+
+The credentials never mix. A request carrying both a site key and a staff token is rejected as ambiguous.
+
+Continue with [Tenancy and isolation](/docs/architecture/tenancy).

@@ -1,0 +1,47 @@
+---
+title: Sites and keys
+description: Issue, edit, rotate and revoke the keys your website uses.
+---
+
+A **site key** lets one of your websites send submissions and enquiries to your tenant. It is create-only: it can
+never read data.
+
+## Issue a key
+
+1. Open **Sites & keys** and choose **Issue key**.
+2. **Allowed origins**: list the website addresses (origins) allowed to use the key, one per line, for example
+   `https://www.example.com`.
+3. **Forms**: tick the forms this key may submit to.
+4. **Requests per minute**: optional. If left blank, the default applies (30 per minute per key).
+5. Choose **Issue key**.
+
+The key is shown **once**. Copy it now; it cannot be shown again.
+
+<Callout type="warn">
+Treat the key like a publishable identifier, not a secret password: it ends up in your website's code. Its power
+is limited by the allowed origins, the allowed forms and the per-minute quota.
+</Callout>
+
+Your website sends the key in the `X-Site-Key` header. See [Website integration](/docs/website-integration).
+
+## Manage keys
+
+| Action | Effect |
+|--------|--------|
+| **Edit** | Change allowed origins, allowed forms and the quota. Keeps the same key. |
+| **Rotate** | Issues a new key. The old key keeps working for a grace period (7 days by default) so you can deploy the new one without downtime. |
+| **Revoke** | Stops the key immediately. Cannot be undone. |
+
+A key's row shows its status, origins, forms, quota and when it was last used.
+
+## Limits that protect you
+
+- **Per key**: the quota you set.
+- **Per tenant**: a combined cap across all your keys (300 per minute by default).
+- **Size**: public requests are limited in body size and field count.
+
+Requests over a limit are refused; ask your platform operator if you need higher limits.
+
+## Permissions
+
+Only **Owners** can issue, edit, rotate or revoke keys. Admins can view them.

@@ -1,0 +1,34 @@
+---
+title: String formats
+description: The built-in values for the JSON Schema format keyword.
+---
+
+Set `format` on a string field to have its value checked for a common shape:
+
+```json
+{ "type": "string", "format": "email" }
+```
+
+The formats are built in and fixed. Tenants cannot add their own, and every check is plain code with no
+network lookups, so validation stays fast and predictable.
+
+| Format | Accepts | Examples | Rejects |
+|--------|---------|----------|---------|
+| `email` | A dot-atom address with a domain of at least two labels, up to 254 characters | `a.b+c@example.co.uk` | `a@b`, `a..b@example.com`, `a b@example.com` |
+| `date` | A real calendar date, `YYYY-MM-DD` | `2026-02-28` | `2026-02-30`, `26-2-3` |
+| `time` | `HH:mm:ss` with optional fraction and a `Z` or numeric offset | `10:15:30Z`, `10:15:30.5+05:30` | `10:15` |
+| `date-time` | Date and time with seconds and an offset | `2026-10-19T10:15:30Z` | `2026-10-19T10:15:30`, `2026-10-19` |
+| `uri` | An absolute URI with a scheme and no spaces | `https://example.com/a?b=c`, `mailto:a@b.co` | `/relative/path`, `http://exa mple.com` |
+| `uuid` | The canonical `8-4-4-4-12` hexadecimal form | `123e4567-e89b-12d3-a456-426614174000` | `1-1-1-1-1` |
+| `ipv4` | Four decimal parts, 0 to 255, no leading zeros | `192.168.0.1` | `256.1.1.1`, `01.1.1.1` |
+| `ipv6` | A literal address, with `::` shortening and an optional IPv4 tail | `2001:db8::1`, `::1`, `::ffff:192.168.0.1` | `1::2::3`, `fe80::1%eth0` |
+| `hostname` | Dot-separated labels of letters, digits and hyphens | `my-host.example.com` | `-bad.example.com`, `bad_host.example.com` |
+
+<Callout type="info">
+`format` works together with `minLength`, `maxLength` and `pattern`. All of the rules on a field must pass.
+</Callout>
+
+## In the dashboard builder
+
+The **Email**, **Date**, **Date & time** and **Website (URL)** field types set `format` for you. For a format
+without a builder field type (such as `uuid`), switch to **JSON** mode and add it to the field by hand.

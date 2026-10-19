@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Scroll3DScene from "@/components/Scroll3DScene";
+import SiteChrome from "@/components/SiteChrome";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://recnos.com"),
@@ -80,7 +78,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark bg-black">
+    <html lang="en" className="dark bg-black" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -90,10 +88,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-black text-white font-instrument-sans antialiased min-h-screen selection:bg-[#3054ff] selection:text-white">
-        <Scroll3DScene />
-        <Navbar />
-        <main className="relative z-10">{children}</main>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

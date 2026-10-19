@@ -1,0 +1,44 @@
+---
+title: Authentication endpoints
+description: Log in, refresh and log out tenant staff.
+---
+
+These endpoints need no credential. The tenant is chosen by the `X-Tenant-ID` header, which carries the **Tenant
+ID** (a UUID). It is a routing hint only.
+
+## Log in
+
+`POST /api/v1/auth/login`
+
+```http
+X-Tenant-ID: 3f2b8c1e-5a7d-4e1b-9c3a-0d6f4b2a1e77
+Content-Type: application/json
+
+{ "email": "owner@example.com", "password": "..." }
+```
+
+Response `200`:
+
+```json
+{ "accessToken": "<jwt>", "csrfToken": "<token>" }
+```
+
+The response also sets two cookies scoped to `/api/v1/auth`: an `HttpOnly` **refresh token** and a readable CSRF
+cookie. The access token lasts 15 minutes. Too many attempts return `429`.
+
+## Refresh
+
+`POST /api/v1/auth/refresh`
+
+Send `X-Tenant-ID`, the refresh and CSRF cookies, and the CSRF token again in the `X-CSRF-Token` header (a
+double-submit check). Response `200` has the same shape as login, with a **new** refresh token: the old one stops
+working.
+
+## Log out
+
+`POST /api/v1/auth/logout`, with `X-Tenant-ID` and the refresh cookie. Response `204`. The refresh token is
+revoked and the cookies are cleared.
+
+## Public keys
+
+`GET /.well-known/jwks.json` returns the public keys used to verify access tokens.

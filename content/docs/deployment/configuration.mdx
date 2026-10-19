@@ -1,0 +1,73 @@
+---
+title: Configuration
+description: Environment variables for each part of the deployment.
+---
+
+Secrets have no defaults where noted: the process refuses to start without them. Never commit their values.
+
+## RECNOS site
+
+| Variable | Purpose |
+|----------|---------|
+| `SETU_ADMIN_URL` | Address of the platform-admin service. Server-side only; never exposed to the browser. Without it the Superadmin console reports "unavailable". |
+| `SETU_API_URL` | Address of the public API. Server-side only. Without it the dashboard reports "unavailable". |
+
+Do not prefix these with `NEXT_PUBLIC_`: that would ship them to the browser.
+
+## Public API
+
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `DB_URL`, `DB_USER`, `DB_PASSWORD` | Database connection | none |
+| `REDIS_HOST`, `REDIS_PORT` | Redis connection | `6379` |
+| `PORT` | Listening port | `8080` |
+| `JWT_ISSUER`, `JWT_AUDIENCE` | Token issuer and audience | dev values |
+| `JWT_ACTIVE_KID`, `JWT_SIGNING_KEYS` | Signing key id and key set. If no keys are set, an ephemeral key is generated, which is fine only for development. | |
+| `JWT_ACCESS_TTL_SECONDS` | Access token lifetime | `900` |
+| `REFRESH_TOKEN_TTL_SECONDS` | Refresh token lifetime | `2592000` (30 days) |
+| `REFRESH_TOKEN_HMAC_PEPPER` | Keys stored refresh-token hashes | dev value; **change it** |
+| `PAGINATION_CURSOR_HMAC_SECRET` | Signs pagination cursors | dev value; **change it** |
+| `PAGINATION_DEFAULT_LIMIT`, `PAGINATION_MAX_LIMIT` | Page sizes | `20`, `100` |
+| `LOGIN_RATE_MAX_ATTEMPTS`, `LOGIN_RATE_WINDOW_SECONDS` | Login throttle | `5`, `60` |
+| `IDEMPOTENCY_TTL_SECONDS` | How long idempotency keys are kept | `86400` |
+
+### Public submission limits
+
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `PUBLIC_INGESTION_DEFAULT_SITE_QUOTA` | Requests per minute for a new site key | `30` |
+| `PUBLIC_INGESTION_TENANT_QUOTA` | Combined requests per minute for a tenant | `300` |
+| `PUBLIC_INGESTION_MAX_BODY_BYTES` | Largest request body | `262144` |
+| `PUBLIC_INGESTION_MAX_FIELDS` | Most fields in a submission | `100` |
+| `PUBLIC_INGESTION_ROTATION_GRACE_SECONDS` | How long a rotated key keeps working | `604800` (7 days) |
+
+### Form validation limits
+
+| Variable | Default |
+|----------|---------|
+| `FORM_VALIDATION_MAX_DEPTH` | `10` |
+| `FORM_VALIDATION_MAX_PROPERTIES` | `200` |
+| `FORM_VALIDATION_MAX_STRING_LENGTH` | `2000` |
+| `FORM_VALIDATION_MAX_ARRAY_ITEMS` | `200` |
+| `FORM_VALIDATION_TIMEOUT_MILLIS` | `200` |
+
+## Platform-admin service
+
+| Variable | Purpose |
+|----------|---------|
+| `ADMIN_DB_PASSWORD` | Password of the `recnos_admin` role. **No default.** |
+| `ADMIN_HMAC_PEPPER` | Keys the stored hashes of sign-in codes and session tokens. **No default.** |
+| `SMTP_HOST` | Mail server used to send sign-in codes. **No default.** |
+| `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD` | Mail server details (port defaults to `587`) |
+| `SMTP_AUTH`, `SMTP_STARTTLS` | Set to `false` for a local mail catcher |
+| `ADMIN_OTP_FROM` | Sender address for sign-in codes. Use an address your mail provider allows. |
+| `ADMIN_PORT` | Listening port (default `8081`) |
+| `ADMIN_DB_USER` | Defaults to `recnos_admin` |
+| `DB_URL`, `REDIS_HOST` | As for the public API |
+
+### Choosing a mail provider
+
+Any SMTP account works: a hosting provider's mailbox, Google SMTP with an app password, or a transactional
+service. Use port `587` with STARTTLS, and set `ADMIN_OTP_FROM` to the mailbox you log in with, since many
+providers reject other sender addresses. Make sure your domain's SPF and DKIM records are set so codes arrive in
+the inbox.

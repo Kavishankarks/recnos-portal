@@ -1,0 +1,78 @@
+---
+title: Schema reference
+description: The JSON Schema keywords a form may use.
+---
+
+Forms use a deliberately small, safe subset of JSON Schema. The subset is small so that checking a submission is
+always fast and bounded, whatever a tenant writes.
+
+## Supported keywords
+
+| Keyword | Applies to | Meaning |
+|---------|-----------|---------|
+| `type` | any | `object`, `array`, `string`, `number`, `integer`, `boolean`, `null` |
+| `properties` | object | The fields and a schema for each |
+| `required` | object | List of field names that must be present |
+| `additionalProperties` | object | `false` rejects fields not listed in `properties` |
+| `items` | array | Schema for each element |
+| `enum` | any | The value must equal one of the listed values |
+| `minLength`, `maxLength` | string | Length bounds |
+| `minimum`, `maximum` | number | Range bounds |
+| `pattern` | string | The whole string must match this regular expression |
+| `format` | string | One of the [built-in formats](/docs/forms/formats) |
+
+Other keywords, such as `title` and `description`, are allowed and ignored by validation. The dashboard builder
+uses `title` for labels and `x-input` to remember the field type.
+
+## Not allowed
+
+- `$ref` and `$dynamicRef`. Schemas cannot reference other schemas, and nothing is fetched remotely.
+- A `format` that is not on the built-in list. This is refused when the form is **saved**.
+
+## Limits
+
+| Limit | Default |
+|-------|---------|
+| Nesting depth | 10 |
+| Total properties | 200 |
+| Longest string | 2000 characters |
+| Longest array | 200 items |
+| Time to validate one submission | 200 ms |
+
+A schema that breaks the structural limits is refused when saved. A submission that exceeds them is refused when
+sent. Website submissions also have a body size cap (256 KB by default) and a field count cap.
+
+## Example
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "fullName": { "type": "string", "title": "Full name", "maxLength": 200 },
+    "email":    { "type": "string", "title": "Email", "format": "email" },
+    "plan":     { "type": "string", "title": "Plan", "enum": ["Basic", "Pro"] },
+    "seats":    { "type": "number", "title": "Seats", "minimum": 1, "maximum": 500 },
+    "agree":    { "type": "boolean", "title": "I agree" }
+  },
+  "required": ["fullName", "email"],
+  "additionalProperties": false
+}
+```
+
+A matching submission:
+
+```json
+{ "payload": { "fullName": "Asha Rao", "email": "asha@example.com", "plan": "Pro", "seats": 25, "agree": true } }
+```
+
+## Common errors
+
+| Message | Cause |
+|---------|-------|
+| `missing required field email` | A `required` field was left out |
+| `expected type number` | A value had the wrong type |
+| `not in enum` | A value was not one of the allowed options |
+| `does not match format email` | A value failed its `format` |
+| `unexpected property x` | `additionalProperties` is `false` and the field is not listed |
+| `schema_uses_unsupported_format:name` | The schema names a format outside the built-in list |
+| `schema_uses_banned_keyword:$ref` | The schema uses `$ref` |

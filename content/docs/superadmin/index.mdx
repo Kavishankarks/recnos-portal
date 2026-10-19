@@ -1,0 +1,31 @@
+---
+title: Superadmin console
+description: Sign in as a platform operator.
+---
+
+The Superadmin console, at `/superadmin`, is for RECNOS operators. It creates tenants and switches them on and
+off. It does not read or edit a tenant's forms or enquiries; that belongs to the tenant.
+
+## Signing in
+
+1. Enter your **operator email** and choose **Send code**.
+2. Enter the **8-digit code** from the email and choose **Verify**.
+
+The code is valid for 10 minutes, works once, and stops working after 5 wrong guesses. You can request a new code
+once every 60 seconds. Your session lasts 30 minutes; reloading the page keeps you signed in until then.
+
+<Callout type="info">
+The page always says a code is "on its way" for any valid-looking address. This is deliberate: it stops the form
+from revealing which addresses belong to operators. If no email arrives, the address is not an active operator.
+</Callout>
+
+## Signing out
+
+Choose **Sign out** at the top right. This ends the session on the server and clears the cookie.
+
+## Managing operators
+
+Operators are rows in the `platform_admins` table. There is no screen for adding or disabling them; use SQL as
+the database owner role. The audit log is likewise read with SQL.
+
+Next: [Provisioning tenants](/docs/superadmin/tenants).

@@ -1,0 +1,56 @@
+---
+title: Troubleshooting
+description: Common problems and what to check.
+---
+
+## A console says "The service is unavailable"
+
+The site could not reach the backend, or the address is not configured.
+
+1. Check that `SETU_ADMIN_URL` (Superadmin) or `SETU_API_URL` (dashboard) is set on the **server** that runs the
+   site, and restart it after changing environment files.
+2. Check the target service is running and reachable from the site's server.
+3. Remember a `503` means the variable is missing, and a `502` means the call was attempted and failed.
+
+## No sign-in code arrives
+
+- Only active operators receive codes. For any other address the page still says a code is on its way.
+- Check the mail server settings (`SMTP_HOST`, port, credentials) and the sender address.
+- Codes can be requested once every 60 seconds. A request inside that window sends nothing new.
+- After 5 wrong guesses a code is dead; request a fresh one.
+
+## "That code is invalid or has expired"
+
+The code was wrong, older than 10 minutes, already used, or locked out. Request a new one.
+
+## The platform-admin service will not start
+
+It needs `ADMIN_DB_PASSWORD`, `ADMIN_HMAC_PEPPER` and `SMTP_HOST`. If the database login fails, check that the
+`recnos_admin` role has been given a password with `ALTER ROLE ... LOGIN PASSWORD`.
+
+## "Tenant ID, email or password is incorrect"
+
+- Use the **Tenant ID**, not the slug.
+- Check the email belongs to a user of that tenant and the password is right. Logins are rate limited, so wait a
+  minute after several failures.
+- A suspended tenant's users cannot use the API.
+
+## "You don't have permission to do that"
+
+Your role does not allow the action. For example, only Owners change site keys. See the
+[role table](/docs/architecture/authentication#roles).
+
+## A website submission is refused
+
+| Status | Likely cause |
+|--------|--------------|
+| `400` | The data failed the form's schema; read `message` for the field. |
+| `401` | The site key is missing, wrong or revoked. |
+| `403` | The page's origin is not in the key's allowed origins, or the form is not allowed for this key. |
+| `409` | The same `Idempotency-Key` was used with a different body, or while the first call was still running. |
+| `429` | The key or tenant exceeded its per-minute quota. |
+
+## Saving a form fails with `schema_uses_unsupported_format`
+
+The schema names a `format` outside the [built-in list](/docs/forms/formats). Remove it, or enforce the shape
+with `pattern`.

@@ -1,0 +1,64 @@
+---
+title: Getting started
+description: Run the services locally and sign in to both consoles.
+---
+
+This page gets a local environment running. Production setup is covered in [Deployment](/docs/deployment).
+
+## What you need
+
+- Docker with Compose
+- Node.js 20 or newer, for the site
+- A mail catcher or SMTP account, so the operator sign-in code can be delivered
+
+## 1. Start the backend
+
+From the `recnos-setu` project, build and start the services:
+
+```bash
+docker compose up -d --build
+```
+
+This starts PostgreSQL, Redis, the public API, the platform-admin service and a local mail catcher. The first
+start of the public API runs the database migrations, which also create the restricted `recnos_admin` database role.
+
+<Callout type="warn" title="One-time step">
+The `recnos_admin` role is created without a password and cannot log in. Give it one that matches
+`ADMIN_DB_PASSWORD`, then restart the admin service:
+
+```sql
+ALTER ROLE recnos_admin LOGIN PASSWORD '<your ADMIN_DB_PASSWORD>';
+```
+</Callout>
+
+## 2. Point the site at the backend
+
+In the site project, create `.env.local` with the two server-side variables:
+
+```bash
+SETU_ADMIN_URL=<address of the platform-admin service>
+SETU_API_URL=<address of the public API>
+```
+
+These are read only on the server and are never sent to the browser. Restart `npm run dev` after changing them.
+
+## 3. Sign in as an operator
+
+1. Open `/superadmin` and enter the operator email.
+2. Read the 8-digit code from the mail catcher (or your inbox).
+3. Enter the code. You are signed in for 30 minutes.
+
+## 4. Create a tenant
+
+On the Superadmin page, fill in the **Provision tenant** form: a slug, a name, the owner's email, an optional
+owner password, and a reason and ticket reference. If you leave the password blank, a strong one is generated and
+shown **once**. Copy it now.
+
+See [Provisioning tenants](/docs/superadmin/tenants).
+
+## 5. Sign in to the tenant dashboard
+
+1. Open `/dashboard`.
+2. Enter the **Tenant ID** (use **Copy ID** on the Superadmin tenant list), the owner's email and password.
+
+From here, [create a form](/docs/dashboard/forms) and [issue a website key](/docs/dashboard/sites-and-keys).

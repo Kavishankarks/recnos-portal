@@ -1,0 +1,65 @@
+---
+title: Platform-admin API
+description: The operator endpoints behind the Superadmin console.
+---
+
+These endpoints belong to the separate platform-admin service. They are for operators, and the service is meant to
+be reachable only from inside the deployment's private network, never from the public API or the open internet.
+The Superadmin console reaches it on the operator's behalf.
+
+## Sign-in
+
+| Method and path | Description |
+|-----------------|-------------|
+| `POST /admin/v1/auth/otp` | Body: `{ "email" }`. Always `202`, whether or not the address is an operator. |
+| `POST /admin/v1/auth/otp/verify` | Body: `{ "email", "code" }`. Returns `{ "accessToken", "expiresAt" }`; the session lasts 30 minutes. A wrong, expired or used code returns `401 invalid_otp`. |
+| `POST /admin/v1/auth/logout` | Ends the session. `204`. |
+
+Send the token as `Authorization: Bearer <accessToken>` on the calls below.
+
+## Tenants
+
+| Method and path | Description |
+|-----------------|-------------|
+| `POST /admin/v1/tenants` | Provision a tenant. Returns `201`. |
+| `GET /admin/v1/tenants?afterSlug=&limit=` | List tenants, ordered by slug. |
+| `GET /admin/v1/tenants/{id}` | Get one tenant. |
+| `POST /admin/v1/tenants/{id}/suspend` | `active` to `suspended`. |
+| `POST /admin/v1/tenants/{id}/reactivate` | `suspended` to `active`. |
+
+### Provision
+
+```json
+{
+  "slug": "acme",
+  "name": "Acme Ltd",
+  "owner": { "email": "owner@acme.example", "initialPassword": "optional" },
+  "justification": { "reason": "New customer onboarding", "ticket": "OPS-123" }
+}
+```
+
+Response `201`:
+
+```json
+{
+  "tenant": { "id": "...", "slug": "acme", "name": "Acme Ltd", "status": "active", "createdAt": "...", "updatedAt": "..." },
+  "ownerUserId": "...",
+  "ownerEmail": "owner@acme.example",
+  "generatedOwnerPassword": "shown only when no initialPassword was supplied"
+}
+```
+
+### Suspend and reactivate
+
+Body: `{ "reason": "...", "ticket": "..." }`. Both are required for every change and are written to the audit log
+in the same transaction.
+
+### Errors
+
+| Status | `error` | Meaning |
+|--------|---------|---------|
+| `401` | `invalid_otp` | The code is wrong, expired, used, or locked out |
+| `404` | `tenant_not_found` | No such tenant |
+| `409` | `tenant_slug_taken` | The slug exists |
+| `409` | `invalid_tenant_status_transition` | For example, suspending an already suspended tenant |
+| `400` | `weak_password` | The supplied owner password is too weak |

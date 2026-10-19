@@ -1,0 +1,67 @@
+---
+title: Website integration
+description: Send submissions and enquiries from a client's website.
+---
+
+Once a tenant has a [site key](/docs/dashboard/sites-and-keys) and a [form](/docs/dashboard/forms), its website
+can send data straight to the public API from the visitor's browser.
+
+## What you need
+
+| Item | Where it comes from |
+|------|---------------------|
+| **API base address** | Your platform operator |
+| **Site key** | Dashboard, **Sites & keys**, shown once when issued |
+| **Form ID** | Dashboard, **Forms**, **Copy ID** |
+| **Allowed origin** | The website's own address must be listed on the key |
+
+## Submit a form
+
+```ts
+const API_BASE = "<your API base address>";
+
+async function submitContact(data: { fullName: string; email: string }) {
+  const res = await fetch(`${API_BASE}/api/v1/forms/${FORM_ID}/submissions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Site-Key": SITE_KEY,
+      "Idempotency-Key": crypto.randomUUID(),
+    },
+    body: JSON.stringify({ payload: data }),
+  });
+  if (res.status === 201) return (await res.json()).id;      // acknowledgement only
+  const problem = await res.json();                          // { error, message, ref }
+  throw new Error(problem.message);
+}
+```
+
+## Send an enquiry
+
+```ts
+await fetch(`${API_BASE}/api/v1/enquiries`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json", "X-Site-Key": SITE_KEY },
+  body: JSON.stringify({ source: "contact-page", payload: { name: "Asha", message: "Hello" } }),
+});
+```
+
+## Things to know
+
+- **Origins are enforced.** If the browser sends an `Origin` that is not on the key's allowed list, the request is
+  refused. Requests with no `Origin` (a server calling the API) are accepted. Allowed origins are echoed back
+  exactly, never as a wildcard, and preflight requests are answered automatically.
+- **The reply is minimal.** You get the new record's `id` and nothing else.
+- **Idempotency.** Send an `Idempotency-Key` header (any unique string) so a retried request after a network
+  failure does not create a duplicate. Repeating the same key with the same body replays the original result
+  (kept for 24 hours). The same key with a **different** body, or while the first request is still running, is
+  refused as a conflict.
+- **Quota.** Each key has a per-minute limit, and the tenant has a combined one. Over the limit, requests are refused.
+- **Validation errors** come back as `400` with a message naming the failing field. See the
+  [Schema reference](/docs/forms/schema-reference#common-errors).
+- **Rotate keys without downtime.** After a rotation the old key still works for a grace period.
+
+<Callout type="warn">
+A site key authorises create-only writes for specific forms and origins. Never use a **staff** token in a
+website: keep those to the dashboard.
+</Callout>

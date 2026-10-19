@@ -1,0 +1,41 @@
+---
+title: Enquiries
+description: Endpoints for enquiries.
+---
+
+## Enquiry object
+
+```json
+{
+  "id": "...",
+  "source": "contact-page",
+  "status": "new",
+  "assignedTo": null,
+  "payload": { "name": "Asha", "message": "Hello" },
+  "createdAt": "2026-10-19T10:50:00Z"
+}
+```
+
+## Endpoints
+
+| Method and path | Role needed | Description |
+|-----------------|-------------|-------------|
+| `POST /api/v1/enquiries` | site key, or enquiries write | Create an enquiry. Body: `source` (up to 100 characters) and `payload` (any JSON). Returns `201`. |
+| `GET /api/v1/enquiries` | enquiries read | List enquiries (cursor pagination). |
+| `GET /api/v1/enquiries/{id}` | enquiries read | Get one enquiry. |
+| `PUT /api/v1/enquiries/{id}/status` | enquiries write | Change status. Body: `{ "status": "in_progress" }`. |
+
+A website caller gets only `{ "id": "..." }` back from the create call.
+
+## Statuses
+
+`new`, `in_progress`, `resolved`, `closed`. Allowed moves:
+
+| From | To |
+|------|----|
+| `new` | `in_progress`, `closed` |
+| `in_progress` | `resolved`, `closed` |
+| `resolved` | `closed`, `in_progress` |
+| `closed` | none |
+
+Any other move is refused.

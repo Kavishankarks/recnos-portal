@@ -1,0 +1,57 @@
+---
+title: Provisioning tenants
+description: Create, list, suspend and reactivate tenants.
+---
+
+## Create a tenant
+
+Fill in the **Provision tenant** form:
+
+| Field | Rules |
+|-------|-------|
+| **Slug** | Lowercase letters, digits and hyphens; cannot start or end with a hyphen; up to 63 characters. Must be unique. |
+| **Tenant name** | Up to 200 characters. |
+| **Owner email** | The first user, created with the Owner role. |
+| **Owner password** | Optional. Leave blank to generate a strong one. |
+| **Reason** | 5 to 500 characters. Recorded in the audit log. |
+| **Ticket** | Up to 64 characters of letters, digits and `. _ # / -`. Recorded in the audit log. |
+
+On success a green notice shows the tenant's **ID**. If a password was generated, it is shown there **once** and
+can never be retrieved again, so copy it before you dismiss the notice.
+
+<Callout type="warn">
+Tell the owner their **Tenant ID** as well as their email and password. They need all three to sign in to the
+dashboard.
+</Callout>
+
+If the slug is taken you will see "That slug is already in use."
+
+## The tenant list
+
+| Column | Meaning |
+|--------|---------|
+| **Slug**, **Name** | As entered. |
+| **Status** | `active` or `suspended`. |
+| **Created** | Creation date. |
+| **Tenant ID** | Use **Copy ID** to copy it. |
+
+The list loads 50 at a time; choose **Load more** for the rest.
+
+## Suspend and reactivate
+
+Use the button at the end of a row. You will be asked for a **reason** and a **ticket**, which are stored in the
+audit log. Suspension takes effect on the tenant's very next request. Reactivation restores access.
+
+A tenant can only move between `active` and `suspended`: suspending a suspended tenant (or reactivating an
+active one) is refused.
+
+## Audit trail
+
+Every provisioning and status change, and every operator sign-in, writes a row to the append-only
+`admin_audit_log` in the same transaction as the change. Passwords are never logged or audited.
+
+## Not available yet
+
+- Archiving or deleting a tenant
+- Resetting an owner's password
+- Managing a tenant's users (the tenant's owner does that)

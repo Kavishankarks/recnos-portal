@@ -1,0 +1,63 @@
+---
+title: API reference
+description: Conventions shared by every endpoint.
+---
+
+There are two APIs. Both speak JSON over HTTPS.
+
+| API | Base path | For |
+|-----|-----------|-----|
+| **Public API** | `/api/v1` | Tenant staff and tenant websites |
+| **Platform-admin API** | `/admin/v1` | Platform operators only |
+
+The public API is documented here in full. The platform-admin API is served by a separate process that is not
+reachable from the public API; see [Platform-admin API](/docs/api/platform-admin).
+
+## Authentication
+
+| Caller | Header |
+|--------|--------|
+| Tenant staff | `Authorization: Bearer <access token>` |
+| Tenant website | `X-Site-Key: <site key>` |
+| Operator | `Authorization: Bearer <session token>` |
+
+Send one credential per request. Sending both a site key and a staff token is rejected with `400`.
+
+## Errors
+
+Failures return a JSON body:
+
+```json
+{ "error": "schema_validation_failed", "message": "$.email: does not match format email", "ref": "26b789df-3966-41ea-83e5-ad63634015d0" }
+```
+
+`ref` is a correlation ID: quote it when asking for support. Common statuses:
+
+| Status | Meaning |
+|--------|---------|
+| `400` | Invalid request or failed validation |
+| `401` | Missing, expired or invalid credential |
+| `403` | Authenticated but not allowed (role, tenant mismatch, disallowed origin) |
+| `404` | Not found, or not visible to your tenant |
+| `409` | Conflict (duplicate slug, invalid status change, idempotency clash) |
+| `429` | Rate limited |
+
+## Pagination
+
+List endpoints use **cursor pagination**. Pass `limit` (default 20, maximum 100) and `cursor`:
+
+```json
+{ "items": [ ], "nextCursor": "eyJ..." }
+```
+
+When `nextCursor` is not `null`, send it back as `cursor` to get the next page. Cursors are signed, expire after a
+day, and only work for the same tenant and the same query. Platform-admin lists use `afterSlug` instead.
+
+## Idempotency
+
+Create endpoints for submissions and enquiries accept an `Idempotency-Key` header. See
+[Website integration](/docs/website-integration#things-to-know).
+
+## Identifiers and time
+
+IDs are UUIDs. Timestamps are ISO 8601 in UTC, for example `2026-10-19T10:15:30Z`.

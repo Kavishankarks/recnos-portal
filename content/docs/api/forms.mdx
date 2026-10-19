@@ -1,0 +1,56 @@
+---
+title: Forms and submissions
+description: Endpoints for form definitions and their submissions.
+---
+
+## Form object
+
+```json
+{
+  "id": "7c1d9a40-2b6e-4f3a-8d15-9e0b3a6c5f21",
+  "name": "Contact",
+  "version": 1,
+  "jsonSchema": { "type": "object", "properties": { } },
+  "status": "active",
+  "createdAt": "2026-10-19T10:46:32Z"
+}
+```
+
+## Endpoints
+
+| Method and path | Role needed | Description |
+|-----------------|-------------|-------------|
+| `POST /api/v1/forms` | forms write | Create a form, or add a version if the name exists. Body: `name`, `jsonSchema`. Returns `201`. |
+| `GET /api/v1/forms` | forms read | List forms (cursor pagination). |
+| `GET /api/v1/forms/{id}` | forms read | Get one form. |
+| `PUT /api/v1/forms/{id}` | forms write | Add a new version. Body: `jsonSchema`. |
+| `POST /api/v1/forms/{id}/archive` | forms write | Archive the form. Returns `204`. |
+| `POST /api/v1/forms/{id}/submissions` | site key, or submissions write | Submit data. Body: `payload`. Returns `201`. |
+| `GET /api/v1/forms/{id}/submissions` | submissions read | List submissions (cursor pagination). |
+
+A schema that breaks the [schema rules](/docs/forms/schema-reference) is refused with `400` and
+`error: schema_validation_failed`.
+
+## Submit
+
+```http
+POST /api/v1/forms/{id}/submissions
+X-Site-Key: <site key>
+Idempotency-Key: <unique string>
+Content-Type: application/json
+
+{ "payload": { "fullName": "Asha Rao", "email": "asha@example.com" } }
+```
+
+| Caller | Response `201` |
+|--------|----------------|
+| Website (site key) | `{ "id": "..." }`, acknowledgement only |
+| Staff | The stored submission |
+
+## Submission object
+
+```json
+{ "id": "...", "formDefinitionId": "...", "payload": { }, "createdByUserId": null, "createdAt": "2026-10-19T10:50:00Z" }
+```
+
+`createdByUserId` is `null` for submissions that came from a website.
