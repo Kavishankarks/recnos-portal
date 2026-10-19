@@ -11,7 +11,8 @@
  * would cause the two to fight over the port.
  *
  * The build step must also copy .next/static and public into the standalone
- * directory; Next does not do that itself. See deploy.sh.
+ * directory; Next does not do that itself. See .deploy/deploy.sh, which does
+ * both the copy and the restart.
  */
 module.exports = {
   apps: [
