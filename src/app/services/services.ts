@@ -32,6 +32,13 @@ export type Service = {
   summary: string;
   /** Search-result snippet, 50–160 characters. */
   metaDescription: string;
+  /** ISO date of the last substantive edit. Rendered visibly and emitted as
+   *  dateModified, matching the convention used on the homepage and blog. */
+  date: string;
+  /** Human-readable form of `date`. */
+  dateDisplay: string;
+  /** Attribution shown beside the date and emitted as JSON-LD author. */
+  author: string;
   /** What the engagement covers. Rendered as a list. */
   capabilities: string[];
   /** Slugs in portfolio/projects.ts that evidence this service. */
@@ -51,6 +58,9 @@ export const services: Service[] = [
       "Intelligent agent systems and foundation models for enterprise automation.",
     metaDescription:
       "RECNOS builds AI foundation models and autonomous agent systems: multi-agent orchestration, persistent memory, and retrieval over your own data.",
+    date: "2026-10-15",
+    dateDisplay: "15 October 2026",
+    author: "The RECNOS Engineering Team",
     capabilities: [
       "Multi-agent orchestration with explicit task handoff between agents",
       "Persistent memory layers that retain context across sessions",
@@ -72,6 +82,9 @@ export const services: Service[] = [
       "Scalable backend architectures, microservices, and event-driven systems.",
     metaDescription:
       "Distributed systems engineering: microservices, event-driven architecture, search indexing, caching, and schema design built for production traffic.",
+    date: "2026-10-15",
+    dateDisplay: "15 October 2026",
+    author: "The RECNOS Engineering Team",
     capabilities: [
       "Microservice decomposition and service-boundary design",
       "Event-driven architecture with asynchronous job processing",
@@ -92,6 +105,9 @@ export const services: Service[] = [
     summary: "Automated CI/CD pipelines, monitoring, and AI-driven operations.",
     metaDescription:
       "DevOps and AIOps: CI/CD pipelines, containerised deployments, monitoring, and AI-assisted operations for small engineering teams.",
+    date: "2026-10-15",
+    dateDisplay: "15 October 2026",
+    author: "The RECNOS Engineering Team",
     capabilities: [
       "CI/CD pipelines with build, test, and deploy stages",
       "Containerised environments and orchestration",
@@ -113,6 +129,9 @@ export const services: Service[] = [
       "High-performance iOS/Android apps and SEO-optimized web platforms.",
     metaDescription:
       "Server-rendered web platforms and mobile apps built for Core Web Vitals, structured data, and search visibility from the first release.",
+    date: "2026-10-15",
+    dateDisplay: "15 October 2026",
+    author: "The RECNOS Engineering Team",
     capabilities: [
       "Server-rendered and statically prerendered web applications",
       "Framework-level SEO: metadata, canonicals, sitemaps, robots policy",
@@ -134,6 +153,9 @@ export const services: Service[] = [
       "Search and answer-engine optimization to rank on Google and get cited by AI assistants.",
     metaDescription:
       "Technical SEO and answer-engine optimisation: crawlability, structured data, internal linking, and content built to be cited by AI assistants.",
+    date: "2026-10-15",
+    dateDisplay: "15 October 2026",
+    author: "The RECNOS Engineering Team",
     capabilities: [
       "Crawlability audits: robots policy, sitemaps, canonical tags",
       "Structured data implementation and validation",
@@ -155,6 +177,9 @@ export const services: Service[] = [
       "End-to-end UI/UX design systems, wireframes, and high-fidelity prototypes in Figma.",
     metaDescription:
       "Product and UI/UX design in Figma: design systems, wireframes, high-fidelity prototypes, and component libraries that hand off to engineering.",
+    date: "2026-10-15",
+    dateDisplay: "15 October 2026",
+    author: "The RECNOS Engineering Team",
     capabilities: [
       "Design systems and reusable component libraries",
       "Wireframes and information architecture",
@@ -176,6 +201,9 @@ export const services: Service[] = [
       "Growth strategy, brand positioning, and campaign execution across digital channels.",
     metaDescription:
       "Growth marketing from RECNOS: brand positioning, channel strategy, and campaign execution measured against acquisition and retention data.",
+    date: "2026-10-15",
+    dateDisplay: "15 October 2026",
+    author: "The RECNOS Engineering Team",
     capabilities: [
       "Brand positioning and messaging",
       "Channel strategy across paid and organic",
@@ -197,6 +225,9 @@ export const services: Service[] = [
       "Consistent, high-quality short-form videos and content produced daily to grow your audience.",
     metaDescription:
       "Daily short-form video and content production: scripting, editing, publishing, and distribution on a repeatable schedule.",
+    date: "2026-10-15",
+    dateDisplay: "15 October 2026",
+    author: "The RECNOS Engineering Team",
     capabilities: [
       "Daily short-form video production",
       "Scripting and storyboarding",

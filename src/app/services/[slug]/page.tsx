@@ -83,6 +83,8 @@ export default async function ServicePage({ params }: PageProps) {
     description: service.metaDescription,
     url: `https://recnos.com/services/${service.slug}`,
     provider: { "@id": "https://recnos.com/#organization" },
+    author: { "@type": "Organization", name: service.author },
+    dateModified: service.date,
     ...(service.tech.length > 0 ? { keywords: service.tech.join(", ") } : {}),
     isPartOf: { "@id": "https://recnos.com/services#catalog" },
   };
@@ -150,6 +152,22 @@ export default async function ServicePage({ params }: PageProps) {
 
           <p className="font-sans text-white/85 text-base sm:text-lg leading-relaxed">
             {service.answer}
+          </p>
+
+          <p className="font-sans text-xs text-white/45">
+            Last updated:{" "}
+            <time dateTime={service.date}>{service.dateDisplay}</time>
+            {" · "}
+            <span>
+              By{" "}
+              <a
+                href="mailto:dev@recnos.com"
+                rel="author"
+                className="underline decoration-white/20 underline-offset-2 hover:text-white/80"
+              >
+                {service.author}
+              </a>
+            </span>
           </p>
         </header>
 
