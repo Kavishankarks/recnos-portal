@@ -7,7 +7,7 @@ import { services } from "../services/services";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "RECNOS is an engineering studio building AI foundation models, distributed systems, and search-visible web platforms. Meet the team and the work.",
+    "RECNOS is an engineering studio building fine-tuning models, distributed systems, and search-visible web platforms. Meet the team and the work.",
   alternates: {
     canonical: "/about",
   },
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "RECNOS",
     title: "About | RECNOS",
     description:
-      "RECNOS is an engineering studio building AI foundation models, distributed systems, and search-visible web platforms.",
+      "RECNOS is an engineering studio building fine-tuning models, distributed systems, and search-visible web platforms.",
     images: [
       {
         url: "/og.png",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About | RECNOS",
     description:
-      "RECNOS is an engineering studio building AI foundation models, distributed systems, and search-visible web platforms.",
+      "RECNOS is an engineering studio building fine-tuning models, distributed systems, and search-visible web platforms.",
     images: ["/og.png"],
   },
 };
@@ -77,7 +77,7 @@ const aboutJsonLd = {
   url: "https://recnos.com/about",
   name: "About RECNOS",
   description:
-    "RECNOS is an engineering studio building AI foundation models, distributed systems, and search-visible web platforms.",
+    "RECNOS is an engineering studio building fine-tuning models, distributed systems, and search-visible web platforms.",
   about: { "@id": "https://recnos.com/#organization" },
   isPartOf: { "@id": "https://recnos.com/#website" },
 };
@@ -132,7 +132,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="font-sans text-white/85 text-base sm:text-lg leading-relaxed">
-            RECNOS is an engineering studio that builds AI foundation models,
+            RECNOS is an engineering studio that builds fine-tuning models,
             distributed backend systems, and search-visible web and mobile
             platforms for enterprises. We work end to end, from product design
             through to the infrastructure the product runs on.

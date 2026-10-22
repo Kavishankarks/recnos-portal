@@ -6,7 +6,7 @@ import { services } from "./services";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "RECNOS builds AI agent systems, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
+    "RECNOS builds fine-tuning models, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
   alternates: {
     canonical: "/services",
   },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "RECNOS",
     title: "Services | RECNOS",
     description:
-      "RECNOS builds AI agent systems, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
+      "RECNOS builds fine-tuning models, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
     images: [
       {
         url: "/og.png",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services | RECNOS",
     description:
-      "RECNOS builds AI agent systems, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
+      "RECNOS builds fine-tuning models, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
     images: ["/og.png"],
   },
 };
@@ -114,7 +114,7 @@ export default function ServicesPage() {
               paragraph stands alone for a reader or an answer engine arriving
               without the H1 above. */}
           <p className="font-sans text-white/85 text-base sm:text-lg leading-relaxed">
-            RECNOS is an engineering studio that builds AI foundation models,
+            RECNOS is an engineering studio that builds fine-tuning models,
             distributed backend systems, and search-visible web platforms for
             enterprises. Eight services cover the path from product design
             through to running production infrastructure.
