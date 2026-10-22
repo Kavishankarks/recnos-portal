@@ -6,7 +6,7 @@ import { services } from "./services";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "What RECNOS builds: AI foundation models and agent systems, distributed backend architecture, DevOps, SEO-optimised web platforms, product design, and growth marketing.",
+    "RECNOS builds AI agent systems, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
   alternates: {
     canonical: "/services",
   },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "RECNOS",
     title: "Services | RECNOS",
     description:
-      "What RECNOS builds: AI foundation models and agent systems, distributed backend architecture, DevOps, SEO-optimised web platforms, product design, and growth marketing.",
+      "RECNOS builds AI agent systems, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
     images: [
       {
         url: "/og.png",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services | RECNOS",
     description:
-      "What RECNOS builds: AI foundation models and agent systems, distributed backend architecture, DevOps, SEO-optimised web platforms, product design, and growth marketing.",
+      "RECNOS builds AI agent systems, distributed backends, DevOps, SEO-ready web platforms, product design, and growth marketing.",
     images: ["/og.png"],
   },
 };

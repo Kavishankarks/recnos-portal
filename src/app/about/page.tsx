@@ -7,7 +7,7 @@ import { services } from "../services/services";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "RECNOS is an engineering studio building AI foundation models, distributed systems, and search-visible web platforms. Meet the team, the approach, and the platforms in production.",
+    "RECNOS is an engineering studio building AI foundation models, distributed systems, and search-visible web platforms. Meet the team and the work.",
   alternates: {
     canonical: "/about",
   },
