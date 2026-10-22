@@ -47,8 +47,7 @@ export type Post = {
 export const posts: Post[] = [
   {
     slug: "gating-programmatic-pages-on-real-inventory",
-    title:
-      "Gating Programmatic Pages on Real Inventory, Not Keyword Volume",
+    title: "Gating Programmatic Pages on Real Inventory",
     metaDescription:
       "How a Bangalore PG marketplace publishes locality and intent pages only when the underlying listing count justifies them, and canonicalises the rest.",
     takeaway:
@@ -118,7 +117,7 @@ const isLocalityPublished = (l: GeoLocality) =>
   },
   {
     slug: "geocoding-with-a-bounding-box",
-    title: "Geocoding With a Bounding Box So Bad Matches Fail Safely",
+    title: "Geocoding Bad Matches Fail Safely",
     metaDescription:
       "A geocoder that rejects partial matches and out-of-bounds coordinates, returning null instead of a plausible wrong location.",
     takeaway:
@@ -169,7 +168,7 @@ const isLocalityPublished = (l: GeoLocality) =>
   },
   {
     slug: "what-an-seo-audit-of-a-real-codebase-found",
-    title: "What a File-by-File SEO Audit of a Real Codebase Found",
+    title: "What a File-by-File Code Audit Found",
     metaDescription:
       "Structured data, conditional canonicals, sitemap index handlers, and dynamic OG images in a production Next.js marketplace.",
     takeaway:
@@ -229,7 +228,7 @@ const isLocalityPublished = (l: GeoLocality) =>
   },
   {
     slug: "dead-code-in-a-shipped-frontend",
-    title: "Dead Code in a Shipped Frontend: What Survives and Why",
+    title: "Dead Code in a Shipped Frontend",
     metaDescription:
       "An interactive signage subsystem with no importers, a memoised image component nobody uses, and declared dependencies with zero imports.",
     takeaway:
@@ -349,7 +348,7 @@ const isLocalityPublished = (l: GeoLocality) =>
   },
   {
     slug: "responsive-images-and-the-problems-beside-them",
-    title: "Responsive Images Done Right, Beside the Problems Next to Them",
+    title: "Responsive Images Done Right, and the Rest",
     metaDescription:
       "Correct next/image sizing and caching in a production build, alongside dual font loading, a CDN icon dependency, and unoptimised images.",
     takeaway:
