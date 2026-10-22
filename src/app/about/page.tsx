@@ -145,7 +145,7 @@ export default function AboutPage() {
           </h2>
           <p className="mt-3 font-sans text-white/75 leading-relaxed">
             We envision a world where intelligent software amplifies every human
-            ambition — building the AI foundations, resilient systems, and
+            ambition — building fine-tuned AI models, resilient systems, and
             digital experiences that power the next generation of enterprises.
           </p>
         </section>
