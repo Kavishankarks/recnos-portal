@@ -259,31 +259,12 @@ export const projects: Project[] = [
     scopeNote:
       "This site is a marketing and media-plan surface, not the ad-serving platform. It has no database, no CMS and no API layer by design — the network's display hardware and scheduling run outside this codebase. Venue coverage figures are the network's own published numbers, reproduced here as the client states them; they are the client's figures, not RECNOS measurements.",
   },
-  {
-    slug: "synapse",
-    id: 4,
-    title: "Synapse - Industrial Training Platform",
-    category: "EdTech",
-    description:
-      "Industrial training & talent development platform connecting institutions with industry experts, featuring AI-generated learning plans, proposal bidding, and hands-on lab environments.",
-    metaDescription:
-      "How RECNOS built Synapse: an industrial training platform with AI-generated learning plans, proposal bidding and hands-on lab environments.",
-    answer:
-      "Synapse is an industrial training and talent development platform that connects institutions with industry experts. It generates learning plans with AI, runs proposal bidding between institutions and trainers, and provides hands-on lab environments. RECNOS built the platform on Java, Spring Boot and PostgreSQL.",
-    tech: ["Java", "Spring Boot", "Vaadin", "TypeScript", "PostgreSQL"],
-    impact: "End-to-end industrial training & lab automation",
-    link: "https://synapse.recnos.com/",
-    challenge: "",
-    approach: "",
-    outcome: "",
-  },
 ];
 
 export const categories = [
   "All",
   "AI",
   "Distributed Systems",
-  "EdTech",
   "Marketing",
 ];
 

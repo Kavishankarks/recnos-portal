@@ -35,10 +35,7 @@ import Link from "next/link";
  *
  * Chosen to cover the studio's three pillars rather than to pad a grid:
  * Rolit AI (AI agents), Trovare (distributed systems and programmatic SEO),
- * and Mr. Ads (web platform delivery at scale). Synapse is reachable from the
- * portfolio index but is excluded here — it has no published challenge,
- * approach or outcome, so a homepage card would have to claim more than the
- * case study itself supports.
+ * and Mr. Ads (web platform delivery at scale).
  */
 const featuredProjects = ["rolit-ai", "pg-marketplace-engine", "mr-ads"]
   .map((slug) => projects.find((project) => project.slug === slug))
