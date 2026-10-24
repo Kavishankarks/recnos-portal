@@ -153,6 +153,19 @@ export default function ContactPage() {
             </a>
             .
           </p>
+
+          <p className="font-sans text-xs text-white/45">
+            Last updated: <time dateTime="2026-10-15">15 October 2026</time>
+            {" · "}
+            By{" "}
+            <a
+              href="mailto:dev@recnos.com"
+              rel="author"
+              className="underline decoration-white/20 underline-offset-2 hover:text-white/80"
+            >
+              The RECNOS Engineering Team
+            </a>
+          </p>
         </header>
 
         <section className="mt-12">

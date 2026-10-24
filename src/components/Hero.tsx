@@ -77,34 +77,24 @@ export default function Hero() {
         }}
         className={styles.content}
       >
-        {/* Pre-headline */}
-        <motion.p
+        {/*
+          Main Headline. The eyebrow line sits inside the H1 rather than in a
+          separate <p> above it. On its own, "that scale." is a sentence
+          fragment, so the page's primary heading named no subject and a
+          crawler or answer engine could read no topic from it. Both lines still
+          render visibly and in the same order — nothing is hidden to carry the
+          keywords, which is the pattern the previous sr-only tail was removed
+          for. The subheadline below remains the fuller description.
+        */}
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className={styles.eyebrow}
+          className={styles.headline}
         >
-          We build AI products and software
-        </motion.p>
-
-        {/* Main Headline */}
-        <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className={styles.title}
-        >
+          <span className={styles.eyebrow}>We build AI products and software</span>
           <span className={styles.titleGradientText}>that scale.</span>
         </motion.h1>
-
-        {/*
-          The visible headline is intentionally short and brand-led. The
-          descriptive tail that used to sit here in an `sr-only` span is gone:
-          hiding keywords inside the H1 is a pattern search engines treat as
-          deceptive, and it made the heading disagree with the text a reader
-          actually sees. The subheadline below carries the description, and it
-          is visible to everyone.
-        */}
 
         {/* Subheadline */}
         <motion.p

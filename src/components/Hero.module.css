@@ -22,10 +22,26 @@
   text-align: center;
 }
 
+/*
+ * The H1 wraps both hero lines so the heading is a complete statement rather
+ * than the "that scale." fragment. The two spans must stack, hence the column
+ * layout and the explicit display on each — an inline span inside a block H1
+ * would run the lines together onto one baseline.
+ */
+.headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2px, 0.5vw, 8px);
+  margin: 0;
+}
+
 .eyebrow {
+  display: block;
   max-width: 100%;
   font-family: "Instrument Serif", Georgia, serif;
   font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
   line-height: 1.08;
   letter-spacing: 0.015em;
   text-wrap: balance;
@@ -45,6 +61,7 @@
 }
 
 .titleGradientText {
+  display: block;
   background: linear-gradient(to bottom, #ffffff 40%, #b4c0ff 100%);
   background-clip: text;
   -webkit-background-clip: text;
